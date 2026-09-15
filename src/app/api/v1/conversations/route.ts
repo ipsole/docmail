@@ -37,42 +37,45 @@ export async function GET(req: NextRequest) {
       search: search || undefined,
     });
 
-    // Auto-sync from Hostinger if no conversations cached for this mailbox & folder
+    // Sync latest messages from Hostinger
     const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
     const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
 
-    if (conversations.length === 0 && effectiveToken) {
-      const mbx = await db.findMailboxById(mailboxId);
+    if (effectiveToken) {
+      const mbx = (await db.findMailboxById(mailboxId)) || (await db.findMailboxByProviderId(mailboxId));
       if (mbx?.providerMailboxId) {
         try {
           const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
           const provider = new HostingerMailProvider(effectiveToken);
-          const messageList = await provider.listMessages(mbx.providerMailboxId, folder, 1, 30);
+          const messageList = await provider.listMessages(mbx.providerMailboxId, folder, 1, 25);
 
           for (const msgHeader of messageList.messages) {
             const messageDocdrilId = `msg_${mbx.providerMailboxId}_${msgHeader.uid}`;
             const conversationId = `cnv_${mbx.providerMailboxId}_${msgHeader.uid}`;
 
-            const liveMessage = {
-              id: messageDocdrilId,
-              conversationId,
-              mailboxId: mbx.id,
-              providerMessageId: String(msgHeader.uid),
-              providerFolder: folder,
-              senderEmail: msgHeader.from?.address || 'unknown@sender.com',
-              senderName: msgHeader.from?.name || null,
-              recipients: msgHeader.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
-              subject: msgHeader.subject || '(No Subject)',
-              snippet: (msgHeader.subject || '').substring(0, 140),
-              bodyText: '',
-              bodyHtml: '',
-              status: 'RECEIVED' as const,
-              isRead: msgHeader.flags.includes('\\Seen'),
-              isStarred: msgHeader.flags.includes('\\Flagged'),
-              hasAttachments: msgHeader.hasAttachments,
-              receivedAt: msgHeader.date || new Date().toISOString(),
-            };
-            await db.createMessage(liveMessage);
+            const existing = await db.findMessageById(messageDocdrilId);
+            if (!existing) {
+              const liveMessage = {
+                id: messageDocdrilId,
+                conversationId,
+                mailboxId: mbx.id,
+                providerMessageId: String(msgHeader.uid),
+                providerFolder: folder,
+                senderEmail: msgHeader.from?.address || 'unknown@sender.com',
+                senderName: msgHeader.from?.name || null,
+                recipients: msgHeader.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
+                subject: msgHeader.subject || '(No Subject)',
+                snippet: (msgHeader.subject || '').substring(0, 140),
+                bodyText: '',
+                bodyHtml: '',
+                status: 'RECEIVED' as const,
+                isRead: msgHeader.flags.includes('\\Seen'),
+                isStarred: msgHeader.flags.includes('\\Flagged'),
+                hasAttachments: msgHeader.hasAttachments,
+                receivedAt: msgHeader.date || new Date().toISOString(),
+              };
+              await db.createMessage(liveMessage);
+            }
           }
 
           conversations = await db.listConversations({
@@ -83,7 +86,7 @@ export async function GET(req: NextRequest) {
             search: search || undefined,
           });
         } catch (syncErr: any) {
-          console.warn('[Conversations AutoSync Error]', syncErr.message);
+          console.warn('[Conversations Sync Error]', syncErr.message);
         }
       }
     }

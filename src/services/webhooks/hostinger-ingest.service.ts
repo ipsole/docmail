@@ -72,14 +72,15 @@ export class HostingerWebhookIngestService {
 
     // 4. Normalize message data
     const d = payload.data || {};
-    const messageDocdrilId = `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-    const conversationId = `cnv_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const uid = d.uid || d.messageId || Date.now();
+    const messageDocdrilId = `msg_${mailbox.providerMailboxId}_${uid}`;
+    const conversationId = `cnv_${mailbox.providerMailboxId}_${uid}`;
 
     const normalizedMessage: DocdrilMessage = {
       id: messageDocdrilId,
       conversationId,
       mailboxId: mailbox.id,
-      providerMessageId: String(d.uid || d.messageId || Date.now()),
+      providerMessageId: String(uid),
       providerFolder: d.folder || 'INBOX',
       senderEmail: d.from?.address || 'unknown@sender.com',
       senderName: d.from?.name || null,

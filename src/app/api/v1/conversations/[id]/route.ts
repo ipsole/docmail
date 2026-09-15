@@ -19,7 +19,63 @@ export async function GET(
     }
 
     const { id } = await params;
-    const conversation = await db.findConversationById(id);
+    let conversation = await db.findConversationById(id);
+
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
+    // If conversation not in local container cache, attempt recovery directly from Hostinger
+    if (!conversation && effectiveToken) {
+      const cleanId = id.replace(/^(cnv_|msg_)/, '');
+      const parts = cleanId.split('_');
+      const mbxResource = parts.length > 1 ? parts[0] : '1699703';
+      const uid = parts.length > 1 ? parts[1] : parts[0];
+
+      const mbx =
+        (await db.findMailboxByProviderId(mbxResource)) ||
+        (await db.findMailboxById(mbxResource)) ||
+        (await db.listMailboxes('org_docdril_primary'))[0];
+
+      if (mbx && uid) {
+        try {
+          const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+          const provider = new HostingerMailProvider(effectiveToken);
+          const detail = await provider.getMessage(mbx.providerMailboxId, 'INBOX', uid);
+          if (detail) {
+            const messageDocdrilId = `msg_${mbx.providerMailboxId}_${uid}`;
+            const liveMessage = {
+              id: messageDocdrilId,
+              conversationId: id,
+              mailboxId: mbx.id,
+              providerMessageId: String(uid),
+              providerFolder: 'INBOX',
+              senderEmail: detail.from?.address || 'unknown@sender.com',
+              senderName: detail.from?.name || null,
+              recipients: detail.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
+              subject: detail.subject || '(No Subject)',
+              snippet: (detail.text || detail.html || detail.subject || '').replace(/<[^>]*>?/gm, '').substring(0, 140),
+              bodyText: detail.text || '',
+              bodyHtml: detail.html || (detail.text ? `<p>${detail.text.replace(/\n/g, '<br/>')}</p>` : ''),
+              status: 'RECEIVED' as const,
+              isRead: true,
+              isStarred: false,
+              hasAttachments: (detail.attachments?.length || 0) > 0,
+              attachments: detail.attachments?.map((a: any) => ({
+                id: a.id,
+                filename: a.filename,
+                contentType: a.contentType,
+                sizeBytes: a.sizeBytes || a.size || 0,
+              })),
+              receivedAt: detail.date || new Date().toISOString(),
+            };
+            await db.createMessage(liveMessage);
+            conversation = await db.findConversationById(id);
+          }
+        } catch (recoverErr: any) {
+          console.warn('[Conversation On-The-Fly Recovery Error]', recoverErr.message);
+        }
+      }
+    }
 
     if (!conversation) {
       return NextResponse.json(
@@ -29,9 +85,6 @@ export async function GET(
     }
 
     // Lazy load message bodies from Hostinger if needed
-    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
-    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
-
     if (effectiveToken && conversation.messages) {
       const mbx = await db.findMailboxById(conversation.mailboxId);
       if (mbx?.providerMailboxId) {
