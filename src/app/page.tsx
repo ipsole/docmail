@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { ConversationList } from '@/components/mail/ConversationList';
@@ -19,6 +19,9 @@ export default function DocMailDashboard() {
   const [conversations, setConversations] = useState<DocdrilConversation[]>([]);
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
   const [selectedConversation, setSelectedConversation] = useState<DocdrilConversation | null>(null);
+  const [isThreadLoading, setIsThreadLoading] = useState(false);
+  const selectedConversationIdRef = useRef<string | null>(null);
+  selectedConversationIdRef.current = selectedConversationId;
 
   // Modals
   const [isComposerOpen, setIsComposerOpen] = useState(false);
@@ -128,9 +131,12 @@ export default function DocMailDashboard() {
       const data = await res.json();
       if (data.data) {
         setConversations(data.data);
-        if (data.data.length > 0 && (!selectedConversationId || !data.data.some((c: any) => c.id === selectedConversationId))) {
-          setSelectedConversationId(data.data[0].id);
-        } else if (data.data.length === 0) {
+        const currentSelId = selectedConversationIdRef.current;
+        if (data.data.length > 0) {
+          if (!currentSelId || !data.data.some((c: any) => c.id === currentSelId)) {
+            setSelectedConversationId(data.data[0].id);
+          }
+        } else {
           setSelectedConversationId(null);
           setSelectedConversation(null);
         }
@@ -138,7 +144,7 @@ export default function DocMailDashboard() {
     } catch (err) {
       console.error('Failed to load conversations:', err);
     }
-  }, [selectedMailboxId, currentFolder, searchQuery, selectedConversationId]);
+  }, [selectedMailboxId, currentFolder, searchQuery]);
 
   useEffect(() => {
     loadConversations();
@@ -148,15 +154,28 @@ export default function DocMailDashboard() {
   useEffect(() => {
     if (!selectedConversationId) {
       setSelectedConversation(null);
+      setIsThreadLoading(false);
       return;
     }
+
+    let isCurrent = true;
+    setIsThreadLoading(true);
 
     fetch(`/api/v1/conversations/${selectedConversationId}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.data) setSelectedConversation(data.data);
+        if (isCurrent && data.data) {
+          setSelectedConversation(data.data);
+        }
       })
-      .catch((err) => console.error('Failed to load thread:', err));
+      .catch((err) => console.error('Failed to load thread:', err))
+      .finally(() => {
+        if (isCurrent) setIsThreadLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [selectedConversationId]);
 
   // 4. Real-time Events Listener
@@ -232,10 +251,15 @@ export default function DocMailDashboard() {
   const handleBatchMoveToTrash = async () => {
     if (selectedIds.size === 0) return;
     const ids = Array.from(selectedIds);
-    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    const nextList = conversations.filter((c) => !selectedIds.has(c.id));
+    setConversations(nextList);
     if (selectedConversationId && selectedIds.has(selectedConversationId)) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+      }
     }
     setSelectedIds(new Set());
 
@@ -259,10 +283,15 @@ export default function DocMailDashboard() {
   const handleBatchRestore = async () => {
     if (selectedIds.size === 0) return;
     const ids = Array.from(selectedIds);
-    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    const nextList = conversations.filter((c) => !selectedIds.has(c.id));
+    setConversations(nextList);
     if (selectedConversationId && selectedIds.has(selectedConversationId)) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+      }
     }
     setSelectedIds(new Set());
 
@@ -293,10 +322,15 @@ export default function DocMailDashboard() {
       return;
     }
     const ids = Array.from(selectedIds);
-    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    const nextList = conversations.filter((c) => !selectedIds.has(c.id));
+    setConversations(nextList);
     if (selectedConversationId && selectedIds.has(selectedConversationId)) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+      }
     }
     setSelectedIds(new Set());
 
@@ -347,11 +381,16 @@ export default function DocMailDashboard() {
   };
 
   const handleSingleMoveToTrash = async (conversationId: string) => {
-    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    const nextList = conversations.filter((c) => c.id !== conversationId);
+    setConversations(nextList);
     if (selectedConversationId === conversationId) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
-      setIsMobileDetailView(false);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+        setIsMobileDetailView(false);
+      }
     }
     try {
       await fetch(`/api/v1/conversations/${conversationId}`, {
@@ -365,11 +404,16 @@ export default function DocMailDashboard() {
   };
 
   const handleSingleRestore = async (conversationId: string) => {
-    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    const nextList = conversations.filter((c) => c.id !== conversationId);
+    setConversations(nextList);
     if (selectedConversationId === conversationId) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
-      setIsMobileDetailView(false);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+        setIsMobileDetailView(false);
+      }
     }
     try {
       await fetch(`/api/v1/conversations/${conversationId}`, {
@@ -392,11 +436,16 @@ export default function DocMailDashboard() {
     ) {
       return;
     }
-    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    const nextList = conversations.filter((c) => c.id !== conversationId);
+    setConversations(nextList);
     if (selectedConversationId === conversationId) {
-      setSelectedConversationId(null);
-      setSelectedConversation(null);
-      setIsMobileDetailView(false);
+      if (nextList.length > 0) {
+        setSelectedConversationId(nextList[0].id);
+      } else {
+        setSelectedConversationId(null);
+        setSelectedConversation(null);
+        setIsMobileDetailView(false);
+      }
     }
     try {
       await fetch(`/api/v1/conversations/${conversationId}?permanent=true`, {
@@ -511,6 +560,7 @@ export default function DocMailDashboard() {
                 onMoveToTrash={handleSingleMoveToTrash}
                 onRestoreFromTrash={handleSingleRestore}
                 onDeletePermanently={handleSingleDeleteForever}
+                isLoading={isThreadLoading}
               />
             </div>
 

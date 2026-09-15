@@ -310,6 +310,21 @@ export class HostingerMailProvider implements MailProvider {
     );
   }
 
+  async deleteMessages(
+    mailboxResourceId: string,
+    folder: string,
+    uids: (string | number)[]
+  ): Promise<void> {
+    if (!uids.length) return;
+    await this.request<void>(
+      `/api/v1/mailboxes/${encodeURIComponent(mailboxResourceId)}/folders/${encodeURIComponent(folder)}/messages/delete`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ uids }),
+      }
+    );
+  }
+
   async setMessageFlags(
     mailboxResourceId: string,
     folder: string,

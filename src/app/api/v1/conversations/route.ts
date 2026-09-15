@@ -56,28 +56,37 @@ export async function GET(req: NextRequest) {
             const messageDocdrilId = `msg_${mbx.providerMailboxId}${folderTag}_${msgHeader.uid}`;
             const conversationId = `cnv_${mbx.providerMailboxId}${folderTag}_${msgHeader.uid}`;
 
+            const isSentFolder = cleanFolder.toLowerCase() === 'sent';
+            const liveMessage = {
+              id: messageDocdrilId,
+              conversationId,
+              mailboxId: mbx.id,
+              providerMessageId: String(msgHeader.uid),
+              providerFolder: folder,
+              senderEmail: msgHeader.from?.address || 'unknown@sender.com',
+              senderName: msgHeader.from?.name || null,
+              recipients: msgHeader.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
+              subject: msgHeader.subject || '(No Subject)',
+              snippet: (msgHeader.subject || '').substring(0, 140),
+              bodyText: '',
+              bodyHtml: '',
+              status: isSentFolder ? ('SENT' as const) : ('RECEIVED' as const),
+              isRead: msgHeader.flags.includes('\\Seen'),
+              isStarred: msgHeader.flags.includes('\\Flagged'),
+              hasAttachments: msgHeader.hasAttachments,
+              receivedAt: msgHeader.date || new Date().toISOString(),
+            };
+
             const existing = await db.findMessageById(messageDocdrilId);
             if (!existing) {
-              const liveMessage = {
-                id: messageDocdrilId,
-                conversationId,
-                mailboxId: mbx.id,
-                providerMessageId: String(msgHeader.uid),
-                providerFolder: folder,
-                senderEmail: msgHeader.from?.address || 'unknown@sender.com',
-                senderName: msgHeader.from?.name || null,
-                recipients: msgHeader.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
-                subject: msgHeader.subject || '(No Subject)',
-                snippet: (msgHeader.subject || '').substring(0, 140),
-                bodyText: '',
-                bodyHtml: '',
-                status: 'RECEIVED' as const,
-                isRead: msgHeader.flags.includes('\\Seen'),
-                isStarred: msgHeader.flags.includes('\\Flagged'),
-                hasAttachments: msgHeader.hasAttachments,
-                receivedAt: msgHeader.date || new Date().toISOString(),
-              };
               await db.createMessage(liveMessage);
+            } else {
+              // Keep read and starred flags in sync
+              await db.updateMessage(messageDocdrilId, {
+                isRead: liveMessage.isRead,
+                isStarred: liveMessage.isStarred,
+                status: liveMessage.status,
+              });
             }
           }
 

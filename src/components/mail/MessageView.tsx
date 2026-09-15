@@ -28,6 +28,7 @@ interface MessageViewProps {
   onMoveToTrash?: (conversationId: string) => void;
   onRestoreFromTrash?: (conversationId: string) => void;
   onDeletePermanently?: (conversationId: string) => void;
+  isLoading?: boolean;
 }
 
 export const MessageView: React.FC<MessageViewProps> = ({
@@ -42,7 +43,28 @@ export const MessageView: React.FC<MessageViewProps> = ({
   onMoveToTrash,
   onRestoreFromTrash,
   onDeletePermanently,
+  isLoading = false,
 }) => {
+  if (isLoading && !conversation) {
+    return (
+      <div className="flex-1 flex flex-col h-full p-3 sm:p-4 space-y-3 select-none">
+        <div className="obsidian-card p-4 sm:p-5 h-20 rounded-2xl flex items-center space-x-3 sm:space-x-4 animate-pulse">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10" />
+          <div className="space-y-2 flex-1">
+            <div className="h-4 bg-white/20 rounded-full w-1/3" />
+            <div className="h-3 bg-white/10 rounded-full w-1/4" />
+          </div>
+        </div>
+        <div className="flex-1 glass-surface p-6 rounded-3xl space-y-4 animate-pulse">
+          <div className="h-4 bg-slate-200 rounded-full w-1/4" />
+          <div className="h-3 bg-slate-100 rounded-full w-3/4" />
+          <div className="h-3 bg-slate-100 rounded-full w-2/3" />
+          <div className="h-3 bg-slate-100 rounded-full w-1/2" />
+        </div>
+      </div>
+    );
+  }
+
   if (!conversation) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-400 text-xs select-none">

@@ -168,10 +168,49 @@ export async function DELETE(
       return NextResponse.json({ success: false, error: 'Conversation not found' }, { status: 404 });
     }
 
+    const mbx = (await db.findMailboxById(cnv.mailboxId)) || (await db.findMailboxByProviderId(cnv.mailboxId));
+    const msgs = await db.listMessagesByConversation(id);
+
+    // 1. Local DB Operation
     if (permanent) {
       await db.deleteConversationsPermanently([id], cnv.mailboxId);
     } else {
       await db.moveConversationsToTrash([id], cnv.mailboxId);
+    }
+
+    // 2. Synchronize with Hostinger Provider
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
+    if (effectiveToken && mbx?.providerMailboxId && msgs.length > 0) {
+      try {
+        const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+        const provider = new HostingerMailProvider(effectiveToken);
+
+        const getHostingerFolder = (folderName?: string): string => {
+          const clean = (folderName || 'INBOX').replace(/^INBOX\./, '').trim();
+          if (!clean || clean.toLowerCase() === 'inbox') return 'INBOX';
+          if (clean.toLowerCase() === 'sent') return 'Sent';
+          if (clean.toLowerCase() === 'drafts') return 'Drafts';
+          if (clean.toLowerCase() === 'trash') return 'Trash';
+          if (clean.toLowerCase() === 'junk' || clean.toLowerCase() === 'spam') return 'Junk';
+          return clean;
+        };
+
+        const syncPromises = msgs
+          .filter((m): m is typeof m & { providerMessageId: string } => Boolean(m.providerMessageId))
+          .map(async (m) => {
+            const hostingerFolder = getHostingerFolder(m.providerFolder);
+            if (permanent) {
+              return provider.deleteMessage(mbx.providerMailboxId, hostingerFolder, m.providerMessageId);
+            } else {
+              return provider.moveMessage(mbx.providerMailboxId, hostingerFolder, m.providerMessageId, 'Trash');
+            }
+          });
+        await Promise.allSettled(syncPromises);
+      } catch (remoteErr: any) {
+        console.warn('[DELETE Hostinger Sync Warning]', remoteErr.message);
+      }
     }
 
     return NextResponse.json({
@@ -197,10 +236,50 @@ export async function PATCH(
       return NextResponse.json({ success: false, error: 'Conversation not found' }, { status: 404 });
     }
 
+    const mbx = (await db.findMailboxById(cnv.mailboxId)) || (await db.findMailboxByProviderId(cnv.mailboxId));
+    const msgs = await db.listMessagesByConversation(id);
+
     if (body.isTrash === false || body.restore === true) {
       await db.restoreConversationsFromTrash([id], cnv.mailboxId);
+
+      const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+      const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+      if (effectiveToken && mbx?.providerMailboxId && msgs.length > 0) {
+        try {
+          const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+          const provider = new HostingerMailProvider(effectiveToken);
+          const syncPromises = msgs
+            .filter((m): m is typeof m & { providerMessageId: string } => Boolean(m.providerMessageId))
+            .map(async (m) => {
+              const destFolder = m.status === 'SENT' ? 'Sent' : 'INBOX';
+              return provider.moveMessage(mbx.providerMailboxId, 'Trash', m.providerMessageId, destFolder);
+            });
+          await Promise.allSettled(syncPromises);
+        } catch (remoteErr: any) {
+          console.warn('[Restore Hostinger Sync Warning]', remoteErr.message);
+        }
+      }
     } else if (body.isTrash === true) {
       await db.moveConversationsToTrash([id], cnv.mailboxId);
+
+      const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+      const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+      if (effectiveToken && mbx?.providerMailboxId && msgs.length > 0) {
+        try {
+          const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+          const provider = new HostingerMailProvider(effectiveToken);
+          const syncPromises = msgs
+            .filter((m): m is typeof m & { providerMessageId: string } => Boolean(m.providerMessageId))
+            .map(async (m) => {
+              const clean = (m.providerFolder || 'INBOX').replace(/^INBOX\./, '').trim();
+              const srcFolder = clean.toLowerCase() === 'sent' ? 'Sent' : 'INBOX';
+              return provider.moveMessage(mbx.providerMailboxId, srcFolder, m.providerMessageId, 'Trash');
+            });
+          await Promise.allSettled(syncPromises);
+        } catch (remoteErr: any) {
+          console.warn('[Trash Hostinger Sync Warning]', remoteErr.message);
+        }
+      }
     } else {
       await db.updateConversation(id, body);
     }

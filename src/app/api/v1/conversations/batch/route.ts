@@ -29,7 +29,51 @@ export async function POST(req: NextRequest) {
     let affectedCount = 0;
     let affectedIds: string[] = [];
 
-    // 1. Execute DB Operation
+    // Helper to extract clean Hostinger folder name
+    const getHostingerFolder = (folderName?: string): string => {
+      const clean = (folderName || 'INBOX').replace(/^INBOX\./, '').trim();
+      if (!clean || clean.toLowerCase() === 'inbox') return 'INBOX';
+      if (clean.toLowerCase() === 'sent') return 'Sent';
+      if (clean.toLowerCase() === 'drafts') return 'Drafts';
+      if (clean.toLowerCase() === 'trash') return 'Trash';
+      if (clean.toLowerCase() === 'junk' || clean.toLowerCase() === 'spam') return 'Junk';
+      return clean;
+    };
+
+    // 1. Gather all target messages and their source folders BEFORE mutating local DB
+    const syncTasks: {
+      providerMessageId: string;
+      sourceFolder: string;
+      status?: string;
+    }[] = [];
+
+    if (action === 'empty_trash') {
+      const trashMsgs = await db.listTrashMessages(mbx?.id || mailboxId);
+      for (const m of trashMsgs) {
+        if (m.providerMessageId) {
+          syncTasks.push({
+            providerMessageId: m.providerMessageId,
+            sourceFolder: 'Trash',
+            status: m.status,
+          });
+        }
+      }
+    } else {
+      for (const cnvId of conversationIds) {
+        const msgs = await db.listMessagesByConversation(cnvId);
+        for (const m of msgs) {
+          if (m.providerMessageId) {
+            syncTasks.push({
+              providerMessageId: m.providerMessageId,
+              sourceFolder: getHostingerFolder(m.providerFolder),
+              status: m.status,
+            });
+          }
+        }
+      }
+    }
+
+    // 2. Execute DB Operation
     switch (action) {
       case 'trash': {
         if (!conversationIds.length) {
@@ -64,52 +108,48 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 2. Asynchronous Sync with Hostinger Provider (if configured)
+    // 3. Synchronize with Hostinger Provider (if configured)
     const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
     const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
 
-    if (effectiveToken && mbx?.providerMailboxId) {
-      // Fire-and-forget sync so UI responds instantly
-      (async () => {
-        try {
-          const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
-          const provider = new HostingerMailProvider(effectiveToken);
+    if (effectiveToken && mbx?.providerMailboxId && syncTasks.length > 0) {
+      try {
+        const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+        const provider = new HostingerMailProvider(effectiveToken);
 
-          if (action === 'trash' || action === 'restore') {
-            const targetFolder = action === 'trash' ? 'Trash' : 'INBOX';
-            const sourceFolder = action === 'trash' ? 'INBOX' : 'Trash';
-
-            for (const cnvId of conversationIds) {
-              const msgs = await db.listMessagesByConversation(cnvId);
-              for (const m of msgs) {
-                if (m.providerMessageId) {
-                  try {
-                    await provider.moveMessage(mbx.providerMailboxId, sourceFolder, m.providerMessageId, targetFolder);
-                  } catch (moveErr: any) {
-                    // Ignore if message already moved or not on remote
-                  }
-                }
-              }
-            }
-          } else if (action === 'delete_forever' || action === 'empty_trash') {
-            // For delete forever, delete messages from Trash on remote
-            for (const cnvId of conversationIds) {
-              const msgs = await db.listMessagesByConversation(cnvId);
-              for (const m of msgs) {
-                if (m.providerMessageId) {
-                  try {
-                    await provider.deleteMessage(mbx.providerMailboxId, 'Trash', m.providerMessageId);
-                  } catch (delErr: any) {
-                    // Ignore if already deleted
-                  }
-                }
-              }
-            }
+        if (action === 'trash') {
+          // Move from each message's real source folder to Trash
+          await Promise.allSettled(
+            syncTasks.map((t) =>
+              provider.moveMessage(mbx.providerMailboxId, t.sourceFolder, t.providerMessageId, 'Trash')
+            )
+          );
+        } else if (action === 'restore') {
+          // Move from Trash back to Inbox or original folder
+          await Promise.allSettled(
+            syncTasks.map((t) => {
+              const destFolder = t.status === 'SENT' ? 'Sent' : 'INBOX';
+              return provider.moveMessage(mbx.providerMailboxId, 'Trash', t.providerMessageId, destFolder);
+            })
+          );
+        } else if (action === 'delete_forever' || action === 'empty_trash') {
+          // Group by source folder and delete permanently
+          const folderToUids = new Map<string, string[]>();
+          for (const t of syncTasks) {
+            const f = t.sourceFolder || 'Trash';
+            if (!folderToUids.has(f)) folderToUids.set(f, []);
+            folderToUids.get(f)!.push(t.providerMessageId);
           }
-        } catch (syncErr: any) {
-          console.warn('[Batch Hostinger Sync Warning]', syncErr.message);
+
+          const deletePromises: Promise<any>[] = [];
+          for (const [folder, uids] of folderToUids.entries()) {
+            deletePromises.push(provider.deleteMessages(mbx.providerMailboxId, folder, uids));
+          }
+          await Promise.allSettled(deletePromises);
         }
-      })().catch(() => {});
+      } catch (syncErr: any) {
+        console.warn('[Batch Hostinger Sync Warning]', syncErr.message);
+      }
     }
 
     return NextResponse.json({

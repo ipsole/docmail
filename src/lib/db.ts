@@ -194,6 +194,34 @@ class DocMailDatabase {
           },
         ];
       }
+
+      // Ensure no messages are orphaned without a matching conversation
+      for (const m of this.messages) {
+        let cnv = this.conversations.find((c) => c.id === m.conversationId);
+        if (!cnv) {
+          const cleanF = (m.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
+          const legacyCnv = this.conversations.find(
+            (c) => c.mailboxId === m.mailboxId && c.subject === m.subject
+          );
+          if (legacyCnv) {
+            legacyCnv.id = m.conversationId;
+          } else {
+            this.conversations.unshift({
+              id: m.conversationId,
+              mailboxId: m.mailboxId,
+              subject: m.subject,
+              snippet: m.snippet,
+              unreadCount: m.isRead ? 0 : 1,
+              messageCount: 1,
+              isStarred: m.isStarred,
+              isArchived: false,
+              isTrash: cleanF === 'trash',
+              isSpam: cleanF === 'junk' || cleanF === 'spam',
+              lastMessageAt: m.receivedAt,
+            });
+          }
+        }
+      }
     } catch (e) {
       console.warn('[DocMailDatabase] Error loading db from disk:', e);
     }
@@ -439,6 +467,15 @@ export const db = {
     return count;
   },
 
+  async listTrashMessages(mailboxId: string): Promise<DocdrilMessage[]> {
+    memoryDb.loadFromDisk();
+    return memoryDb.messages.filter((m) => {
+      if (m.mailboxId !== mailboxId) return false;
+      const cleanF = (m.providerFolder || '').replace(/^INBOX\./, '').toLowerCase();
+      return cleanF === 'trash';
+    });
+  },
+
   // Messages
   async listMessagesByConversation(conversationId: string): Promise<DocdrilMessage[]> {
     return memoryDb.messages
@@ -453,6 +490,9 @@ export const db = {
   async createMessage(msg: DocdrilMessage): Promise<DocdrilMessage> {
     // Avoid duplicates: match by exact id OR by (mailboxId + providerFolder + providerMessageId)
     const msgFolderClean = (msg.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
+    const isTrash = msgFolderClean === 'trash';
+    const isSpam = msgFolderClean === 'junk' || msgFolderClean === 'spam';
+
     const existing = memoryDb.messages.find((m) => {
       if (m.id === msg.id) return true;
       if (
@@ -467,7 +507,41 @@ export const db = {
     });
 
     if (existing) {
+      const oldConvId = existing.conversationId;
       Object.assign(existing, msg);
+
+      // Ensure conversation exists for existing.conversationId
+      let cnv = memoryDb.conversations.find((c) => c.id === existing.conversationId);
+      if (!cnv && oldConvId && oldConvId !== existing.conversationId) {
+        const oldCnv = memoryDb.conversations.find((c) => c.id === oldConvId);
+        if (oldCnv) {
+          oldCnv.id = existing.conversationId;
+          cnv = oldCnv;
+        }
+      }
+
+      if (!cnv) {
+        cnv = {
+          id: existing.conversationId,
+          mailboxId: existing.mailboxId,
+          subject: existing.subject,
+          snippet: existing.snippet,
+          unreadCount: existing.isRead ? 0 : 1,
+          messageCount: 1,
+          isStarred: existing.isStarred,
+          isArchived: false,
+          isTrash,
+          isSpam,
+          lastMessageAt: existing.receivedAt,
+        };
+        memoryDb.conversations.unshift(cnv);
+      } else {
+        cnv.lastMessageAt = existing.receivedAt;
+        cnv.snippet = existing.snippet;
+        cnv.subject = existing.subject;
+        if (isTrash) cnv.isTrash = true;
+      }
+
       memoryDb.saveToDisk();
       return existing;
     }
@@ -481,6 +555,7 @@ export const db = {
       cnv.snippet = msg.snippet;
       cnv.messageCount += 1;
       if (!msg.isRead) cnv.unreadCount += 1;
+      if (isTrash) cnv.isTrash = true;
     } else {
       cnv = {
         id: msg.conversationId,
@@ -491,8 +566,8 @@ export const db = {
         messageCount: 1,
         isStarred: msg.isStarred,
         isArchived: false,
-        isTrash: false,
-        isSpam: false,
+        isTrash,
+        isSpam,
         lastMessageAt: msg.receivedAt,
       };
       memoryDb.conversations.unshift(cnv);
