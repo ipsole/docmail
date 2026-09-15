@@ -10,27 +10,38 @@ import {
   Sparkles,
   User,
   ArrowLeft,
+  Trash2,
+  RotateCcw,
+  AlertTriangle,
 } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface MessageViewProps {
   conversation: DocdrilConversation | null;
+  currentFolder?: string;
   onReply: (message: DocdrilMessage) => void;
   onForward: (message: DocdrilMessage) => void;
   onToggleAiDrawer: () => void;
   isAiDrawerOpen: boolean;
   onConnectClick: () => void;
   onBackMobile?: () => void;
+  onMoveToTrash?: (conversationId: string) => void;
+  onRestoreFromTrash?: (conversationId: string) => void;
+  onDeletePermanently?: (conversationId: string) => void;
 }
 
 export const MessageView: React.FC<MessageViewProps> = ({
   conversation,
+  currentFolder = 'INBOX',
   onReply,
   onForward,
   onToggleAiDrawer,
   isAiDrawerOpen,
   onConnectClick,
   onBackMobile,
+  onMoveToTrash,
+  onRestoreFromTrash,
+  onDeletePermanently,
 }) => {
   if (!conversation) {
     return (
@@ -50,9 +61,13 @@ export const MessageView: React.FC<MessageViewProps> = ({
 
   const messages = conversation.messages || [];
   const latestMessage = messages[messages.length - 1];
+  const isTrash = currentFolder.replace(/^INBOX\./, '').toLowerCase() === 'trash' || conversation.isTrash;
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden p-3 sm:p-4 space-y-3 sm:space-y-4">
+    <main
+      aria-label="Message details"
+      className="flex-1 flex flex-col h-full overflow-hidden p-3 sm:p-4 space-y-3 relative"
+    >
       {/* Mobile Back Button */}
       {onBackMobile && (
         <button
@@ -79,14 +94,56 @@ export const MessageView: React.FC<MessageViewProps> = ({
               {conversation.subject || '(No Subject)'}
             </h1>
             <div className="flex items-center space-x-2 text-[11px] sm:text-xs text-zinc-400 mt-0.5">
-              <span>{messages.length} {messages.length === 1 ? 'Message' : 'Messages'}</span>
+              <span>
+                {messages.length} {messages.length === 1 ? 'Message' : 'Messages'}
+              </span>
               <span>•</span>
-              <span className="text-rose-300 font-medium">Encrypted & Verified</span>
+              {isTrash ? (
+                <span className="text-rose-400 font-medium">In Trash</span>
+              ) : (
+                <span className="text-rose-300 font-medium">Encrypted & Verified</span>
+              )}
             </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+        <div className="flex items-center space-x-1.5 sm:space-x-2.5 flex-shrink-0">
+          {/* Trash & Restore Actions */}
+          {isTrash ? (
+            <>
+              {onRestoreFromTrash && (
+                <button
+                  onClick={() => onRestoreFromTrash(conversation.id)}
+                  className="flex items-center space-x-1 sm:space-x-1.5 px-3 py-1.5 sm:py-2 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border border-emerald-500/30 cursor-pointer transition-all"
+                  title="Restore conversation to Inbox"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Restore</span>
+                </button>
+              )}
+              {onDeletePermanently && (
+                <button
+                  onClick={() => onDeletePermanently(conversation.id)}
+                  className="flex items-center space-x-1 sm:space-x-1.5 px-3 py-1.5 sm:py-2 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 border border-rose-500/30 cursor-pointer transition-all"
+                  title="Delete permanently forever"
+                >
+                  <AlertTriangle className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Delete Forever</span>
+                </button>
+              )}
+            </>
+          ) : (
+            onMoveToTrash && (
+              <button
+                onClick={() => onMoveToTrash(conversation.id)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-rose-500/30 hover:border-rose-500/40 text-zinc-300 hover:text-rose-300 border border-white/10 flex items-center justify-center transition-all cursor-pointer"
+                title="Move to Trash"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            )
+          )}
+
           {/* AI Drawer Trigger */}
           <button
             onClick={onToggleAiDrawer}
@@ -100,7 +157,7 @@ export const MessageView: React.FC<MessageViewProps> = ({
             <span className="hidden sm:inline">Docdril AI</span>
           </button>
 
-          {latestMessage && (
+          {!isTrash && latestMessage && (
             <button
               onClick={() => onReply(latestMessage)}
               className="rose-glow-btn flex items-center space-x-1 sm:space-x-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-bold uppercase tracking-wider cursor-pointer"
@@ -214,6 +271,6 @@ export const MessageView: React.FC<MessageViewProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 };

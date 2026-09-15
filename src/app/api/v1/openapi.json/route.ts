@@ -154,6 +154,69 @@ export async function GET() {
               },
             },
           },
+          delete: {
+            operationId: 'deleteConversation',
+            summary: 'Move conversation to trash or delete permanently',
+            parameters: [
+              {
+                name: 'id',
+                in: 'path',
+                required: true,
+                schema: { type: 'string' },
+                description: 'Conversation ID',
+              },
+              {
+                name: 'permanent',
+                in: 'query',
+                required: false,
+                schema: { type: 'string', enum: ['true', 'false'] },
+                description: 'Set to true to delete permanently, false/omitted to move to Trash',
+              },
+            ],
+            responses: {
+              '200': {
+                description: 'Conversation deleted or moved to trash',
+              },
+            },
+          },
+        },
+      },
+      '/api/v1/conversations/batch': {
+        post: {
+          operationId: 'batchConversationsAction',
+          summary: 'Perform batch action: trash, restore, delete_forever, or empty_trash',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['action'],
+                  properties: {
+                    action: {
+                      type: 'string',
+                      enum: ['trash', 'restore', 'delete_forever', 'empty_trash'],
+                      description: 'Action to perform',
+                    },
+                    conversationIds: {
+                      type: 'array',
+                      items: { type: 'string' },
+                      description: 'Array of conversation IDs (required for trash, restore, delete_forever)',
+                    },
+                    mailboxId: {
+                      type: 'string',
+                      description: 'Mailbox ID',
+                    },
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            '200': {
+              description: 'Batch action executed successfully',
+            },
+          },
         },
       },
       '/api/v1/messages/send': {

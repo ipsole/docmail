@@ -152,3 +152,63 @@ export async function GET(
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const auth = await authenticateRequest(req);
+    const { id } = await params;
+    const { searchParams } = new URL(req.url);
+    const permanent = searchParams.get('permanent') === 'true';
+
+    const cnv = await db.findConversationById(id);
+    if (!cnv) {
+      return NextResponse.json({ success: false, error: 'Conversation not found' }, { status: 404 });
+    }
+
+    if (permanent) {
+      await db.deleteConversationsPermanently([id], cnv.mailboxId);
+    } else {
+      await db.moveConversationsToTrash([id], cnv.mailboxId);
+    }
+
+    return NextResponse.json({
+      success: true,
+      data: { id, status: permanent ? 'DELETED_PERMANENTLY' : 'TRASHED' },
+    });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
+}
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const auth = await authenticateRequest(req);
+    const { id } = await params;
+    const body = await req.json();
+
+    const cnv = await db.findConversationById(id);
+    if (!cnv) {
+      return NextResponse.json({ success: false, error: 'Conversation not found' }, { status: 404 });
+    }
+
+    if (body.isTrash === false || body.restore === true) {
+      await db.restoreConversationsFromTrash([id], cnv.mailboxId);
+    } else if (body.isTrash === true) {
+      await db.moveConversationsToTrash([id], cnv.mailboxId);
+    } else {
+      await db.updateConversation(id, body);
+    }
+
+    const updated = await db.findConversationById(id);
+    return NextResponse.json({ success: true, data: updated });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
+}
+

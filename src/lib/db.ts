@@ -273,21 +273,40 @@ export const db = {
 
     if (params.folder) {
       const folder = params.folder;
-      const cleanFolder = folder.replace(/^INBOX\./, '');
-      const folderMsgs = memoryDb.messages.filter((m) => {
-        if (m.mailboxId !== params.mailboxId) return false;
-        const msgFolder = m.providerFolder || 'INBOX';
-        const cleanMsgFolder = msgFolder.replace(/^INBOX\./, '');
-        if (cleanFolder === 'INBOX' || folder === 'INBOX') {
-          return cleanMsgFolder === 'INBOX' || !m.providerFolder;
-        }
-        return (
-          cleanMsgFolder.toLowerCase() === cleanFolder.toLowerCase() ||
-          msgFolder.toLowerCase() === folder.toLowerCase()
-        );
-      });
-      const cnvIdsInFolder = new Set(folderMsgs.map((m) => m.conversationId));
-      list = list.filter((c) => cnvIdsInFolder.has(c.id));
+      const cleanFolder = folder.replace(/^INBOX\./, '').toLowerCase();
+      const isTrashQuery = cleanFolder === 'trash';
+
+      if (isTrashQuery) {
+        // Querying trash: only include conversations that are in trash
+        const folderMsgs = memoryDb.messages.filter((m) => {
+          if (m.mailboxId !== params.mailboxId) return false;
+          const msgFolder = (m.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
+          return msgFolder === 'trash';
+        });
+        const cnvIdsInFolder = new Set(folderMsgs.map((m) => m.conversationId));
+        list = list.filter((c) => c.isTrash === true || cnvIdsInFolder.has(c.id));
+      } else {
+        // Querying non-trash: strictly exclude conversations marked as trash
+        list = list.filter((c) => !c.isTrash);
+        const folderMsgs = memoryDb.messages.filter((m) => {
+          if (m.mailboxId !== params.mailboxId) return false;
+          const msgFolder = m.providerFolder || 'INBOX';
+          const cleanMsgFolder = msgFolder.replace(/^INBOX\./, '').toLowerCase();
+          if (cleanFolder === 'inbox' || folder.toLowerCase() === 'inbox') {
+            return (cleanMsgFolder === 'inbox' || !m.providerFolder) && cleanMsgFolder !== 'trash';
+          }
+          return (
+            (cleanMsgFolder === cleanFolder ||
+              msgFolder.toLowerCase() === folder.toLowerCase()) &&
+            cleanMsgFolder !== 'trash'
+          );
+        });
+        const cnvIdsInFolder = new Set(folderMsgs.map((m) => m.conversationId));
+        list = list.filter((c) => cnvIdsInFolder.has(c.id));
+      }
+    } else {
+      // Default: exclude trash
+      list = list.filter((c) => !c.isTrash);
     }
 
     if (params.isStarred !== undefined) {
@@ -325,6 +344,99 @@ export const db = {
     Object.assign(cnv, updates);
     memoryDb.saveToDisk();
     return cnv;
+  },
+
+  async moveConversationsToTrash(conversationIds: string[], mailboxId: string): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id) && cnv.mailboxId === mailboxId) {
+        cnv.isTrash = true;
+        affected.push(cnv.id);
+      }
+    }
+
+    for (const msg of memoryDb.messages) {
+      if (idSet.has(msg.conversationId) && msg.mailboxId === mailboxId) {
+        msg.providerFolder = 'INBOX.Trash';
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async restoreConversationsFromTrash(conversationIds: string[], mailboxId: string): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id) && cnv.mailboxId === mailboxId) {
+        cnv.isTrash = false;
+        affected.push(cnv.id);
+      }
+    }
+
+    for (const msg of memoryDb.messages) {
+      if (idSet.has(msg.conversationId) && msg.mailboxId === mailboxId) {
+        msg.providerFolder = msg.status === 'SENT' ? 'INBOX.Sent' : 'INBOX';
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async deleteConversationsPermanently(conversationIds: string[], mailboxId: string): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    memoryDb.conversations = memoryDb.conversations.filter((c) => {
+      if (idSet.has(c.id) && c.mailboxId === mailboxId) {
+        affected.push(c.id);
+        return false;
+      }
+      return true;
+    });
+
+    memoryDb.messages = memoryDb.messages.filter((m) => {
+      if (idSet.has(m.conversationId) && m.mailboxId === mailboxId) {
+        return false;
+      }
+      return true;
+    });
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async emptyTrash(mailboxId: string): Promise<number> {
+    memoryDb.loadFromDisk();
+    const trashCnvIds = new Set(
+      memoryDb.conversations
+        .filter((c) => c.mailboxId === mailboxId && c.isTrash)
+        .map((c) => c.id)
+    );
+
+    for (const msg of memoryDb.messages) {
+      if (msg.mailboxId === mailboxId) {
+        const cleanF = (msg.providerFolder || '').replace(/^INBOX\./, '').toLowerCase();
+        if (cleanF === 'trash') {
+          trashCnvIds.add(msg.conversationId);
+        }
+      }
+    }
+
+    const count = trashCnvIds.size;
+    memoryDb.conversations = memoryDb.conversations.filter((c) => !trashCnvIds.has(c.id));
+    memoryDb.messages = memoryDb.messages.filter((m) => !trashCnvIds.has(m.conversationId));
+
+    memoryDb.saveToDisk();
+    return count;
   },
 
   // Messages

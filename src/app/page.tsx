@@ -34,6 +34,13 @@ export default function DocMailDashboard() {
   // Mobile navigation state
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isMobileDetailView, setIsMobileDetailView] = useState(false);
+  // Multi-selection state
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+
+  // Clear selection when folder or mailbox changes
+  useEffect(() => {
+    setSelectedIds(new Set());
+  }, [currentFolder, selectedMailboxId]);
 
   const [mailboxSyncing, setMailboxSyncing] = useState(false);
 
@@ -204,6 +211,204 @@ export default function DocMailDashboard() {
     setIsComposerOpen(true);
   };
 
+  const handleToggleSelect = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const handleSelectAll = () => {
+    setSelectedIds(new Set(conversations.map((c) => c.id)));
+  };
+
+  const handleClearSelection = () => {
+    setSelectedIds(new Set());
+  };
+
+  const handleBatchMoveToTrash = async () => {
+    if (selectedIds.size === 0) return;
+    const ids = Array.from(selectedIds);
+    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    if (selectedConversationId && selectedIds.has(selectedConversationId)) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+    }
+    setSelectedIds(new Set());
+
+    try {
+      await fetch('/api/v1/conversations/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'trash',
+          conversationIds: ids,
+          mailboxId: selectedMailboxId,
+        }),
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to move to trash:', err);
+      loadConversations();
+    }
+  };
+
+  const handleBatchRestore = async () => {
+    if (selectedIds.size === 0) return;
+    const ids = Array.from(selectedIds);
+    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    if (selectedConversationId && selectedIds.has(selectedConversationId)) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+    }
+    setSelectedIds(new Set());
+
+    try {
+      await fetch('/api/v1/conversations/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'restore',
+          conversationIds: ids,
+          mailboxId: selectedMailboxId,
+        }),
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to restore from trash:', err);
+      loadConversations();
+    }
+  };
+
+  const handleBatchDeleteForever = async () => {
+    if (selectedIds.size === 0) return;
+    if (
+      !window.confirm(
+        `Are you sure you want to permanently delete ${selectedIds.size} conversation(s)? This cannot be undone.`
+      )
+    ) {
+      return;
+    }
+    const ids = Array.from(selectedIds);
+    setConversations((prev) => prev.filter((c) => !selectedIds.has(c.id)));
+    if (selectedConversationId && selectedIds.has(selectedConversationId)) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+    }
+    setSelectedIds(new Set());
+
+    try {
+      await fetch('/api/v1/conversations/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'delete_forever',
+          conversationIds: ids,
+          mailboxId: selectedMailboxId,
+        }),
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to delete permanently:', err);
+      loadConversations();
+    }
+  };
+
+  const handleEmptyTrash = async () => {
+    if (
+      !window.confirm(
+        'Are you sure you want to empty the Trash? All deleted messages will be permanently purged.'
+      )
+    ) {
+      return;
+    }
+    setConversations([]);
+    setSelectedConversationId(null);
+    setSelectedConversation(null);
+    setSelectedIds(new Set());
+
+    try {
+      await fetch('/api/v1/conversations/batch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'empty_trash',
+          mailboxId: selectedMailboxId,
+        }),
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to empty trash:', err);
+      loadConversations();
+    }
+  };
+
+  const handleSingleMoveToTrash = async (conversationId: string) => {
+    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    if (selectedConversationId === conversationId) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+      setIsMobileDetailView(false);
+    }
+    try {
+      await fetch(`/api/v1/conversations/${conversationId}`, {
+        method: 'DELETE',
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to trash conversation:', err);
+      loadConversations();
+    }
+  };
+
+  const handleSingleRestore = async (conversationId: string) => {
+    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    if (selectedConversationId === conversationId) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+      setIsMobileDetailView(false);
+    }
+    try {
+      await fetch(`/api/v1/conversations/${conversationId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isTrash: false, restore: true }),
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to restore conversation:', err);
+      loadConversations();
+    }
+  };
+
+  const handleSingleDeleteForever = async (conversationId: string) => {
+    if (
+      !window.confirm(
+        'Are you sure you want to permanently delete this email? This cannot be undone.'
+      )
+    ) {
+      return;
+    }
+    setConversations((prev) => prev.filter((c) => c.id !== conversationId));
+    if (selectedConversationId === conversationId) {
+      setSelectedConversationId(null);
+      setSelectedConversation(null);
+      setIsMobileDetailView(false);
+    }
+    try {
+      await fetch(`/api/v1/conversations/${conversationId}?permanent=true`, {
+        method: 'DELETE',
+      });
+      loadConversations();
+    } catch (err) {
+      console.error('Failed to permanently delete conversation:', err);
+      loadConversations();
+    }
+  };
+
   const totalUnread = conversations.reduce((acc, c) => acc + (c.unreadCount > 0 ? 1 : 0), 0);
 
   return (
@@ -249,14 +454,18 @@ export default function DocMailDashboard() {
                 <img src="/docdril.svg" alt="DocMail" className="w-full h-full object-contain" />
               </div>
               <div>
-                <div className="text-sm font-bold text-slate-900">Updating Mailboxes...</div>
-                <div className="text-xs text-slate-500 mt-1">Connecting to Docdril mail service...</div>
+                <h3 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                  {mailboxSyncing ? 'Updating Mailboxes...' : 'Docdril Communication Hub'}
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Connecting to live cloud infrastructure for docdril.com.
+                </p>
               </div>
             </div>
           </main>
         ) : (
           <>
-            {/* Middle Conversation List (Mobile Master View) */}
+            {/* Middle Conversations Column (Mobile Master View) */}
             <div
               className={`h-full ${
                 isMobileDetailView ? 'hidden md:flex' : 'flex flex-1 md:flex-initial'
@@ -271,7 +480,16 @@ export default function DocMailDashboard() {
                 }}
                 onToggleStar={handleToggleStar}
                 folderTitle={currentFolder.replace('INBOX.', '')}
+                currentFolder={currentFolder}
                 onConnectClick={() => setIsSettingsModalOpen(true)}
+                selectedIds={selectedIds}
+                onToggleSelect={handleToggleSelect}
+                onSelectAll={handleSelectAll}
+                onClearSelection={handleClearSelection}
+                onBatchMoveToTrash={handleBatchMoveToTrash}
+                onBatchRestore={handleBatchRestore}
+                onBatchDeleteForever={handleBatchDeleteForever}
+                onEmptyTrash={handleEmptyTrash}
               />
             </div>
 
@@ -283,12 +501,16 @@ export default function DocMailDashboard() {
             >
               <MessageView
                 conversation={selectedConversation}
+                currentFolder={currentFolder}
                 onReply={handleReply}
                 onForward={handleForward}
                 onToggleAiDrawer={() => setIsAiDrawerOpen(!isAiDrawerOpen)}
                 isAiDrawerOpen={isAiDrawerOpen}
                 onConnectClick={() => setIsSettingsModalOpen(true)}
                 onBackMobile={() => setIsMobileDetailView(false)}
+                onMoveToTrash={handleSingleMoveToTrash}
+                onRestoreFromTrash={handleSingleRestore}
+                onDeletePermanently={handleSingleDeleteForever}
               />
             </div>
 

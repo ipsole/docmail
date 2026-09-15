@@ -91,6 +91,40 @@ const TOOLS = [
       },
     },
   },
+  {
+    name: 'trash_conversations',
+    description: 'Move one or more email conversations to Trash.',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationIds'],
+      properties: {
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to move to trash' },
+        mailboxId: { type: 'string', description: 'Mailbox ID' },
+      },
+    },
+  },
+  {
+    name: 'restore_conversations',
+    description: 'Restore one or more email conversations from Trash back to Inbox.',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationIds'],
+      properties: {
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to restore' },
+        mailboxId: { type: 'string', description: 'Mailbox ID' },
+      },
+    },
+  },
+  {
+    name: 'empty_trash',
+    description: 'Permanently purge all emails and conversations in Trash.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        mailboxId: { type: 'string', description: 'Mailbox ID' },
+      },
+    },
+  },
 ];
 
 export async function GET() {
@@ -257,6 +291,34 @@ export async function POST(req: NextRequest) {
             variables: [],
           };
           toolResult = await db.createTemplate(newTpl);
+          break;
+        }
+
+        case 'trash_conversations': {
+          if (!args.conversationIds || !Array.isArray(args.conversationIds)) {
+            throw new Error('Missing or invalid argument "conversationIds"');
+          }
+          const mailboxes = await db.listMailboxes(orgId);
+          const mailboxId = args.mailboxId || mailboxes[0]?.id;
+          toolResult = await db.moveConversationsToTrash(args.conversationIds, mailboxId);
+          break;
+        }
+
+        case 'restore_conversations': {
+          if (!args.conversationIds || !Array.isArray(args.conversationIds)) {
+            throw new Error('Missing or invalid argument "conversationIds"');
+          }
+          const mailboxes = await db.listMailboxes(orgId);
+          const mailboxId = args.mailboxId || mailboxes[0]?.id;
+          toolResult = await db.restoreConversationsFromTrash(args.conversationIds, mailboxId);
+          break;
+        }
+
+        case 'empty_trash': {
+          const mailboxes = await db.listMailboxes(orgId);
+          const mailboxId = args.mailboxId || mailboxes[0]?.id;
+          const count = await db.emptyTrash(mailboxId);
+          toolResult = { emptiedCount: count, message: 'Trash emptied successfully' };
           break;
         }
 
