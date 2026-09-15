@@ -148,4 +148,69 @@ describe('ChatGPT OpenAPI & MCP Server Integration', () => {
     assert.ok(listWithSent.some((c) => c.id === 'cnv_test_sent_1'));
     assert.ok(listWithSent.some((c) => c.id === 'cnv_test_sent_2'));
   });
+
+  it('should support openapi.json POST fallback for MCP tools/list', async () => {
+    const { POST: postOpenApi } = await import('../src/app/api/v1/openapi.json/route');
+    const req = new NextRequest('http://localhost:3000/api/v1/openapi.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 99,
+        method: 'tools/list',
+      }),
+    });
+    const res = await postOpenApi(req);
+    assert.strictEqual(res.status, 200);
+    const data = await res.json();
+    assert.strictEqual(data.jsonrpc, '2.0');
+    assert.ok(Array.isArray(data.result.tools));
+  });
+
+  it('should create, list with masked keys, and delete API keys permanently', async () => {
+    const { GET: getKeys, POST: postKey, DELETE: deleteKey } = await import('../src/app/api/v1/admin/api-keys/route');
+
+    // 1. Create a key
+    const createReq = new NextRequest('http://localhost:3000/api/v1/admin/api-keys', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: 'Test Deletable Key',
+        scopes: ['messages:read'],
+      }),
+    });
+    const createRes = await postKey(createReq);
+    const createData = await createRes.json();
+    assert.strictEqual(createRes.status, 201);
+    assert.ok(createData.data.id);
+    assert.ok(createData.data.rawSecretKey);
+    const newKeyId = createData.data.id;
+
+    // 2. List keys - verify masked key is returned, NOT full secret
+    const listReq = new NextRequest('http://localhost:3000/api/v1/admin/api-keys');
+    const listRes = await getKeys(listReq);
+    const listData = await listRes.json();
+    assert.strictEqual(listRes.status, 200);
+    assert.ok(Array.isArray(listData.data));
+    const createdKeyInList = listData.data.find((k: any) => k.id === newKeyId);
+    assert.ok(createdKeyInList);
+    assert.ok(createdKeyInList.maskedKey.includes('••••••••'));
+    assert.strictEqual(createdKeyInList.rawSecretKey, undefined);
+
+    // 3. Delete key
+    const delReq = new NextRequest(`http://localhost:3000/api/v1/admin/api-keys?id=${newKeyId}`, {
+      method: 'DELETE',
+    });
+    const delRes = await deleteKey(delReq);
+    const delData = await delRes.json();
+    assert.strictEqual(delRes.status, 200);
+    assert.strictEqual(delData.success, true);
+
+    // 4. Verify key is completely removed
+    const listAfterReq = new NextRequest('http://localhost:3000/api/v1/admin/api-keys');
+    const listAfterRes = await getKeys(listAfterReq);
+    const listAfterData = await listAfterRes.json();
+    assert.strictEqual(listAfterData.data.some((k: any) => k.id === newKeyId), false);
+  });
 });
+

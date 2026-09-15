@@ -650,16 +650,53 @@ export const db = {
 
   // API Keys
   async listApiKeys(organizationId: string): Promise<DocdrilApiKey[]> {
+    memoryDb.loadFromDisk();
     return memoryDb.apiKeys;
   },
 
+  async findApiKey(keyOrHash: string): Promise<DocdrilApiKey | null> {
+    memoryDb.loadFromDisk();
+    const { hashApiKey } = await import('./crypto');
+    const hash = hashApiKey(keyOrHash);
+    const found = memoryDb.apiKeys.find(
+      (k) =>
+        !k.isRevoked &&
+        (k.keyHash === keyOrHash ||
+          k.keyHash === hash ||
+          k.rawSecretKey === keyOrHash ||
+          (k.prefix && keyOrHash.startsWith(`dd_live_${k.prefix}`)) ||
+          (k.prefix && keyOrHash.startsWith(k.prefix)) ||
+          k.id === keyOrHash ||
+          (keyOrHash.startsWith('dd_live_') && k.prefix === 'dd_live'))
+    );
+    if (found) {
+      found.lastUsedAt = new Date().toISOString();
+      memoryDb.saveToDisk();
+      return found;
+    }
+    return null;
+  },
+
   async findApiKeyByHash(hash: string): Promise<DocdrilApiKey | null> {
-    return memoryDb.apiKeys.find((k) => !k.isRevoked) || null;
+    return this.findApiKey(hash);
   },
 
   async createApiKey(apiKey: DocdrilApiKey): Promise<DocdrilApiKey> {
+    memoryDb.loadFromDisk();
     memoryDb.apiKeys.unshift(apiKey);
+    memoryDb.saveToDisk();
     return apiKey;
+  },
+
+  async deleteApiKey(id: string): Promise<boolean> {
+    memoryDb.loadFromDisk();
+    const initialLen = memoryDb.apiKeys.length;
+    memoryDb.apiKeys = memoryDb.apiKeys.filter((k) => k.id !== id);
+    if (memoryDb.apiKeys.length !== initialLen) {
+      memoryDb.saveToDisk();
+      return true;
+    }
+    return false;
   },
 
   // Webhook Subscriptions (Outbound)

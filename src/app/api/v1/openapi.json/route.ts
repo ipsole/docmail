@@ -1,6 +1,6 @@
 // GET /api/v1/openapi.json
 // Official OpenAPI 3.1.0 Specification for ChatGPT Custom GPT Actions & AI Agents
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET() {
   const spec = {
@@ -486,8 +486,15 @@ export async function OPTIONS() {
     status: 204,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, key, x-api-key, api-key',
     },
   });
+}
+
+export async function POST(req: NextRequest) {
+  // If an MCP client calls openapi.json with JSON-RPC (e.g. initialize, tools/list, tools/call),
+  // seamlessly forward it to the MCP JSON-RPC protocol handler so connections never fail.
+  const { POST: mcpPost } = await import('@/app/api/v1/mcp/route');
+  return mcpPost(req);
 }

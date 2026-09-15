@@ -86,6 +86,23 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleDeleteApiKey = async (id: string) => {
+    if (!confirm('Are you sure you want to permanently revoke and delete this API key? MCP clients using it will lose access immediately.')) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/v1/admin/api-keys?id=${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success) {
+        setApiKeys((prev) => prev.filter((k) => k.id !== id));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col font-sans p-3 sm:p-4 space-y-4 select-none">
       {/* Top Header */}
@@ -318,32 +335,58 @@ export default function AdminDashboard() {
 
             {/* List API Keys */}
             <div className="glass-surface shadow-md overflow-hidden">
-              <div className="p-4 border-b border-white/60">
+              <div className="p-4 border-b border-white/60 flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                  Active Service Credentials
+                  Active Service Credentials ({apiKeys.length} Generated)
+                </span>
+                <span className="text-[11px] text-slate-500 font-mono">
+                  Tokens are masked for security
                 </span>
               </div>
               <div className="divide-y divide-white/60 text-xs">
-                {apiKeys.map((k) => (
-                  <div key={k.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-white/40">
-                    <div className="space-y-1">
-                      <div className="font-bold text-slate-900">{k.name}</div>
-                      <div className="font-mono text-slate-400 text-[11px]">
-                        Prefix: dd_live_{k.prefix}...
+                {apiKeys.length === 0 ? (
+                  <div className="p-6 text-center text-xs text-slate-400">
+                    No active tokens. Generate one above to connect MCP clients.
+                  </div>
+                ) : (
+                  apiKeys.map((k) => (
+                    <div key={k.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-white/40 transition-colors">
+                      <div className="space-y-1">
+                        <div className="font-bold text-slate-900 flex items-center space-x-2">
+                          <span>{k.name}</span>
+                          <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-medium">
+                            Active
+                          </span>
+                        </div>
+                        <div className="font-mono text-slate-500 text-xs flex items-center space-x-2">
+                          <span className="font-semibold text-slate-700">Token:</span>
+                          <span className="bg-slate-100 px-2 py-0.5 rounded border border-slate-200 text-slate-800 tracking-wider">
+                            {k.maskedKey || `dd_live_${k.prefix || 'key'}••••••••`}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-3 self-end sm:self-center">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {k.scopes.map((s) => (
+                            <span
+                              key={s}
+                              className="glass-inset text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded-full"
+                            >
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => handleDeleteApiKey(k.id)}
+                          title="Revoke & Delete Token"
+                          className="text-rose-500 hover:text-rose-700 hover:bg-rose-50 p-1.5 rounded-lg border border-transparent hover:border-rose-200 transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      {k.scopes.map((s) => (
-                        <span
-                          key={s}
-                          className="glass-inset text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded-full"
-                        >
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           </div>

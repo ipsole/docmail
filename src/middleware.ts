@@ -13,7 +13,12 @@ export function middleware(req: NextRequest) {
     pathname === '/docdril.svg' ||
     pathname === '/favicon.ico' ||
     pathname.startsWith('/public') ||
-    req.headers.has('authorization')
+    req.headers.has('authorization') ||
+    req.headers.has('x-api-key') ||
+    req.headers.has('api-key') ||
+    req.headers.has('key') ||
+    req.nextUrl.searchParams.has('key') ||
+    req.nextUrl.searchParams.has('apiKey')
   ) {
     return NextResponse.next();
   }

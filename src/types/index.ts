@@ -142,6 +142,9 @@ export interface DocdrilApiKey {
   organizationId: string;
   name: string;
   prefix: string;
+  keyHash?: string;
+  rawSecretKey?: string;
+  maskedKey?: string;
   scopes: string[];
   lastUsedAt?: string | null;
   isRevoked: boolean;

@@ -31,14 +31,28 @@ export const DEFAULT_DEV_USER: DocdrilUser = {
  * 3. Default dev user fallback in local development mode
  */
 export async function authenticateRequest(req: NextRequest): Promise<AuthContext> {
+  // Extract API key from multiple standard and non-standard header formats or query parameters
+  let rawKey = '';
   const authHeader = req.headers.get('authorization') || '';
+  if (authHeader.startsWith('Bearer ')) {
+    rawKey = authHeader.slice(7).trim();
+  } else if (authHeader.startsWith('dd_live_') || authHeader.startsWith('key_')) {
+    rawKey = authHeader.trim();
+  } else if (req.headers.get('x-api-key')) {
+    rawKey = req.headers.get('x-api-key')!.trim();
+  } else if (req.headers.get('api-key')) {
+    rawKey = req.headers.get('api-key')!.trim();
+  } else if (req.headers.get('key')) {
+    rawKey = req.headers.get('key')!.trim();
+  } else if (req.nextUrl?.searchParams?.get('key')) {
+    rawKey = req.nextUrl.searchParams.get('key')!.trim();
+  } else if (req.nextUrl?.searchParams?.get('apiKey')) {
+    rawKey = req.nextUrl.searchParams.get('apiKey')!.trim();
+  }
 
   // 1. API Key authentication
-  if (authHeader.startsWith('Bearer dd_live_')) {
-    const rawKey = authHeader.replace('Bearer ', '').trim();
-    const keyHash = hashApiKey(rawKey);
-
-    const apiKey = await db.findApiKeyByHash(keyHash);
+  if (rawKey) {
+    const apiKey = await db.findApiKey(rawKey);
     if (!apiKey || apiKey.isRevoked) {
       throw new Error('Invalid or revoked Docdril API key');
     }

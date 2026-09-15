@@ -1,7 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
-import { X, Webhook, Bot, Shield, Check, Copy, ExternalLink, Globe, Sparkles, Key } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  X,
+  Webhook,
+  Bot,
+  Shield,
+  Check,
+  Copy,
+  ExternalLink,
+  Globe,
+  Sparkles,
+  Key,
+  Trash2,
+  Plus,
+  Info,
+  AlertTriangle,
+} from 'lucide-react';
 
 interface HostingerSettingsModalProps {
   isOpen: boolean;
@@ -17,27 +32,94 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
   const [activeTab, setActiveTab] = useState<'chatgpt' | 'webhooks' | 'deployment'>('chatgpt');
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
-  if (!isOpen) return null;
+  // Live API Keys state
+  const [apiKeys, setApiKeys] = useState<any[]>([]);
+  const [isLoadingKeys, setIsLoadingKeys] = useState(false);
+  const [newKeyName, setNewKeyName] = useState('ChatGPT MCP Token');
+  const [newlyCreatedKey, setNewlyCreatedKey] = useState<string | null>(null);
+  const [isCreatingKey, setIsCreatingKey] = useState(false);
+  const [deleteStatus, setDeleteStatus] = useState<string | null>(null);
 
   const webhookUrl = 'https://docmail.docdril.com/api/v1/webhooks/hostinger';
   const chatgptOpenApiUrl = 'https://docmail.docdril.com/api/v1/openapi.json';
   const mcpUrl = 'https://docmail.docdril.com/api/v1/mcp';
-  const apiKey = 'dd_live_crm_service_key';
 
-  const mcpConfigJson = JSON.stringify(
-    {
-      mcpServers: {
-        'docmail-service': {
-          url: 'https://docmail.docdril.com/api/v1/mcp',
-          headers: {
-            Authorization: 'Bearer dd_live_crm_service_key',
-          },
-        },
-      },
-    },
-    null,
-    2
-  );
+  // Load API keys whenever modal is opened
+  const loadApiKeys = async () => {
+    setIsLoadingKeys(true);
+    try {
+      const res = await fetch('/api/v1/admin/api-keys');
+      const json = await res.json();
+      if (json.data && Array.isArray(json.data)) {
+        setApiKeys(json.data);
+      }
+    } catch (err) {
+      console.error('Failed to load API keys:', err);
+    } finally {
+      setIsLoadingKeys(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      loadApiKeys();
+      setNewlyCreatedKey(null);
+      setDeleteStatus(null);
+    }
+  }, [isOpen]);
+
+  const handleGenerateKey = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newKeyName.trim() || isCreatingKey) return;
+
+    setIsCreatingKey(true);
+    try {
+      const res = await fetch('/api/v1/admin/api-keys', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newKeyName.trim(),
+          scopes: ['messages:read', 'messages:send', 'contacts:read', 'contacts:write'],
+        }),
+      });
+      const json = await res.json();
+      if (json.data) {
+        setNewlyCreatedKey(json.data.rawSecretKey);
+        setNewKeyName('ChatGPT MCP Token');
+        loadApiKeys();
+      }
+    } catch (err) {
+      console.error('Failed to generate key:', err);
+    } finally {
+      setIsCreatingKey(false);
+    }
+  };
+
+  const handleDeleteKey = async (keyId: string, keyName: string) => {
+    if (
+      !window.confirm(
+        `Are you sure you want to permanently delete "${keyName}"? Any MCP, ChatGPT, or AI client using this token will be disconnected immediately.`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/v1/admin/api-keys?id=${encodeURIComponent(keyId)}`, {
+        method: 'DELETE',
+      });
+      const json = await res.json();
+      if (json.success) {
+        setApiKeys((prev) => prev.filter((k) => k.id !== keyId));
+        setDeleteStatus(`Token "${keyName}" deleted completely.`);
+        setTimeout(() => setDeleteStatus(null), 4000);
+      }
+    } catch (err) {
+      console.error('Failed to delete key:', err);
+    }
+  };
+
+  if (!isOpen) return null;
 
   const copyToClipboard = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -47,7 +129,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md select-none">
-      <div className="glass-surface w-full max-w-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl bg-white/85 max-h-[92vh] flex flex-col">
+      <div className="glass-surface w-full max-w-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl bg-white/95 max-h-[92vh] flex flex-col rounded-3xl border border-white/80">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -58,15 +140,20 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
 
         {/* Header */}
         <div className="flex items-center space-x-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-white shadow-[0_0_16px_rgba(244,114,182,0.6)]">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-white shadow-[0_0_16px_rgba(244,114,182,0.6)] flex-shrink-0">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
-            <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
-              DocMail Gateway & AI Integrations
-            </h2>
+            <div className="flex items-center space-x-2">
+              <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
+                DocMail MCP & AI Integration
+              </h2>
+              <span className="glass-inset px-2.5 py-0.5 rounded-full text-[10px] font-bold text-rose-600">
+                {apiKeys.length} {apiKeys.length === 1 ? 'Token' : 'Tokens'} Active
+              </span>
+            </div>
             <p className="text-xs text-slate-500">
-              Connect ChatGPT, Claude MCP, inboxes, and docmail.docdril.com ecosystem
+              Connect ChatGPT, Claude MCP, desktop agents, and manage authorization tokens
             </p>
           </div>
         </div>
@@ -115,15 +202,205 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
           {/* TAB 1: CHATGPT & MCP */}
           {activeTab === 'chatgpt' && (
             <div className="space-y-4">
+              {/* EXACT MCP CLIENT SETUP GUIDE (Matches user screenshot) */}
+              <div className="glass-surface p-4 sm:p-5 rounded-2xl space-y-3.5 border border-rose-200/80 bg-rose-50/30">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-6 h-6 rounded-lg bg-rose-500 text-white flex items-center justify-center font-bold text-xs">
+                      ⚙
+                    </div>
+                    <span className="font-extrabold text-slate-900 text-sm">
+                      How to Fill Your MCP Client Screen
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-full">
+                    Match Your Screen Exactly
+                  </span>
+                </div>
+
+                <div className="space-y-3 font-mono text-xs">
+                  {/* Field 1: URL */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-[11px] font-sans font-bold text-slate-700">
+                      <span>1. URL Field:</span>
+                      <button
+                        onClick={() => copyToClipboard(mcpUrl, 'mcpUrl')}
+                        className="text-rose-600 hover:text-rose-800 flex items-center space-x-1 cursor-pointer"
+                      >
+                        {copiedField === 'mcpUrl' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                        <span>{copiedField === 'mcpUrl' ? 'Copied' : 'Copy'}</span>
+                      </button>
+                    </div>
+                    <div className="bg-white p-2.5 rounded-xl border border-slate-200 text-slate-900 break-all select-all font-semibold">
+                      {mcpUrl}
+                    </div>
+                    <p className="text-[10px] font-sans text-slate-500">
+                      (Note: <code>{chatgptOpenApiUrl}</code> is also accepted if your client uses OpenAPI)
+                    </p>
+                  </div>
+
+                  {/* Field 2: Bearer token env var */}
+                  <div className="space-y-1">
+                    <div className="text-[11px] font-sans font-bold text-slate-700">
+                      2. Bearer token env var Field:
+                    </div>
+                    <div className="bg-slate-100/80 p-2 rounded-xl text-slate-500 italic font-sans text-[11px]">
+                      Leave this field <strong>empty</strong> (or type <code>DOCMAIL_API_KEY</code> if required).
+                    </div>
+                  </div>
+
+                  {/* Field 3: Headers */}
+                  <div className="space-y-1">
+                    <div className="text-[11px] font-sans font-bold text-slate-700">
+                      3. Headers Field:
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <div className="bg-white p-2 rounded-xl border border-slate-200">
+                        <span className="text-[10px] font-sans text-slate-400 block">Header Key:</span>
+                        <code className="text-slate-900 font-bold">Authorization</code>{' '}
+                        <span className="text-[10px] font-sans text-slate-500">(or <code className="font-bold">key</code> or <code className="font-bold">x-api-key</code>)</span>
+                      </div>
+                      <div className="bg-white p-2 rounded-xl border border-slate-200">
+                        <span className="text-[10px] font-sans text-slate-400 block">Header Value:</span>
+                        <code className="text-slate-900 font-bold">Bearer &lt;your_token&gt;</code>{' '}
+                        <span className="text-[10px] font-sans text-slate-500">(or raw token)</span>
+                      </div>
+                    </div>
+                    <p className="text-[10px] font-sans text-emerald-700 font-medium">
+                      ✓ DocMail accepts <code className="font-bold">Authorization</code>, <code className="font-bold">key</code>, or <code className="font-bold">x-api-key</code>. All formats work seamlessly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* GENERATE NEW TOKEN FORM */}
+              <div className="glass-inset p-4 rounded-2xl space-y-3 border border-slate-200/80">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 flex items-center space-x-1.5">
+                    <Key className="w-4 h-4 text-amber-500" />
+                    <span>Generate New Access Token</span>
+                  </span>
+                </div>
+
+                <form onSubmit={handleGenerateKey} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="text"
+                    value={newKeyName}
+                    onChange={(e) => setNewKeyName(e.target.value)}
+                    placeholder="Token label (e.g. ChatGPT MCP, Cursor, Claude)"
+                    className="flex-1 bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-rose-400"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isCreatingKey}
+                    className="rose-glow-btn px-4 py-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 cursor-pointer shadow-sm disabled:opacity-50"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>{isCreatingKey ? 'Generating...' : 'Generate'}</span>
+                  </button>
+                </form>
+
+                {/* Newly Generated Raw Key Display */}
+                {newlyCreatedKey && (
+                  <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-3.5 space-y-2 animate-in fade-in duration-200">
+                    <div className="flex items-center justify-between text-xs font-bold text-emerald-900">
+                      <span>✓ New Token Generated (Copy now):</span>
+                      <button
+                        onClick={() => copyToClipboard(newlyCreatedKey, 'newKey')}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold flex items-center space-x-1 cursor-pointer transition-colors"
+                      >
+                        {copiedField === 'newKey' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        <span>{copiedField === 'newKey' ? 'Copied' : 'Copy Token'}</span>
+                      </button>
+                    </div>
+                    <div className="bg-white p-2.5 rounded-lg border border-emerald-200 font-mono text-xs text-slate-900 break-all select-all font-bold shadow-inner">
+                      {newlyCreatedKey}
+                    </div>
+                    <p className="text-[10px] text-emerald-700 leading-relaxed font-sans">
+                      Paste this token into the <strong>Headers</strong> field of your MCP client. For security, once this modal is closed, the full secret will be masked as shown below.
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* ACTIVE GENERATED TOKENS LIST */}
+              <div className="glass-card p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <h3 className="font-extrabold text-slate-900 text-xs uppercase tracking-wider">
+                      Generated Tokens ({apiKeys.length})
+                    </h3>
+                    <span className="text-[10px] text-slate-500 font-medium">
+                      (Masked for security)
+                    </span>
+                  </div>
+                  <button
+                    onClick={loadApiKeys}
+                    className="text-[11px] text-slate-500 hover:text-slate-800 font-bold flex items-center space-x-1 cursor-pointer"
+                  >
+                    <span>Refresh</span>
+                  </button>
+                </div>
+
+                {deleteStatus && (
+                  <div className="bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1.5 rounded-xl text-xs font-bold animate-in fade-in duration-150">
+                    {deleteStatus}
+                  </div>
+                )}
+
+                {isLoadingKeys && apiKeys.length === 0 ? (
+                  <div className="text-center py-4 text-slate-400 text-xs">Loading active tokens...</div>
+                ) : apiKeys.length === 0 ? (
+                  <div className="text-center py-4 text-slate-400 text-xs">
+                    No tokens found. Click "Generate" above to create your first MCP token.
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {apiKeys.map((k) => (
+                      <div
+                        key={k.id}
+                        className="bg-white/80 border border-slate-200/80 rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 hover:shadow-sm transition-all"
+                      >
+                        <div className="space-y-1 overflow-hidden">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-bold text-slate-900 text-xs">{k.name}</span>
+                            <span className="bg-emerald-50 text-emerald-700 text-[9px] font-bold px-1.5 py-0.5 rounded border border-emerald-200">
+                              Active
+                            </span>
+                          </div>
+                          {/* Masked Token display */}
+                          <div className="font-mono text-[11px] text-slate-600 bg-slate-50 px-2 py-0.5 rounded inline-block">
+                            {k.maskedKey || `dd_live_${k.prefix || 'key'}_••••••••••••••••`}
+                          </div>
+                          <div className="text-[10px] text-slate-400">
+                            Created: {new Date(k.createdAt).toLocaleDateString()}
+                            {k.lastUsedAt && ` • Last used: ${new Date(k.lastUsedAt).toLocaleTimeString()}`}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-1.5 flex-shrink-0">
+                          {/* Delete Button */}
+                          <button
+                            onClick={() => handleDeleteKey(k.id, k.name)}
+                            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-bold text-rose-600 hover:text-white hover:bg-rose-500 bg-rose-50 border border-rose-200 cursor-pointer transition-colors"
+                            title="Delete and permanently revoke this token"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* ChatGPT Custom GPT Action Link */}
-              <div className="glass-inset p-4 rounded-2xl space-y-2 border border-rose-100">
+              <div className="glass-inset p-4 rounded-2xl space-y-2 border border-slate-100">
                 <div className="font-bold text-slate-900 flex items-center justify-between">
                   <span className="flex items-center space-x-1.5">
                     <Sparkles className="w-4 h-4 text-rose-500" />
-                    <span>ChatGPT Custom GPT Action (OpenAPI Schema URL):</span>
-                  </span>
-                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    Active & Ready
+                    <span>For ChatGPT Custom GPT Actions (OpenAPI Schema):</span>
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -131,68 +408,19 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
                     type="text"
                     readOnly
                     value={chatgptOpenApiUrl}
-                    className="w-full bg-white/80 border border-white/80 p-2 rounded-xl font-mono text-[11px] text-slate-800"
+                    className="w-full bg-white border border-slate-200 p-2 rounded-xl font-mono text-[11px] text-slate-800"
                   />
                   <button
                     onClick={() => copyToClipboard(chatgptOpenApiUrl, 'openapi')}
                     className="rose-glow-btn px-3 py-2 text-xs font-bold flex items-center space-x-1 cursor-pointer flex-shrink-0"
                   >
                     {copiedField === 'openapi' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedField === 'openapi' ? 'Copied' : 'Copy URL'}</span>
+                    <span>{copiedField === 'openapi' ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
-                <p className="text-[11px] text-slate-500">
-                  Paste this URL directly into ChatGPT under <strong>Configure &rarr; Actions &rarr; Import from URL</strong>.
+                <p className="text-[10px] text-slate-500">
+                  If creating a Custom GPT under <strong>Explore GPTs &rarr; Create &rarr; Actions &rarr; Import from URL</strong>, paste this schema URL.
                 </p>
-              </div>
-
-              {/* API Key */}
-              <div className="glass-card p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900 flex items-center space-x-1.5">
-                    <Key className="w-4 h-4 text-amber-500" />
-                    <span>Your Bearer API Key for ChatGPT / Claude:</span>
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(apiKey, 'apikey')}
-                    className="glass-card px-2.5 py-1 text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center space-x-1 cursor-pointer"
-                  >
-                    {copiedField === 'apikey' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedField === 'apikey' ? 'Copied' : 'Copy Key'}</span>
-                  </button>
-                </div>
-                <div className="font-mono bg-slate-100 p-2 rounded-xl text-slate-800 text-[11px] font-semibold select-all">
-                  {apiKey}
-                </div>
-              </div>
-
-              {/* Step-by-Step Guide for ChatGPT */}
-              <div className="glass-surface p-4 space-y-2.5 bg-white/90 border border-white/80">
-                <h4 className="font-extrabold text-slate-900 text-xs">How to connect with ChatGPT in 30 seconds:</h4>
-                <ol className="list-decimal list-inside space-y-1.5 text-slate-600 font-medium pl-1 leading-relaxed">
-                  <li>Open <strong>ChatGPT</strong> &rarr; Click <strong>Explore GPTs</strong> &rarr; Click <strong>+ Create</strong>.</li>
-                  <li>In the <strong>Configure</strong> tab, scroll down and click <strong>Create new action</strong>.</li>
-                  <li>Click <strong>Import from URL</strong> and paste: <code className="bg-slate-100 px-1 py-0.5 rounded font-mono text-[10px] text-rose-600">{chatgptOpenApiUrl}</code></li>
-                  <li>Under <strong>Authentication</strong>, select <strong>API Key</strong> &rarr; Auth Type: <strong>Bearer</strong> &rarr; paste the key above.</li>
-                  <li>Done! ChatGPT now has full abilities to search threads, read emails, draft replies, manage contacts, and apply templates.</li>
-                </ol>
-              </div>
-
-              {/* MCP Protocol Endpoint */}
-              <div className="glass-inset p-4 rounded-2xl space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900">Claude & Desktop MCP Server Endpoint</span>
-                  <button
-                    onClick={() => copyToClipboard(mcpUrl, 'mcp')}
-                    className="glass-card px-2.5 py-1 text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center space-x-1 cursor-pointer"
-                  >
-                    {copiedField === 'mcp' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                    <span>{copiedField === 'mcp' ? 'Copied' : 'Copy Endpoint'}</span>
-                  </button>
-                </div>
-                <div className="font-mono bg-white/80 p-2 rounded-xl text-slate-800 text-[11px]">
-                  {mcpUrl}
-                </div>
               </div>
             </div>
           )}
