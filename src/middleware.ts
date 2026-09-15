@@ -3,14 +3,17 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow static assets, public paths, and auth/webhook endpoints
+  // Allow static assets, public paths, auth, OpenAPI, MCP, and webhook endpoints
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/api/v1/webhooks') ||
+    pathname === '/api/v1/openapi.json' ||
+    pathname.startsWith('/api/v1/mcp') ||
     pathname === '/docdril.svg' ||
     pathname === '/favicon.ico' ||
-    pathname.startsWith('/public')
+    pathname.startsWith('/public') ||
+    req.headers.has('authorization')
   ) {
     return NextResponse.next();
   }
