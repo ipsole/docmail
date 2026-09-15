@@ -9,8 +9,8 @@ export async function GET(req: NextRequest) {
 
   const devUser: SessionUser = {
     id: 'usr_docdril_owner',
-    email: 'admin@docdril.com',
-    name: 'Docdril Administrator',
+    email: 'itpiyu@gmail.com',
+    name: 'Piyush Chaudhary',
     role: 'OWNER',
   };
 
