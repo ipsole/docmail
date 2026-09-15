@@ -60,10 +60,10 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
           </div>
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
-              Agentic Mail & Infrastructure Settings
+              DocMail Gateway & Agentic Settings
             </h2>
             <p className="text-xs text-slate-500">
-              Hostinger Webhooks, MCP AI Server, and docmail.docdril.com configuration
+              Inbound Webhooks, MCP AI Server, and docmail.docdril.com configuration
             </p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
             }`}
           >
             <Webhook className="w-3.5 h-3.5 text-rose-400" />
-            <span>1. Hostinger Webhook</span>
+            <span>1. Inbound Webhook</span>
           </button>
 
           <button
@@ -121,7 +121,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
                     rel="noreferrer"
                     className="text-rose-600 hover:underline flex items-center space-x-1 text-[11px]"
                   >
-                    <span>Open Hostinger hPanel</span>
+                    <span>Open Mail Control Panel</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
@@ -143,13 +143,13 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
               </div>
 
               <div className="glass-card p-4 space-y-2.5">
-                <h4 className="font-extrabold text-slate-900 text-xs">How to configure inside Hostinger hPanel:</h4>
+                <h4 className="font-extrabold text-slate-900 text-xs">How to configure your Webhook:</h4>
                 <ol className="list-decimal list-inside space-y-1.5 text-slate-600 font-medium pl-1 leading-relaxed">
-                  <li>In your Hostinger hPanel, navigate to <strong>Emails &rarr; docdril.com &rarr; Agentic mail &rarr; Webhooks</strong>.</li>
+                  <li>In your Mail Control Panel (Hostinger / cPanel), navigate to <strong>Emails &rarr; docdril.com &rarr; Webhooks</strong>.</li>
                   <li>Click <strong>Set up</strong>.</li>
                   <li>Paste the Webhook URL: <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[10px]">{webhookUrl}</code></li>
                   <li>Check the event triggers: <strong>message.received</strong> and <strong>message.sent</strong>.</li>
-                  <li>Save the webhook. If Hostinger generates a Webhook Secret, copy it and add it as <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[10px]">HOSTINGER_WEBHOOK_SECRET</code> in Vercel.</li>
+                  <li>Save the webhook. If a Webhook Secret is generated, copy it and add it as <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[10px]">HOSTINGER_WEBHOOK_SECRET</code> in Vercel.</li>
                 </ol>
               </div>
 
@@ -175,7 +175,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
                   </button>
                 </div>
                 <p className="text-[11px] text-slate-500">
-                  Add this to your <code className="font-mono bg-white/60 px-1 rounded">claude_desktop_config.json</code> or Cursor / Antigravity settings to let AI models directly read and draft emails on your Hostinger mailboxes:
+                  Add this to your <code className="font-mono bg-white/60 px-1 rounded">claude_desktop_config.json</code> or Cursor / Antigravity settings to let AI models directly read and draft emails on your mailboxes:
                 </p>
                 <pre className="bg-zinc-900 text-zinc-100 p-3.5 rounded-xl font-mono text-[11px] overflow-x-auto">
                   {mcpConfigJson}

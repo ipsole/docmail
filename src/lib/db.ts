@@ -24,7 +24,32 @@ class DocMailDatabase {
   mailboxes: DocdrilMailbox[] = [];
   conversations: DocdrilConversation[] = [];
   messages: DocdrilMessage[] = [];
-  contacts: DocdrilContact[] = [];
+  contacts: DocdrilContact[] = [
+    {
+      id: 'cnt_docdril_support',
+      organizationId: 'org_docdril_primary',
+      name: 'Docdril Support',
+      email: 'support@docdril.com',
+      company: 'Docdril Technologies',
+      phone: '+1 (800) 555-0199',
+      notes: 'Official Docdril Customer & Platform Support Desk',
+      tags: ['Support', 'Internal'],
+      lastInteractionAt: new Date().toISOString(),
+      createdAt: '2026-03-01T00:00:00.000Z',
+    },
+    {
+      id: 'cnt_cloud_noc',
+      organizationId: 'org_docdril_primary',
+      name: 'Cloud Mail Operations',
+      email: 'noc@mail-gateway.net',
+      company: 'Cloud Infrastructure Services',
+      phone: '+1 (888) 444-0120',
+      notes: 'Server dispatch & MX cluster operations team',
+      tags: ['Infrastructure', 'Technical'],
+      lastInteractionAt: new Date().toISOString(),
+      createdAt: '2026-03-05T00:00:00.000Z',
+    },
+  ];
 
   templates: DocdrilTemplate[] = [
     {
@@ -32,10 +57,30 @@ class DocMailDatabase {
       organizationId: 'org_docdril_primary',
       title: 'Introduction & Proposal',
       subject: 'Connecting with Docdril: {{company}} Discussion',
-      bodyHtml: '<p>Hi {{first_name}},</p><p>Thank you for connecting. I am reaching out regarding our discussion.</p><p>Best regards,<br>{{sender_name}}</p>',
-      bodyText: 'Hi {{first_name}},\n\nThank you for connecting. I am reaching out regarding our discussion.\n\nBest regards,\n{{sender_name}}',
+      bodyHtml: '<p>Hi {{first_name}},</p><p>Thank you for connecting. I am reaching out regarding our discussion on upcoming initiatives.</p><p>Best regards,<br>{{sender_name}}</p>',
+      bodyText: 'Hi {{first_name}},\n\nThank you for connecting. I am reaching out regarding our discussion on upcoming initiatives.\n\nBest regards,\n{{sender_name}}',
       category: 'business',
       variables: ['first_name', 'company', 'sender_name'],
+    },
+    {
+      id: 'tpl_meeting_followup',
+      organizationId: 'org_docdril_primary',
+      title: 'Post-Meeting Follow-Up',
+      subject: 'Follow-up: Action items from our call',
+      bodyHtml: '<p>Hi {{first_name}},</p><p>Great speaking with you today. As agreed, here is a quick summary of next steps.</p><p>Looking forward to our next update.</p><p>Warm regards,<br>{{sender_name}}</p>',
+      bodyText: 'Hi {{first_name}},\n\nGreat speaking with you today. As agreed, here is a quick summary of next steps.\n\nLooking forward to our next update.\n\nWarm regards,\n{{sender_name}}',
+      category: 'follow-up',
+      variables: ['first_name', 'sender_name'],
+    },
+    {
+      id: 'tpl_quick_checkin',
+      organizationId: 'org_docdril_primary',
+      title: 'Quick Check-in',
+      subject: 'Checking in regarding {{project}}',
+      bodyHtml: '<p>Hi {{first_name}},</p><p>Just checking in to see if you had a chance to review the materials we sent over for {{project}}?</p><p>Let me know if you have any questions.</p>',
+      bodyText: 'Hi {{first_name}},\n\nJust checking in to see if you had a chance to review the materials we sent over for {{project}}?\n\nLet me know if you have any questions.',
+      category: 'check-in',
+      variables: ['first_name', 'project'],
     },
   ];
 
@@ -348,9 +393,36 @@ export const db = {
     return contact;
   },
 
+  async deleteContact(id: string): Promise<boolean> {
+    const idx = memoryDb.contacts.findIndex((c) => c.id === id);
+    if (idx !== -1) {
+      memoryDb.contacts.splice(idx, 1);
+      memoryDb.saveToDisk();
+      return true;
+    }
+    return false;
+  },
+
   // Templates
   async listTemplates(organizationId: string): Promise<DocdrilTemplate[]> {
+    memoryDb.loadFromDisk();
     return memoryDb.templates;
+  },
+
+  async createTemplate(template: DocdrilTemplate): Promise<DocdrilTemplate> {
+    memoryDb.templates.unshift(template);
+    memoryDb.saveToDisk();
+    return template;
+  },
+
+  async deleteTemplate(id: string): Promise<boolean> {
+    const idx = memoryDb.templates.findIndex((t) => t.id === id);
+    if (idx !== -1) {
+      memoryDb.templates.splice(idx, 1);
+      memoryDb.saveToDisk();
+      return true;
+    }
+    return false;
   },
 
   // Signatures

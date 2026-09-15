@@ -14,18 +14,23 @@ import {
   Users,
   FileText,
   Shield,
+  X,
 } from 'lucide-react';
 
 interface SidebarProps {
   currentFolder: string;
   onSelectFolder: (folder: string) => void;
   unreadCount: number;
+  isOpenMobile?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   currentFolder,
   onSelectFolder,
   unreadCount,
+  isOpenMobile = false,
+  onCloseMobile,
 }) => {
   const pathname = usePathname();
 
@@ -39,11 +44,38 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'INBOX.Spam', name: 'Spam', icon: AlertOctagon },
   ];
 
-  return (
-    <aside className="w-60 p-4 select-none flex flex-col justify-between">
-      <div className="space-y-6">
+  const handleFolderClick = (id: string) => {
+    onSelectFolder(id);
+    if (onCloseMobile) onCloseMobile();
+  };
+
+  const handleLinkClick = () => {
+    if (onCloseMobile) onCloseMobile();
+  };
+
+  const sidebarContent = (
+    <div className="h-full flex flex-col justify-between p-4 select-none">
+      <div className="space-y-5">
+        {/* Mobile Header with close button */}
+        <div className="flex md:hidden items-center justify-between px-2 pb-1 border-b border-white/60">
+          <div className="flex items-center space-x-2">
+            <div className="w-7 h-7 glass-card rounded-xl flex items-center justify-center p-1 bg-white">
+              <img src="/docdril.svg" alt="DocMail" className="w-full h-full object-contain" />
+            </div>
+            <span className="font-bold text-xs text-slate-900">DocMail Navigation</span>
+          </div>
+          {onCloseMobile && (
+            <button
+              onClick={onCloseMobile}
+              className="w-7 h-7 glass-card rounded-full flex items-center justify-center text-slate-500 hover:text-slate-800"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+
         {/* Mail Folders */}
-        <div className="glass-surface p-3 space-y-1">
+        <div className="glass-surface p-3 space-y-1 shadow-sm">
           <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 py-1">
             Mailboxes
           </div>
@@ -54,8 +86,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               return (
                 <button
                   key={f.id}
-                  onClick={() => onSelectFolder(f.id)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs transition-all ${
+                  onClick={() => handleFolderClick(f.id)}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-2xl text-xs transition-all cursor-pointer ${
                     isActive
                       ? 'obsidian-card shadow-lg font-bold'
                       : 'text-slate-700 hover:text-slate-900 hover:bg-white/40 font-medium'
@@ -87,13 +119,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* Business Tools */}
-        <div className="glass-surface p-3 space-y-1">
+        <div className="glass-surface p-3 space-y-1 shadow-sm">
           <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 py-1">
             Ecosystem
           </div>
           <nav className="space-y-1">
             <Link
               href="/contacts"
+              onClick={handleLinkClick}
               className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs transition-all ${
                 pathname === '/contacts'
                   ? 'obsidian-card shadow-lg font-bold'
@@ -106,6 +139,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             <Link
               href="/templates"
+              onClick={handleLinkClick}
               className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-2xl text-xs transition-all ${
                 pathname === '/templates'
                   ? 'obsidian-card shadow-lg font-bold'
@@ -123,6 +157,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="pt-3">
         <Link
           href="/admin"
+          onClick={handleLinkClick}
           className={`flex items-center space-x-3 px-4 py-3 rounded-2xl text-xs transition-all ${
             pathname.startsWith('/admin')
               ? 'obsidian-card shadow-lg font-bold'
@@ -130,9 +165,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
           }`}
         >
           <Shield className="w-4 h-4 text-amber-500" />
-          <span>Hostinger Admin</span>
+          <span>Admin Console</span>
         </Link>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex w-60 flex-col flex-shrink-0">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {isOpenMobile && (
+        <div className="fixed inset-0 z-40 md:hidden flex">
+          {/* Backdrop */}
+          <div
+            onClick={onCloseMobile}
+            className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm transition-opacity"
+          />
+
+          {/* Drawer Panel */}
+          <div className="relative w-72 max-w-[85vw] bg-white/85 backdrop-blur-xl h-full shadow-2xl z-50 flex flex-col border-r border-white/80 animate-in slide-in-from-left duration-200">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
   );
 };

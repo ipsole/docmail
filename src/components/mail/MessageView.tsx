@@ -9,6 +9,7 @@ import {
   Paperclip,
   Sparkles,
   User,
+  ArrowLeft,
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -19,6 +20,7 @@ interface MessageViewProps {
   onToggleAiDrawer: () => void;
   isAiDrawerOpen: boolean;
   onConnectClick: () => void;
+  onBackMobile?: () => void;
 }
 
 export const MessageView: React.FC<MessageViewProps> = ({
@@ -28,6 +30,7 @@ export const MessageView: React.FC<MessageViewProps> = ({
   onToggleAiDrawer,
   isAiDrawerOpen,
   onConnectClick,
+  onBackMobile,
 }) => {
   if (!conversation) {
     return (
@@ -38,7 +41,7 @@ export const MessageView: React.FC<MessageViewProps> = ({
           </div>
           <p className="font-bold text-slate-800 text-sm">Select an Email to Read</p>
           <p className="text-slate-500 text-xs leading-relaxed">
-            All messages are securely synchronized in real time with your Hostinger Mail infrastructure.
+            All messages are securely synchronized in real time with your cloud mail server.
           </p>
         </div>
       </div>
@@ -49,50 +52,61 @@ export const MessageView: React.FC<MessageViewProps> = ({
   const latestMessage = messages[messages.length - 1];
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden p-4 space-y-4">
-      {/* High-Contrast Obsidian Header Card (Directly inspired by "Earth -> Moon" card in reference image) */}
-      <div className="obsidian-card p-5 flex items-center justify-between">
-        <div className="flex items-center space-x-4 overflow-hidden">
-          {/* Glowing Luminous Orb (matches the circular pink dial in reference image) */}
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-pink-300 to-rose-400 p-0.5 shadow-[0_0_16px_rgba(244,114,182,0.6)] flex items-center justify-center flex-shrink-0">
-            <span className="font-extrabold text-white text-base">
+    <div className="flex-1 flex flex-col h-full overflow-hidden p-3 sm:p-4 space-y-3 sm:space-y-4">
+      {/* Mobile Back Button */}
+      {onBackMobile && (
+        <button
+          onClick={onBackMobile}
+          className="md:hidden flex items-center space-x-2 text-xs font-bold text-slate-700 glass-card px-3.5 py-1.5 rounded-full self-start hover:text-slate-900 transition-all cursor-pointer border border-white/80 shadow-sm"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 text-rose-500" />
+          <span>Back to Inbox</span>
+        </button>
+      )}
+
+      {/* High-Contrast Obsidian Header Card */}
+      <div className="obsidian-card p-4 sm:p-5 flex items-center justify-between">
+        <div className="flex items-center space-x-3 sm:space-x-4 overflow-hidden">
+          {/* Glowing Luminous Orb */}
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-pink-300 to-rose-400 p-0.5 shadow-[0_0_16px_rgba(244,114,182,0.6)] flex items-center justify-center flex-shrink-0">
+            <span className="font-extrabold text-white text-sm sm:text-base">
               {(conversation.subject || 'M')[0]?.toUpperCase()}
             </span>
           </div>
 
-          <div>
-            <h1 className="text-base font-bold text-white tracking-tight truncate max-w-md">
+          <div className="overflow-hidden">
+            <h1 className="text-sm sm:text-base font-bold text-white tracking-tight truncate max-w-[200px] sm:max-w-md">
               {conversation.subject || '(No Subject)'}
             </h1>
-            <div className="flex items-center space-x-2 text-xs text-zinc-400 mt-0.5">
+            <div className="flex items-center space-x-2 text-[11px] sm:text-xs text-zinc-400 mt-0.5">
               <span>{messages.length} {messages.length === 1 ? 'Message' : 'Messages'}</span>
               <span>•</span>
-              <span className="text-rose-300 font-medium">Hostinger Verified</span>
+              <span className="text-rose-300 font-medium">Encrypted & Verified</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
           {/* AI Drawer Trigger */}
           <button
             onClick={onToggleAiDrawer}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
               isAiDrawerOpen
                 ? 'bg-rose-500 text-white shadow-[0_0_14px_rgba(244,114,182,0.7)]'
                 : 'bg-white/10 text-zinc-200 hover:bg-white/20 border border-white/10'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-rose-300" />
-            <span>Docdril AI</span>
+            <span className="hidden sm:inline">Docdril AI</span>
           </button>
 
           {latestMessage && (
             <button
               onClick={() => onReply(latestMessage)}
-              className="rose-glow-btn flex items-center space-x-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider cursor-pointer"
+              className="rose-glow-btn flex items-center space-x-1 sm:space-x-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
               <Reply className="w-3.5 h-3.5" />
-              <span>Reply</span>
+              <span className="hidden sm:inline">Reply</span>
             </button>
           )}
         </div>

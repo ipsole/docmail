@@ -75,7 +75,7 @@ export const ConnectMailboxModal: React.FC<ConnectMailboxModalProps> = ({
           </div>
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
-              Connect Your Hostinger Email
+              Connect Your Mail Account
             </h2>
             <p className="text-xs text-slate-500">
               Link your live business mailbox directly into DocMail
@@ -98,7 +98,7 @@ export const ConnectMailboxModal: React.FC<ConnectMailboxModalProps> = ({
                 rel="noreferrer"
                 className="text-rose-600 font-bold underline hover:text-rose-700 inline-flex items-center"
               >
-                Hostinger hPanel <ExternalLink className="w-3 h-3 ml-0.5" />
+                Mail Control Panel <ExternalLink className="w-3 h-3 ml-0.5" />
               </a>
             </li>
             <li>Go to <strong>Emails</strong> &rarr; Select your domain &rarr; <strong>API / Developer</strong></li>
@@ -125,7 +125,7 @@ export const ConnectMailboxModal: React.FC<ConnectMailboxModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-              Hostinger Mail API Bearer Token
+              Mail API Bearer Token
             </label>
             <div className="glass-inset px-4 py-3 rounded-2xl flex items-center focus-within:bg-white/80 transition-all">
               <input

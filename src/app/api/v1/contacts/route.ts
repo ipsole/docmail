@@ -50,3 +50,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const auth = await authenticateRequest(req);
+    if (auth.scopes && !hasScope(auth.scopes, 'contacts:write')) {
+      return NextResponse.json({ success: false, error: 'Forbidden' }, { status: 403 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Contact ID is required' }, { status: 400 });
+    }
+
+    const deleted = await db.deleteContact(id);
+    return NextResponse.json({ success: true, data: { deleted } });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
+}
+

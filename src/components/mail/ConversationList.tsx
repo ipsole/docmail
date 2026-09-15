@@ -23,7 +23,7 @@ export const ConversationList: React.FC<ConversationListProps> = ({
   onConnectClick,
 }) => {
   return (
-    <section aria-label="Conversation list" className="w-80 md:w-96 flex flex-col h-full select-none p-4 space-y-3">
+    <section aria-label="Conversation list" className="w-full md:w-80 lg:w-96 flex flex-col h-full select-none p-3 sm:p-4 space-y-3 flex-shrink-0">
       {/* Header Capsule */}
       <div className="glass-surface px-4 py-3 flex items-center justify-between text-xs text-slate-700 font-bold">
         <div className="flex items-center space-x-2">
@@ -44,7 +44,7 @@ export const ConversationList: React.FC<ConversationListProps> = ({
             <div>
               <p className="text-sm font-bold text-slate-900">No Emails Yet</p>
               <p className="text-xs text-slate-500 mt-1 max-w-[200px] mx-auto leading-relaxed">
-                Connect your live Hostinger email to see your inbox here.
+                Connect your business mail account or wait for live incoming messages.
               </p>
             </div>
             <button
@@ -52,7 +52,7 @@ export const ConversationList: React.FC<ConversationListProps> = ({
               className="rose-glow-btn px-5 py-2.5 text-xs font-bold inline-flex items-center space-x-2 cursor-pointer uppercase tracking-wider"
             >
               <PlusCircle className="w-4 h-4" />
-              <span>Connect Live Email</span>
+              <span>Mail Settings</span>
             </button>
           </div>
         ) : (

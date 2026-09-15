@@ -136,7 +136,7 @@ export const ComposerModal: React.FC<ComposerModalProps> = ({
           <div className="flex items-center space-x-2.5">
             <span className="font-extrabold text-sm text-slate-900 tracking-tight">New Message</span>
             <span className="glass-inset px-2.5 py-0.5 rounded-full text-[10px] font-bold text-rose-600">
-              Hostinger Verified
+              DocMail Secure
             </span>
           </div>
 

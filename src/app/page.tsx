@@ -30,6 +30,10 @@ export default function DocMailDashboard() {
   const [isAiDrawerOpen, setIsAiDrawerOpen] = useState(false);
   const [isRealtimeConnected, setIsRealtimeConnected] = useState(false);
 
+  // Mobile navigation state
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [isMobileDetailView, setIsMobileDetailView] = useState(false);
+
   const [mailboxSyncing, setMailboxSyncing] = useState(false);
 
   // 1. Fetch Connected Mailboxes
@@ -211,14 +215,21 @@ export default function DocMailDashboard() {
         selectedMailboxId={selectedMailboxId}
         onSelectMailbox={setSelectedMailboxId}
         isRealtimeConnected={isRealtimeConnected}
+        onMenuToggle={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+        isMobileSidebarOpen={isMobileSidebarOpen}
       />
 
-      <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Left Sidebar (Desktop Static + Mobile Drawer) */}
         <Sidebar
           currentFolder={currentFolder}
-          onSelectFolder={setCurrentFolder}
+          onSelectFolder={(folder) => {
+            setCurrentFolder(folder);
+            setIsMobileDetailView(false);
+          }}
           unreadCount={totalUnread}
+          isOpenMobile={isMobileSidebarOpen}
+          onCloseMobile={() => setIsMobileSidebarOpen(false)}
         />
 
         {/* Mailboxes Loading State or Main Inbox View */}
@@ -229,32 +240,48 @@ export default function DocMailDashboard() {
                 <img src="/docdril.svg" alt="DocMail" className="w-full h-full object-contain" />
               </div>
               <div>
-                <div className="text-sm font-bold text-slate-900">Synchronizing Hostinger Mailboxes</div>
-                <div className="text-xs text-slate-500 mt-1">Loading team@docdril.com & info@docdril.com...</div>
+                <div className="text-sm font-bold text-slate-900">Updating Mailboxes...</div>
+                <div className="text-xs text-slate-500 mt-1">Connecting to Docdril mail service...</div>
               </div>
             </div>
           </main>
         ) : (
           <>
-            {/* Middle Conversation List */}
-            <ConversationList
-              conversations={conversations}
-              selectedConversationId={selectedConversationId}
-              onSelectConversation={setSelectedConversationId}
-              onToggleStar={handleToggleStar}
-              folderTitle={currentFolder.replace('INBOX.', '')}
-              onConnectClick={() => setIsSettingsModalOpen(true)}
-            />
+            {/* Middle Conversation List (Mobile Master View) */}
+            <div
+              className={`h-full ${
+                isMobileDetailView ? 'hidden md:flex' : 'flex flex-1 md:flex-initial'
+              }`}
+            >
+              <ConversationList
+                conversations={conversations}
+                selectedConversationId={selectedConversationId}
+                onSelectConversation={(id) => {
+                  setSelectedConversationId(id);
+                  setIsMobileDetailView(true);
+                }}
+                onToggleStar={handleToggleStar}
+                folderTitle={currentFolder.replace('INBOX.', '')}
+                onConnectClick={() => setIsSettingsModalOpen(true)}
+              />
+            </div>
 
-            {/* Right Reader Pane */}
-            <MessageView
-              conversation={selectedConversation}
-              onReply={handleReply}
-              onForward={handleForward}
-              onToggleAiDrawer={() => setIsAiDrawerOpen(!isAiDrawerOpen)}
-              isAiDrawerOpen={isAiDrawerOpen}
-              onConnectClick={() => setIsSettingsModalOpen(true)}
-            />
+            {/* Right Reader Pane (Mobile Detail View) */}
+            <div
+              className={`h-full flex-1 ${
+                isMobileDetailView ? 'flex' : 'hidden md:flex'
+              }`}
+            >
+              <MessageView
+                conversation={selectedConversation}
+                onReply={handleReply}
+                onForward={handleForward}
+                onToggleAiDrawer={() => setIsAiDrawerOpen(!isAiDrawerOpen)}
+                isAiDrawerOpen={isAiDrawerOpen}
+                onConnectClick={() => setIsSettingsModalOpen(true)}
+                onBackMobile={() => setIsMobileDetailView(false)}
+              />
+            </div>
 
             {/* AI Assistant Drawer */}
             <AiAssistantPanel

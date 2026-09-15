@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'DocMail — First-Party Communication Platform',
-  description: 'DocMail by Docdril: Modern, tactile business communication powered by Hostinger infrastructure',
+  description: 'DocMail by Docdril: Modern, tactile business communication platform',
   icons: {
     icon: '/docdril.svg',
   },
