@@ -21,7 +21,36 @@ const DB_FILE_PATH = process.env.VERCEL
   : path.resolve(process.cwd(), 'data', 'docmail_db.json');
 
 class DocMailDatabase {
-  mailboxes: DocdrilMailbox[] = [];
+  mailboxes: DocdrilMailbox[] = [
+    {
+      id: 'mbx_ACed584379339f00d742210b2639ac',
+      organizationId: 'org_docdril_primary',
+      providerAccountId: 'ORa836a7b44fa7386d92413b3c668d',
+      provider: 'hostinger',
+      providerMailboxId: 'ACed584379339f00d742210b2639ac',
+      emailAddress: 'team@docdril.com',
+      displayName: 'team',
+      status: 'ACTIVE',
+      quotaBytes: 1048576,
+      usedBytes: 4961,
+      createdAt: '2026-09-15T16:15:20.225Z',
+      updatedAt: '2026-09-15T16:15:20.225Z',
+    },
+    {
+      id: 'mbx_AC0c7922876c89a969088edca71aaf',
+      organizationId: 'org_docdril_primary',
+      providerAccountId: 'ORa836a7b44fa7386d92413b3c668d',
+      provider: 'hostinger',
+      providerMailboxId: 'AC0c7922876c89a969088edca71aaf',
+      emailAddress: 'info@docdril.com',
+      displayName: 'info',
+      status: 'ACTIVE',
+      quotaBytes: 1048576,
+      usedBytes: 3272,
+      createdAt: '2026-09-15T16:15:32.934Z',
+      updatedAt: '2026-09-15T16:15:32.934Z',
+    },
+  ];
   conversations: DocdrilConversation[] = [];
   messages: DocdrilMessage[] = [];
   contacts: DocdrilContact[] = [
@@ -290,14 +319,16 @@ export const db = {
 
   // Conversations
   async listConversations(params: {
-    mailboxId: string;
+    mailboxId?: string;
     folder?: string;
     isStarred?: boolean;
     contactId?: string;
     search?: string;
   }): Promise<DocdrilConversation[]> {
     memoryDb.loadFromDisk();
-    let list = memoryDb.conversations.filter((c) => c.mailboxId === params.mailboxId);
+    let list = params.mailboxId && params.mailboxId !== 'all'
+      ? memoryDb.conversations.filter((c) => c.mailboxId === params.mailboxId)
+      : memoryDb.conversations;
 
     if (params.folder) {
       const folder = params.folder;
@@ -307,7 +338,7 @@ export const db = {
       if (isTrashQuery) {
         // Querying trash: only include conversations that are in trash
         const folderMsgs = memoryDb.messages.filter((m) => {
-          if (m.mailboxId !== params.mailboxId) return false;
+          if (params.mailboxId && params.mailboxId !== 'all' && m.mailboxId !== params.mailboxId) return false;
           const msgFolder = (m.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
           return msgFolder === 'trash';
         });
@@ -317,7 +348,7 @@ export const db = {
         // Querying non-trash: strictly exclude conversations marked as trash
         list = list.filter((c) => !c.isTrash);
         const folderMsgs = memoryDb.messages.filter((m) => {
-          if (m.mailboxId !== params.mailboxId) return false;
+          if (params.mailboxId && params.mailboxId !== 'all' && m.mailboxId !== params.mailboxId) return false;
           const msgFolder = m.providerFolder || 'INBOX';
           const cleanMsgFolder = msgFolder.replace(/^INBOX\./, '').toLowerCase();
           if (cleanFolder === 'inbox' || folder.toLowerCase() === 'inbox') {

@@ -76,6 +76,55 @@ describe('ChatGPT OpenAPI & MCP Server Integration', () => {
     const callData = await callRes.json();
     assert.ok(callData.result.content);
     assert.strictEqual(callData.result.content[0].type, 'text');
+    const mailboxes = JSON.parse(callData.result.content[0].text);
+    assert.ok(Array.isArray(mailboxes));
+    assert.ok(mailboxes.length >= 2, 'MCP should list both team and info mailboxes');
+  });
+
+  it('should support querying conversations across inboxes and by email in MCP', async () => {
+    // 1. Query all inboxes (omit mailboxId)
+    const allReq = new NextRequest('http://localhost:3000/api/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 4,
+        method: 'tools/call',
+        params: {
+          name: 'list_conversations',
+          arguments: {},
+        },
+      }),
+    });
+    const allRes = await postMcp(allReq);
+    const allData = await allRes.json();
+    const conversations = JSON.parse(allData.result.content[0].text);
+    assert.ok(Array.isArray(conversations));
+    // Verify mailboxEmail is attached
+    if (conversations.length > 0) {
+      assert.ok(conversations[0].mailboxEmail, 'Conversation should include mailboxEmail');
+    }
+
+    // 2. Query specific mailbox by email address string
+    const specificReq = new NextRequest('http://localhost:3000/api/v1/mcp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 5,
+        method: 'tools/call',
+        params: {
+          name: 'list_conversations',
+          arguments: {
+            mailboxId: 'team@docdril.com',
+          },
+        },
+      }),
+    });
+    const specificRes = await postMcp(specificReq);
+    const specificData = await specificRes.json();
+    const teamConversations = JSON.parse(specificData.result.content[0].text);
+    assert.ok(Array.isArray(teamConversations));
   });
 
   it('should verify Team Docdril and Docdril signatures exist with no DocMail branding', async () => {
