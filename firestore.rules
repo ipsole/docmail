@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if the authenticated user is an authorized administrator
+    function isAdmin() {
+      return request.auth != null && (
+        // 1. Primary Administrator
+        request.auth.token.email == 'itpiyu@gmail.com' ||
+        
+        // 2. Organization Domain Administrators
+        request.auth.token.email.matches('.*@docdril[.]com$') ||
+        
+        // 3. Dynamic Admin Whitelist (Any email document present in the 'admins' collection)
+        exists(/databases/$(database)/documents/admins/$(request.auth.token.email))
+      );
+    }
+
+    // Admins Collection: Read-only to authenticated users, writeable only by existing admins
+    match /admins/{adminEmail} {
+      allow read: if request.auth != null;
+      allow write: if isAdmin();
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read, write: if isAdmin() || (request.auth != null && request.auth.uid == userId);
+    }
+
+    // Mailboxes Collection: Strictly Administrator Access
+    match /mailboxes/{mailboxId} {
+      allow read, write: if isAdmin();
+
+      // Nested folders or threads
+      match /{subcollection=**} {
+        allow read, write: if isAdmin();
+      }
+    }
+
+    // Threads and Messages Collection
+    match /threads/{threadId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow read, write: if isAdmin();
+    }
+
+    // System Logs and Audit Events: Read-only for admins, creation allowed by admin system
+    match /logs/{logId} {
+      allow read: if isAdmin();
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Audit logs are immutable
+    }
+
+    // Catch-all: Deny all unauthenticated or non-admin access across the entire database
+    match /{document=**} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

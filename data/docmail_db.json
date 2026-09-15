@@ -1,0 +1,2959 @@
+{
+  "mailboxes": [
+    {
+      "id": "mbx_ACed584379339f00d742210b2639ac",
+      "organizationId": "org_docdril_primary",
+      "providerAccountId": "ORa836a7b44fa7386d92413b3c668d",
+      "provider": "hostinger",
+      "providerMailboxId": "ACed584379339f00d742210b2639ac",
+      "emailAddress": "team@docdril.com",
+      "displayName": "team",
+      "status": "ACTIVE",
+      "quotaBytes": 1048576,
+      "usedBytes": 4961,
+      "createdAt": "2026-09-15T16:15:20.225Z",
+      "updatedAt": "2026-09-15T16:15:20.225Z"
+    },
+    {
+      "id": "mbx_AC0c7922876c89a969088edca71aaf",
+      "organizationId": "org_docdril_primary",
+      "providerAccountId": "ORa836a7b44fa7386d92413b3c668d",
+      "provider": "hostinger",
+      "providerMailboxId": "AC0c7922876c89a969088edca71aaf",
+      "emailAddress": "info@docdril.com",
+      "displayName": "info",
+      "status": "ACTIVE",
+      "quotaBytes": 1048576,
+      "usedBytes": 3272,
+      "createdAt": "2026-09-15T16:15:32.934Z",
+      "updatedAt": "2026-09-15T16:15:32.934Z"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_85",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T16:21:57Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_2",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Ghyu",
+      "snippet": "Ghyu",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-06-21T17:00:49Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_3",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "tester",
+      "snippet": "tester",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-06-22T05:56:12Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_4",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Cat",
+      "snippet": "Cat",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-06-30T15:01:40Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_5",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Re: testing message sent work",
+      "snippet": "Re: testing message sent work",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-14T06:41:06Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_6",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Re: Kindly Refund of Remaining Advance Payment",
+      "snippet": "Re: Kindly Refund of Remaining Advance Payment",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T08:40:53Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_7",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Project Review Outcome & Refund Eligibility (Reference ID: DR-20260716-041)",
+      "snippet": "Project Review Outcome & Refund Eligibility (Reference ID: DR-20260716-041)",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-17T03:26:03Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_8",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-21T09:56:24Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_9",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-21T10:44:38Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_10",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Re: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "Re: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-26T13:37:39Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_11",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Why Automation Is Essential for Modern Business",
+      "snippet": "Why Automation Is Essential for Modern Business",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T16:53:31Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_1",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Checking",
+      "snippet": "Checking",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-05-06T01:34:42Z"
+    },
+    {
+      "id": "cnv_test_flag_toggle",
+      "mailboxId": "mbx_test_mailbox",
+      "subject": "Flag Toggle Test",
+      "snippet": "Testing flags",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T16:07:11.845Z"
+    },
+    {
+      "id": "cnv_1789488431841_rvkb6",
+      "mailboxId": "mbx_test_mailbox",
+      "subject": "Docdril Clinical Suite Demo Confirmation",
+      "snippet": "Looking forward to our demo session on Friday at 2pm.",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T16:07:11.841Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_18",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Add focus areas to your profile",
+      "snippet": "Add focus areas to your profile",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-06T04:30:07Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_19",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "High-Quality Backlink Opportunities for Your SEO Strategy",
+      "snippet": "High-Quality Backlink Opportunities for Your SEO Strategy",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-06T09:28:31Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_20",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Verify Your Business on Clutch",
+      "snippet": "Verify Your Business on Clutch",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-09T04:30:06Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_21",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "What sets Clutch apart? ",
+      "snippet": "What sets Clutch apart? ",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-13T04:30:07Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_22",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "(No Subject)",
+      "snippet": "(No Subject)",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-13T15:52:36Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_23",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "testing message sent work",
+      "snippet": "testing message sent work",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-14T06:36:54Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_24",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Take this one step to increase buyer trust",
+      "snippet": "Take this one step to increase buyer trust",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T04:30:25Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_25",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Kindly Refund of Remaining Advance Payment",
+      "snippet": "Kindly Refund of Remaining Advance Payment",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T06:04:25Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_26",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_27",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_28",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_29",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_30",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "The key to review success for Docdril",
+      "snippet": "The key to review success for Docdril",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-20T04:30:08Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_31",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "(No Subject)",
+      "snippet": "(No Subject)",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-22T13:42:56Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_32",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Update to the Clutch ranking methodology",
+      "snippet": "Update to the Clutch ranking methodology",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-23T02:30:41Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_33",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Get Priority Visibility with Clutch Verified",
+      "snippet": "Get Priority Visibility with Clutch Verified",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-23T04:30:06Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_34",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Your Duns Tracking No.DR072720263037060513",
+      "snippet": "Your Duns Tracking No.DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-26T23:43:11Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_35",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "[Action Needed] Add key information to your Clutch profile",
+      "snippet": "[Action Needed] Add key information to your Clutch profile",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-27T04:30:10Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_36",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Your Duns Tracking No DR072720263037060513 -Assigned Relationship Manager",
+      "snippet": "Your Duns Tracking No DR072720263037060513 -Assigned Relationship Manager",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-30T04:39:12Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_37",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "docdril emails",
+      "snippet": "docdril emails",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-04T18:31:00Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_38",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "docdril emails",
+      "snippet": "docdril emails",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-07T13:03:13Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_39",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-21T03:26:16Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_40",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Confirmation of your D-U-N-S Number request at www.DNB.co.in from 8/21/2026 3:20:16 PM ==> : DR072720263037060513",
+      "snippet": "Confirmation of your D-U-N-S Number request at www.DNB.co.in from 8/21/2026 3:20:16 PM ==> : DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-21T09:50:18Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_41",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Undeliverable: Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Undeliverable: Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-21T09:56:33Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_42",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: c609a2d713004a5bbb0ab92ff7df4429",
+      "snippet": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: c609a2d713004a5bbb0ab92ff7df4429",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-23T02:05:29Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_43",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-24T05:25:11Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_44",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "RE: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "RE: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-26T16:30:28Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_45",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: 530feef57611407291b4d54f2df98f2b",
+      "snippet": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: 530feef57611407291b4d54f2df98f2b",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-28T02:06:33Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_46",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "Ai cinematic videos x Docdril™",
+      "snippet": "Ai cinematic videos x Docdril™",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-28T03:00:12Z"
+    },
+    {
+      "id": "cnv_AC0c7922876c89a969088edca71aaf_48",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "subject": "D-U-N-S Number has been generated on 9/3/2026 9:14:25 AM ==> : DR072720263037060513",
+      "snippet": "D-U-N-S Number has been generated on 9/3/2026 9:14:25 AM ==> : DR072720263037060513",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-03T03:44:26Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_55",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "New: Lower GPT-5.6 pricing and Fast mode for Sol",
+      "snippet": "New: Lower GPT-5.6 pricing and Fast mode for Sol",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-31T00:21:47Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_56",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Controversial: Bad reviews are good?",
+      "snippet": "Controversial: Bad reviews are good?",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-07-31T20:00:25Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_57",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-06T23:38:49Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_58",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-06T23:47:07Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_59",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your job, Sales And Marketing Specialist, is active!",
+      "snippet": "Your job, Sales And Marketing Specialist, is active!",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-07T12:03:47Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_60",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "[Task Update] Email Monitor: Email access unavailable monitor disabled",
+      "snippet": "[Task Update] Email Monitor: Email access unavailable monitor disabled",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-08T02:32:40Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_61",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-08T08:48:48Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_62",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You have 12 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "You have 12 new applicants for your job: Sales And Marketing Specialist",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-08T13:16:29Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_63",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Piyush, your job post has been paused",
+      "snippet": "Piyush, your job post has been paused",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-08T18:17:38Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_64",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "27% increase in online sales revenue with Trustpilot",
+      "snippet": "27% increase in online sales revenue with Trustpilot",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-09T07:00:38Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_65",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You have 4 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "You have 4 new applicants for your job: Sales And Marketing Specialist",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-09T12:47:41Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_66",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Level up your docs with visuals",
+      "snippet": "Level up your docs with visuals",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-12T07:12:16Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_67",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": ", you're on a design hot streak 🔥",
+      "snippet": ", you're on a design hot streak 🔥",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-15T07:36:36Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_68",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Did you know 55% of consumers prefer open platforms?",
+      "snippet": "Did you know 55% of consumers prefer open platforms?",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-17T13:00:23Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_69",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Attract and keep customers with Trustpilot",
+      "snippet": "Attract and keep customers with Trustpilot",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-25T23:00:14Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_70",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Celebrating one million nonprofits with you 💙",
+      "snippet": "Celebrating one million nonprofits with you 💙",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-08-27T08:08:07Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_71",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Applications Open: Builders Pitch Fest 2026",
+      "snippet": "Applications Open: Builders Pitch Fest 2026",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-01T07:32:08Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_72",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Builders Pitch Fest 2026: Live Grand Finale in Mumbai 🚀",
+      "snippet": "Builders Pitch Fest 2026: Live Grand Finale in Mumbai 🚀",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-02T14:24:42Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_73",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "You're invited: Builders Pitch Fest",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-03T08:42:24Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_74",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Piyush, you qualify for Trustpilot's free plan!",
+      "snippet": "Piyush, you qualify for Trustpilot's free plan!",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-03T14:02:54Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_75",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "You're invited: Builders Pitch Fest",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-04T11:45:57Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_76",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "You're invited: Builders Pitch Fest",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-05T12:22:20Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_77",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your job, Sales And Marketing Specialist, has been closed",
+      "snippet": "Your job, Sales And Marketing Specialist, has been closed",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-06T12:04:05Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_78",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-09T10:20:43Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_79",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-09T11:40:03Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_80",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Your job, Sales And Marketing Specialist, is active!",
+      "snippet": "Your job, Sales And Marketing Specialist, is active!",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-12T14:08:26Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_81",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Piyush, your job post has been paused",
+      "snippet": "Piyush, your job post has been paused",
+      "unreadCount": 1,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-13T11:14:14Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_82",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "You have 29 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "You have 29 new applicants for your job: Sales And Marketing Specialist",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-13T12:39:22Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_83",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "IIM Ranchi || Docdril || Invitation to Summer and Final Placements 2026-27",
+      "snippet": "IIM Ranchi || Docdril || Invitation to Summer and Final Placements 2026-27",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T04:18:35Z"
+    },
+    {
+      "id": "cnv_ACed584379339f00d742210b2639ac_84",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "ddfdfd",
+      "snippet": "ddfdfd",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T04:58:16Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_84",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_84",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "84",
+      "providerFolder": "INBOX",
+      "senderEmail": "manasvikaur004@gmail.com",
+      "senderName": "Manasvi Kaur",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "privacy@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "ddfdfd",
+      "snippet": "dfdfdfd\r\n",
+      "bodyText": "dfdfdfd\r\n",
+      "bodyHtml": "<div dir=\"ltr\">dfdfdfd<div><br></div></div>\r\n",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-15T04:58:16Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_83",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_83",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "83",
+      "providerFolder": "INBOX",
+      "senderEmail": "alok.kumari23@iimranchi.ac.in",
+      "senderName": "ALOK KUMAR",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "IIM Ranchi || Docdril || Invitation to Summer and Final Placements 2026-27",
+      "snippet": "Dear *Piyush* *Sir,*\r\n\r\n\r\nGreetings from the Indian Institute of Management, Ranchi!\r\n\r\n\r\nI, *Alok Kumar*, am reaching out on behalf of the ",
+      "bodyText": "Dear *Piyush* *Sir,*\r\n\r\n\r\nGreetings from the Indian Institute of Management, Ranchi!\r\n\r\n\r\nI, *Alok Kumar*, am reaching out on behalf of the Corporate\r\nRelations and Placement Committee of *IIM Ran**chi.*\r\n\r\nIt is with great pleasure and excitement that we extend an invitation to\r\n*Docdril* to engage with us through a range of campus activities,\r\nincluding *Leadership\r\nTalks*, *Live Projects* and participation in the *Summer Internship* and *Final\r\nPlacement drive* for the academic year *2026-27*, starting in *August 2026*.\r\n\r\nBacked by a distinguished *16+ years* legacy of academic rigour and\r\nindustry engagement, IIM Ranchi offers flagship programs in *MBA, MBA-HR,\r\nand MBA-Business Analytics*. Ranked *18th among all B-schools in India\r\n*and *10th\r\namong IIMs* in the *NIRF 2025 rankings*, the institute is dedicated to\r\nnurturing innovative, responsible leaders equipped to excel in today’s\r\nrapidly evolving global landscape.\r\n\r\n*Please find below key* *insights into IIM Ranchi's three **distinguished*\r\n*programs:*\r\n[image: Flagship Program.png]\r\n\r\n*The following are some of the campus engagement avenues at IIM Ranchi:  *\r\n\r\n[image: Campus Engagement Avenues (2).png]\r\n\r\nSome of the prominent associations of IIM Ranchi are as follows:\r\n[image: Prominent Associates.png]\r\n\r\nTo provide a comprehensive overview of our placement performance and\r\nrecruiter engagements, please find our *audited* *Final Placement Report\r\n(2025-26)*\r\n<https://iimranchi.ac.in/media/2024/01/Audited-Final-Placement-Report-2025-26-compressed.pdf>\r\n and *Summer Internship Report (2025-26)*\r\n<https://iimranchi.ac.in/media/2026/06/IIM-Ranchi-Summer-Internship-Placement-Report-2025-2026.pdf>\r\n, offering additional insights into our placement ecosystem and corporate\r\npartnerships.\r\n\r\nOur *Placement Season 2026-27* is tentatively scheduled to commence in *August\r\n2026*. However, depending on your hiring requirements and role\r\nspecifications, we would be happy to explore suitable avenues of engagement\r\nand accommodate accordingly.\r\n\r\nWe are highly enthusiastic about establishing a long-term, mutually\r\nbeneficial association with *Docdril*. Should this be of interest, we would\r\nbe delighted to connect at a time that is convenient for you to discuss\r\npotential collaboration opportunities further.\r\n\r\nPlease let me know if you need any further details. I will be more than\r\nhappy to coordinate with you.\r\nLooking forward to your positive response!\r\n\r\n*Thanks and Regards,*\r\n\r\n\r\n*Alok Kumar*\r\nExecutive Member\r\n\r\nCorporate Relations & Placement Committee\r\nMBA, Class of 2026-28\r\n\r\n*Indian Institute of Management** Ranchi*\r\n\r\n\r\n\r\nMobile: +91 9508777627 <+91%2095087%2077627>\r\n\r\n*Email <alok.kumari23@iimranchi.ac.in>** | **LinkedIn\r\n<http://linkedin.com/in/alok-kumar0607>** | **IIM Ranchi Website\r\n<https://iimranchi.ac.in/>*\r\n\r\n*Celebrating 16 Years of Excellence in Management Education*\r\n\r\n\r\n*Thanks and Regards,*\r\n\r\n\r\n*Alok Kumar*\r\nExecutive Member\r\n\r\nCorporate Relations & Placement Committee\r\nMBA, Class of 2026-28\r\n\r\n*Indian Institute of Management** Ranchi*\r\n\r\n\r\n\r\nMobile: +91 9508777627\r\n\r\n*Email <alok.kumari23@iimranchi.ac.in>** | **LinkedIn\r\n<http://linkedin.com/in/alok-kumar0607>** | **IIM Ranchi Website\r\n<https://iimranchi.ac.in/>*\r\n\r\n*Celebrating 16 Years of Excellence in Management Education*\r\n",
+      "bodyHtml": "<div dir=\"auto\"><div dir=\"ltr\"><div dir=\"ltr\"><div><div><div><font face=\"arial, sans-serif\"><font color=\"#000000\">Dear<b> </b></font></font><span style=\"background-color:transparent;color:rgb(0,0,0)\"><b>Piyush</b> </span><b style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);border-color:rgb(0,0,0)\">Sir,</b></div></div><div><div dir=\"ltr\"><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><b style=\"color:rgb(0,0,0)\"><font face=\"arial, sans-serif\"><br></font></b></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><font face=\"arial, sans-serif\"><span style=\"font-style:italic;font-weight:700\"><font color=\"#6aa84f\">Greetings from the Indian Institute of Management, Ranchi!</font></span><br></font></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><span style=\"font-style:italic;font-weight:700;color:rgb(147,196,125)\"><font face=\"arial, sans-serif\"><br></font></span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt\"><span style=\"color:rgb(0,0,0);font-family:arial,sans-serif;background-color:transparent;vertical-align:baseline\">I, <b>Alok Kumar</b></span><span style=\"color:rgb(0,0,0);font-family:arial,sans-serif;background-color:transparent\">, am reaching out on behalf of the Corporate Relations and Placement Committee of <b>IIM Ran</b></span><b style=\"color:rgb(0,0,0);font-family:arial,sans-serif\">chi.</b></p><p><span style=\"line-height:14.95px\"><span style=\"background-color:transparent\">It is with great pleasure and excitement that we extend an invitation</span><font face=\"arial, sans-serif\"> to</font> <b>Docdril</b> <font face=\"arial, sans-serif\">to engage with us through a range of campus activities, including <b>Leadership Talks</b>, <b>Live Projects</b> and participation in the <b>Summer Internship</b> and <b>Final Placement drive</b> for the academic year <b>2026-27</b>, starting in <b>August 2026</b>.</font></span></p><p><font face=\"arial, sans-serif\"><span style=\"background-color:transparent\">Backed by a distinguished </span><b style=\"background-color:transparent\">16+ years</b><span style=\"background-color:transparent\"> legacy of academic rigour and industry engagement, IIM Ranchi offers flagship programs in </span><b style=\"background-color:transparent\">MBA, MBA-HR, and MBA-Business Analytics</b><span style=\"background-color:transparent\">. Ranked </span><b style=\"background-color:transparent\">18th among all B-schools in India </b><span style=\"background-color:transparent\">and </span><b style=\"background-color:transparent\">10th among IIMs</b><span style=\"background-color:transparent\"> in the </span><b style=\"background-color:transparent\">NIRF 2025 rankings</b><span style=\"background-color:transparent\">, the institute is dedicated to nurturing innovative, responsible leaders equipped to excel in today’s rapidly evolving global landscape.</span></font></p><p><font face=\"arial, sans-serif\"><b style=\"background-color:transparent;color:rgb(0,0,0)\">Please find below key</b><span style=\"background-color:transparent;color:rgb(0,0,0)\"> </span><b style=\"background-color:transparent;color:rgb(0,0,0)\">insights into IIM Ranchi&#39;s three </b><b style=\"background-color:transparent;color:rgb(0,0,0)\">distinguished</b><span style=\"background-color:transparent;color:rgb(0,0,0)\"> </span><b style=\"background-color:transparent;color:rgb(0,0,0)\">programs:</b></font></p><font face=\"arial, sans-serif\"><span style=\"background-color:transparent\"></span></font></div><div dir=\"ltr\"><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span><img src=\"cid:ii_1a042d978fb727e67471\" alt=\"Flagship Program.png\" width=\"507\" height=\"171\" style=\"outline:0px\"><span style=\"background-color:transparent\"></span><br><font face=\"arial, sans-serif\"><span style=\"background-color:transparent\"></span></font></div><div dir=\"ltr\"><b style=\"background-color:transparent\"><font color=\"#000000\" face=\"arial, sans-serif\"><br></font></b></div><div dir=\"ltr\"><b style=\"background-color:transparent\"><font color=\"#000000\" face=\"arial, sans-serif\">The following are some of the campus engagement avenues at IIM Ranchi:  </font></b></div><div dir=\"ltr\"><b style=\"background-color:transparent\"><font color=\"#000000\" face=\"arial, sans-serif\"><br></font></b></div><div dir=\"ltr\"><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span><img src=\"cid:ii_1a042d978fccadc305f2\" alt=\"Campus Engagement Avenues (2).png\" width=\"507\" height=\"149\" style=\"outline:0px\"><span style=\"background-color:transparent\"></span><br><font face=\"arial, sans-serif\"><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span></font></div><div dir=\"ltr\"><p><font face=\"arial, sans-serif\"><span style=\"color:rgb(0,0,0);font-weight:700;vertical-align:baseline\">Some</span><span style=\"color:rgb(0,0,0);font-weight:700;vertical-align:baseline\"> of the prominent associations of IIM Ranchi are as follows:</span></font></p><font face=\"arial, sans-serif\"></font></div><div dir=\"ltr\"><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span><span style=\"background-color:transparent\"></span><img src=\"cid:ii_1a042d978fc565c5b2a3\" alt=\"Prominent Associates.png\" width=\"507\" height=\"286\" style=\"outline:0px\"><span style=\"background-color:transparent\"></span><br></div><div dir=\"ltr\"><span style=\"background-color:transparent\"><font face=\"arial, sans-serif\"><br></font></span></div><div dir=\"ltr\"><font face=\"arial, sans-serif\"><span style=\"background-color:transparent\">To provide a comprehensive overview of our placement performance and recruiter engagements</span><span style=\"background-color:transparent\">, please find our </span><span style=\"background-color:transparent\"><b>audited</b> </span><a href=\"https://iimranchi.ac.in/media/2024/01/Audited-Final-Placement-Report-2025-26-compressed.pdf\" rel=\"noreferrer noreferrer\" style=\"background-color:transparent\" target=\"_blank\"><b>Final Placement Report (2025-26)</b></a><span style=\"background-color:transparent\"> and </span><span style=\"background-color:transparent\"><a href=\"https://iimranchi.ac.in/media/2026/06/IIM-Ranchi-Summer-Internship-Placement-Report-2025-2026.pdf\" rel=\"noreferrer noreferrer\" target=\"_blank\"><b>Summer Internship Report (2025-26)</b></a>,</span><span style=\"background-color:transparent\"> </span><span style=\"background-color:transparent\">offering additional insights into our placement ecosystem and corporate partnerships.</span></font><p><font face=\"arial, sans-serif\">Our <b>Placement Season 2026-27</b> is tentatively scheduled to commence in <b>August 2026</b>. However, depending on your hiring requirements and role specifications, we would be happy to explore suitable avenues of engagement and accommodate accordingly.</font></p><p><span style=\"background-color:transparent;font-family:arial,sans-serif\">We are highly enthusiastic about establishing a long-term, mutually beneficial association with</span> <b>Docdril</b><span style=\"background-color:transparent;font-family:arial,sans-serif\">. Should this be of interest, we would be delighted to connect at a time that is convenient for you to discuss potential collaboration opportunities further.</span>    </p><p><font face=\"arial, sans-serif\">Please let me know if you need any further details. I will be more than happy to coordinate with you.</font></p></div></div><div><span style=\"font-family:arial,sans-serif\">Looking forward to your positive response!<br><br></span></div><b style=\"background-color:rgba(0,0,0,0);font-family:arial,sans-serif;color:rgb(0,0,0)\"><i>Thanks and Regards,</i></b></div><div><div dir=\"ltr\"><div dir=\"ltr\"><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><b><br>Alok Kumar</b><br>Executive Member</span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Corporate Relations &amp; Placement Committee<br></span><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">MBA, Class of 2026-28</span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Indian Institute of Management</span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"> <span style=\"background-color:rgba(0,0,0,0);border-color:rgb(56,118,29);color:rgb(56,118,29)\">Ranchi</span></span></b><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u> <u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Mobile: <a href=\"tel:+91%2095087%2077627\" value=\"+919508777627\" target=\"_blank\" rel=\"noreferrer\">+91 9508777627</a></span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><font color=\"#0000ff\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"mailto:alok.kumari23@iimranchi.ac.in\" rel=\"noreferrer noreferrer\" style=\"background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">Email</a></span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(136,136,136)\"> | </span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"http://linkedin.com/in/alok-kumar0607\" rel=\"noreferrer noreferrer\" style=\"background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">LinkedIn</a></span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(136,136,136)\"> | </span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"https://iimranchi.ac.in/\" rel=\"noreferrer noreferrer\" style=\"background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">IIM Ranchi Website</a></span></b></font><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><i style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(56,118,29);color:rgb(56,118,29)\">Celebrating 16 Years of Excellence in Management Education</span></i></b></p></div></div></div></div>\r\n</div>\r\n\r\n<br><br><div data-smartmail=\"gmail_signature\"><div dir=\"ltr\"><div style=\"color:rgb(34,34,34)\"><div><b style=\"background-color:rgba(0,0,0,0);font-family:arial,sans-serif;color:rgb(0,0,0)\"><i>Thanks and Regards,</i></b></div></div><div style=\"color:rgb(34,34,34)\"><div dir=\"ltr\"><div dir=\"ltr\"><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><b><br>Alok Kumar</b><br>Executive Member</span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Corporate Relations &amp; Placement Committee<br></span><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">MBA, Class of 2026-28</span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Indian Institute of Management</span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"> <span style=\"background-color:rgba(0,0,0,0);border-color:rgb(56,118,29);color:rgb(56,118,29)\">Ranchi</span></span></b><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u> <u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\">Mobile: +91 9508777627</span><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><font color=\"#0000ff\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"mailto:alok.kumari23@iimranchi.ac.in\" style=\"color:rgb(17,85,204);background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">Email</a></span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(136,136,136)\"> | </span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"http://linkedin.com/in/alok-kumar0607\" style=\"color:rgb(17,85,204);background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">LinkedIn</a></span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(136,136,136)\"> | </span></b><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:arial,sans-serif;background-color:rgba(0,0,0,0);border-color:rgb(80,0,80)\"><a href=\"https://iimranchi.ac.in/\" style=\"color:rgb(17,85,204);background-color:rgba(0,0,0,0);border-color:rgb(66,133,244)\" target=\"_blank\">IIM Ranchi Website</a></span></b></font><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u><u style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"></u></p><p style=\"background-color:rgba(0,0,0,0);color:rgb(0,0,0);margin:0cm;border-color:rgb(0,0,0)\"><b style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><i style=\"background-color:rgba(0,0,0,0);border-color:rgb(0,0,0)\"><span style=\"font-family:roboto;background-color:rgba(0,0,0,0);border-color:rgb(56,118,29);color:rgb(56,118,29)\">Celebrating 16 Years of Excellence in Management Education</span></i></b></p></div></div></div></div></div></div>\r\n",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": true,
+      "receivedAt": "2026-09-15T04:18:35Z",
+      "attachments": [
+        {
+          "id": "YXR0YWNobWVudDpJTkJPWDo4Mzoy",
+          "filename": "Flagship Program.png",
+          "contentType": "image/png",
+          "sizeBytes": 530620
+        },
+        {
+          "id": "YXR0YWNobWVudDpJTkJPWDo4Mzoz",
+          "filename": "Prominent Associates.png",
+          "contentType": "image/png",
+          "sizeBytes": 528166
+        },
+        {
+          "id": "YXR0YWNobWVudDpJTkJPWDo4Mzo0",
+          "filename": "Campus Engagement Avenues (2).png",
+          "contentType": "image/png",
+          "sizeBytes": 174846
+        }
+      ]
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_82",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_82",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "82",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "You have 29 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "Your job has 29 new applicants\r\nSales And Marketing Specialist at Docdril™ · Mumbai\r\nView all applicants\r\nhttps://www.linkedin.com/hiring/jo",
+      "bodyText": "Your job has 29 new applicants\r\nSales And Marketing Specialist at Docdril™ · Mumbai\r\nView all applicants\r\nhttps://www.linkedin.com/hiring/jobs/4464705362/applicants/?sort_by=APPLIED_DATE&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=view-applicants-cta-top-text&li=0&t=plh  \r\n\r\nArchies Meshram \r\nB2B || SAAS\r\nMumbai, Maharashtra, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192644754/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nAnushua Bag \r\nGenerated $1M+ in ARR across SaaS and e-commerce partnerships\r\nPune District, Maharashtra, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192608796/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nHarshil Thakkar \r\nB2B Digital Marketing | Lead Generation\r\nVadodara, Gujarat, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192468969/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nShivam T \r\nContact - 8077254765\r\n\r\nLead Sales Associate at Proton.ai Seeking Remote / WFH Roles Only\r\n( Presales/ Inside Sales / Customer Success )\r\nMeerut, Uttar Pradesh, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192475225/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nParjanaya Trivedi \r\nAssistant Professor at Invertis University\r\nPatna, Bihar, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39190967782/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nNida Parkar \r\nAcademic Counselor | Sr Marketing Associate |  Sales specialist\r\nNavi Mumbai, Maharashtra, India\r\n              https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192402745/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=applicant-profile-text&li=0&t=plh  \r\n\r\nView all applicants\r\nhttps://www.linkedin.com/hiring/jobs/4464705362/applicants/?sort_by=APPLIED_DATE&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=email-new-applicant-summary-main-module&ts=view-applicants-cta-bottom-text&li=0&t=plh  \r\n\r\nLooking for more qualified applicants?\r\nGet 3x more qualified applicants when you promotehttps://www.linkedin.com/job-posting/form/budget?jobId=4464705362&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&ek=email_online_jobs_new_applicant_summary_01&e=6p63h2-mtzswiop-et&eid=6p63h2-mtzswiop-et&m=promote-job-text&ts=promote-job-text&li=0&t=plh  \r\n  \r\n\r\n----------------------------------------\r\n\r\nThis email was intended for team@docdril.com\r\nLearn why we included this: https://www.linkedin.com/help/linkedin/answer/4788?lang=en&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&trk=eml-email_online_jobs_new_applicant_summary_01-SecurityHelp-0-textfooterglimmer&trkEmail=eml-email_online_jobs_new_applicant_summary_01-SecurityHelp-0-textfooterglimmer-null-6p63h2~mtzswiop~et-null-null&eid=6p63h2-mtzswiop-et\r\nYou are receiving Job Applicant emails.\r\n\r\n\r\nUnsubscribe: https://www.linkedin.com/comm/mypreferences/u/emailunsub?action=updateEmailSubscription&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&trk=eml-email_online_jobs_new_applicant_summary_01-unsubscribe-0-textfooterglimmer&trkEmail=eml-email_online_jobs_new_applicant_summary_01-unsubscribe-0-textfooterglimmer-null-6p63h2~mtzswiop~et-null-null&eid=6p63h2-mtzswiop-et&loid=AQF6TBFYb36UkwAAAaCax4RNllxAA6020B7kRvpzWaflQnC3yPFoG2-RA5BGnMN4N4BRh6k-0jh3lRDxuaoIG2qDxxrcmF53bX6UBznuqA\r\nHelp: https://www.linkedin.com/help/linkedin/answer/67?lang=en&lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&midToken=AQFmrFVhGEd36Q&midSig=2AoQYnHr4n2Ys1&trk=eml-email_online_jobs_new_applicant_summary_01-help-0-textfooterglimmer&trkEmail=eml-email_online_jobs_new_applicant_summary_01-help-0-textfooterglimmer-null-6p63h2~mtzswiop~et-null-null&eid=6p63h2-mtzswiop-et\r\n\r\n© 2026 LinkedIn Corporation, 1zwnj000 West Maude Avenue, Sunnyvale, CA 94085.\r\nLinkedIn and the LinkedIn logo are registered trademarks of LinkedIn.",
+      "bodyHtml": "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"> <head> <meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\"> <meta name=\"HandheldFriendly\" content=\"true\"> <meta name=\"viewport\" content=\"width=device-width; initial-scale=0.666667; user-scalable=0\"> <meta name=\"viewport\" content=\"width=device-width\"> <title></title> <style>\r\n              @media (max-width: 512px) { .mercado-container { width: 100% !important; } }\r\n            </style> <style>\r\n            @media (max-width: 480px) { .inline-button, .inline-button table { display: none !important; }\r\n            .full-width-button, .full-width-button table { display: table !important; } } @media (max-width: 320px) {\r\n            .games-notification-badge { display: none !important; } }\r\n          </style> <style>body {font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',\r\n            'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji',\r\n            'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;}</style> <!--[if mso]><style type=\"text/css\"> </style><![endif]--> <!--[if IE]><style type=\"text/css\"> </style><![endif]--> </head> <body dir=\"ltr\" class=\"font-sans bg-color-background-canvas w-full m-0 p-0 pt-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; margin: 0px; width: 100%; background-color: #f3f2f0; padding: 0px; padding-top: 8px; font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;\"> <div class=\"h-0 opacity-0 text-transparent invisible overflow-hidden w-0 max-h-[0]\" style=\"visibility: hidden; height: 0px; max-height: 0; width: 0px; overflow: hidden; opacity: 0; mso-hide: all;\" data-email-preheader=\"true\">Your job has 29 new applicants</div> <div class=\"h-0 opacity-0 text-transparent invisible overflow-hidden w-0 max-h-[0]\" style=\"visibility: hidden; height: 0px; max-height: 0; width: 0px; overflow: hidden; opacity: 0; mso-hide: all;\"> ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏ ͏  </div> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"512\" align=\"center\" class=\"mercado-container w-[512px] max-w-[512px] mx-auto my-0 p-0 \" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin-left: auto; margin-right: auto; margin-top: 0px; margin-bottom: 0px; width: 512px; max-width: 512px; padding: 0px;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"bg-color-background-container \" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;\"> <tbody> <tr> <td class=\"text-center p-3\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 24px; text-align: center;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"min-w-full\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%;\"> <tbody> <tr> <td align=\"left\" valign=\"middle\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <a href=\"https://www.linkedin.com/comm/feed/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-header-0-home_glimmer&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-header-0-home_glimmer-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" class=\"w-[84px]\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; width: 84px;\"> <img alt=\"LinkedIn\" src=\"https://static.licdn.com/aero-v1/sc/h/9ehe6n39fa07dc5edzv0rla4e\" class=\"h-[21px] w-[84px]\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; height: 21px; width: 84px;\" width=\"84\" height=\"21\"> </a> </td> <td valign=\"middle\" align=\"right\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" data-test-header-profile style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td align=\"right\" valign=\"middle\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"no-underline text-system-gray-90\" style=\"color: #282828; text-decoration-line: none;\">team@docdril.com</span> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class=\"new-applicant-summary-body px-0 pb-3\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 0px; padding-right: 0px; padding-bottom: 0;\"> <div> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"text-center py-2 px-3\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; text-align: center;\"> <p class=\"leading-[1.25] text-display-sm font-bold mb-0.5\" style=\"margin: 0; margin-bottom: 4px; font-size: 24px; font-weight: 600; line-height: 1.25;\"> Your job has 29 new applicants </p> <p class=\"leading-[1.25] text-md font-normal mb-2\" style=\"margin: 0; margin-bottom: 16px; font-size: 16px; font-weight: 400; line-height: 1.25;\"> Sales And Marketing Specialist at Docdril™ · Mumbai </p> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"email-button \" data-test-id=\"email-button\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td valign=\"middle\" align=\"middle\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <a href=\"https://www.linkedin.com/comm/hiring/jobs/4464705362/applicants/?sort_by=APPLIED_DATE&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-null-0-null&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-null-0-null-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" aria-label=\"View all applicants\" class=\"align-top no-underline \" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; vertical-align: top; text-decoration-line: none;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" class=\"border-separate \" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: separate;\"> <tbody> <tr> <td class=\"btn-md btn-primary border-color-brand button-link leading-regular !min-h-[auto] !shadow-none border-1 border-solid\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; height: min-content; border-radius: 24px; padding-top: 12px; padding-bottom: 12px; padding-left: 24px; padding-right: 24px; text-align: center; font-size: 16px; font-weight: 600; cursor: pointer; text-decoration-line: none; background-color: #0a66c2; color: #ffffff; border-width: 1px; border-style: solid; border-color: #0a66c2; line-height: 1.25; min-height: auto !important; box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000 !important;\"> <a href=\"https://www.linkedin.com/comm/hiring/jobs/4464705362/applicants/?sort_by=APPLIED_DATE&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-null-0-null&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-null-0-null-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" tabindex=\"-1\" aria-hidden=\"true\" class=\"no-underline\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration-line: none;\"> <span class=\"no-underline text-white\" style=\"color: #ffffff; text-decoration-line: none;\"> View all applicants </span> </a> </td> </tr> </tbody> </table> </a> </td> </tr> </tbody> </table> </td> </tr> <tr> <td class=\"px-3 py-2\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;\"> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192644754/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://static.licdn.com/aero-v1/sc/h/4eby4moebno1i6r34if7lud8o\" alt=\"Archies Meshram profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Archies Meshram </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> B2B || SAAS </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Mumbai, Maharashtra, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192608796/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://media.licdn.com/dms/image/v2/C4E03AQEB5ORIre81eg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1623857542075?e=2147483647&amp;v=beta&amp;t=l2rD5wtaBFP0Xid7IZE-SK87waqcxC-3QPQT7UWYEQI\" alt=\"Anushua Bag profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Anushua Bag </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> Generated $1M+ in ARR across SaaS and e-commerce partnerships </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Pune District, Maharashtra, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192468969/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://media.licdn.com/dms/image/v2/C4E03AQHR_-eMVTW7GA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1660459819120?e=2147483647&amp;v=beta&amp;t=oK3z9f0AK4ijIPa0Di-S2Q-Ih0q0Y2Tb0DqEo8ePVmI\" alt=\"Harshil Thakkar profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Harshil Thakkar </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> B2B Digital Marketing | Lead Generation </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Vadodara, Gujarat, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192475225/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://media.licdn.com/dms/image/v2/D5603AQHKD0BZeE8-Cw/profile-displayphoto-scale_400_400/B56Z0tnlcvJIAg-/0/1774586847576?e=2147483647&amp;v=beta&amp;t=Jkbi8gJbl7yhTLntWn4X3UOnWzJJjhVmMg_RQ-IfpEA\" alt=\"Shivam T profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Shivam T </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> Contact - 8077254765 Lead Sales Associate at Proton.ai Seeking Remote / WFH Roles Only ( Presales/ Inside Sales / Customer Success ) </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Meerut, Uttar Pradesh, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39190967782/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://media.licdn.com/dms/image/v2/D4D03AQF5gxSvZ_SV4A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1719673614360?e=2147483647&amp;v=beta&amp;t=05OZWh7_1zAWUXLbtXMy1Ij7tdhPhHrVHjiaWCPcQpc\" alt=\"Parjanaya Trivedi profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Parjanaya Trivedi </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> Assistant Professor at Invertis University </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Patna, Bihar, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/39192402745/detail/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=applicant-profile&amp;li=0&amp;t=plh\" target=\"_blank\" class=\"py-1\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; padding-top: 8px; padding-bottom: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"align-top w-0 pr-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 0px; padding-right: 8px; vertical-align: top;\" width=\"0\"> <img class=\"inline-block relative bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h-6\" src=\"https://media.licdn.com/dms/image/v2/C5603AQEvgMYKWoht0A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1590019531401?e=2147483647&amp;v=beta&amp;t=g3RKZ-OilQ0xSwr1Xj_1pGsgOzoy4GNNJSta22E0MsA\" alt=\"Nida Parkar profile picture\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; position: relative; display: inline-block; height: 48px; width: 48px; border-radius: 9999px; background-color: #eae6df; clip-path: circle(50%);\" width=\"48\" height=\"48\"> </td> <td class=\"align-middle !no-underline text-inherit\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: middle; color: inherit; text-decoration-line: none !important;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <span class=\"leading-[1.25] font-bold text-md text-system-gray-100\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25; color: #1f1f1f;\"> Nida Parkar </span> </td> </tr> <tr> <td class=\"leading-[1.25] text-sm text-system-gray-100 font-regular pt-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 2px; font-size: 14px; font-weight: 400; line-height: 1.25; color: #1f1f1f;\"> Academic Counselor | Sr Marketing Associate | Sales specialist </td> </tr> <tr> <td class=\"text-xs font-regular text-system-gray-70 pt-0.25 pb-0.25\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 2px; padding-top: 2px; font-size: 12px; font-weight: 400; color: #666666;\"> Navi Mumbai, Maharashtra, India </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> </td> </tr> <tr> <td class=\"px-3 pt-1.5 pb-[36px]\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 24px; padding-right: 24px; padding-bottom: 36px; padding-top: 12px;\"> <a href=\"https://www.linkedin.com/hiring/jobs/4464705362/applicants/?sort_by=APPLIED_DATE&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=email-new-applicant-summary-main-module&amp;ts=view-applicants-cta-bottom&amp;li=0&amp;t=plh\" target=\"_blank\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;\"> <span class=\"text-md font-bold leading-[1.25]\" style=\"font-size: 16px; font-weight: 600; line-height: 1.25;\"> View all applicants </span> </a> </td> </tr> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"bg-color-background-brand-accent-3\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #daebd1;\"> <tbody> <tr> <td class=\"pl-3 py-2\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-top: 16px; padding-bottom: 16px; padding-left: 24px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td class=\"pb-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 8px;\"> <p class=\"leading-[1.25] text-md text-color-text font-bold\" style=\"margin: 0; font-size: 16px; font-weight: 600; line-height: 1.25; color: rgba(0, 0, 0, 0.9);\"> Looking for more qualified applicants? </p> </td> </tr> <tr> <td style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <p class=\"leading-[1.25] text-sm text-black-a60 min-h-[44px]\" style=\"margin: 0; font-weight: 400; min-height: 44px; font-size: 14px; line-height: 1.25; color: rgba(0, 0, 0, 0.6);\"> Get 3x more qualified applicants when you promote. </p> </td> </tr> <tr> <td class=\"pr-3 pt-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-right: 24px; padding-top: 8px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"email-button \" data-test-id=\"email-button\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <tbody> <tr> <td valign=\"middle\" align=\"left\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> <a href=\"https://www.linkedin.com/job-posting/form/budget?jobId=4464705362&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=null&amp;ts=null&amp;li=0&amp;t=plh\" target=\"_blank\" aria-label=\"Promote Job\" class=\"align-top no-underline \" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; vertical-align: top; text-decoration-line: none;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"auto\" class=\"border-separate \" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: separate;\"> <tbody> <tr> <td class=\"btn-md btn-secondary-emphasis border-color-brand button-link leading-regular !min-h-[auto] !shadow-none border-1 border-solid\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; height: min-content; border-radius: 24px; padding-top: 12px; padding-bottom: 12px; padding-left: 24px; padding-right: 24px; text-align: center; font-size: 16px; font-weight: 600; cursor: pointer; text-decoration-line: none; background-color: rgba(0, 0, 0, 0); color: #0a66c2; border-width: 1px; border-style: solid; border-color: #0a66c2; line-height: 1.25; min-height: auto !important; box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000 !important;\"> <a href=\"https://www.linkedin.com/job-posting/form/budget?jobId=4464705362&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;ek=email_online_jobs_new_applicant_summary_01&amp;e=6p63h2-mtzswiop-et&amp;eid=6p63h2-mtzswiop-et&amp;m=null&amp;ts=null&amp;li=0&amp;t=plh\" target=\"_blank\" tabindex=\"-1\" aria-hidden=\"true\" class=\"no-underline\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration-line: none;\"> <span class=\"no-underline text-color-brand\" style=\"color: #0a66c2; text-decoration-line: none;\"> Promote Job </span> </a> </td> </tr> </tbody> </table> </a> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> <td class=\"px-3 py-2\" align=\"center\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;\"> <img src=\"https://static.licdn.com/aero-v1/sc/h/dg86cwsojgqzt93ev44mjlwnj\" width=\"128px\" height=\"128px\" alt=\"Image of two Coworkers collaborating on a presentation\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;\"> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> </td> </tr> <tr> <td class=\"bg-color-background-canvas p-3\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f3f2f0; padding: 24px;\"> <table role=\"presentation\" valign=\"top\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" class=\"text-xs\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 12px;\"> <tbody> <tr> <td class=\"pb-1 m-0\" data-test-id=\"email-footer__intended\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;\"> This email was intended for team@docdril.com </td> </tr> <tr> <td class=\"pb-1 m-0\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;\"> <a href=\"https://www.linkedin.com/help/linkedin/answer/4788?lang=en&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-SecurityHelp-0-footerglimmer&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-SecurityHelp-0-footerglimmer-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" class=\"text-inherit underline\" style=\"cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: inherit; text-decoration-line: underline;\">Learn why we included this.</a> </td> </tr> <tr> <td class=\"pb-1 m-0\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;\">You are receiving Job Applicant emails.</td> </tr> <tr> <td class=\"pb-1 m-0\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;\"> <a href=\"https://www.linkedin.com/comm/mypreferences/u/emailunsub?action=updateEmailSubscription&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-unsubscribe-0-footerGlimmer&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-unsubscribe-0-footerGlimmer-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et&amp;loid=AQF6TBFYb36UkwAAAaCax4RNllxAA6020B7kRvpzWaflQnC3yPFoG2-RA5BGnMN4N4BRh6k-0jh3lRDxuaoIG2qDxxrcmF53bX6UBznuqA\" target=\"_blank\" class=\"text-inherit underline\" style=\"cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: inherit; text-decoration-line: underline;\">Unsubscribe</a>   ·   <a href=\"https://www.linkedin.com/help/linkedin/answer/67?lang=en&amp;lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-help-0-footerglimmer&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-help-0-footerglimmer-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" data-test-help-link class=\"text-inherit underline\" style=\"cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: inherit; text-decoration-line: underline;\">Help</a> </td> </tr> <tr> <td class=\"pb-1\" style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 8px;\"> <a href=\"https://www.linkedin.com/comm/feed/?lipi=urn%3Ali%3Apage%3Aemail_email_online_jobs_new_applicant_summary_01%3BH5RsDQPUQBKyttlGMFL3dg%3D%3D&amp;midToken=AQFmrFVhGEd36Q&amp;midSig=2AoQYnHr4n2Ys1&amp;trk=eml-email_online_jobs_new_applicant_summary_01-footer-0-logoGlimmer&amp;trkEmail=eml-email_online_jobs_new_applicant_summary_01-footer-0-logoGlimmer-null-6p63h2~mtzswiop~et-null-null&amp;eid=6p63h2-mtzswiop-et\" target=\"_blank\" style=\"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;\"> <img src=\"https://static.licdn.com/aero-v1/sc/h/9ehe6n39fa07dc5edzv0rla4e\" alt=\"LinkedIn\" class=\"block h-[14px] w-[56px] image-rendering-crisp\" style=\"outline: none; text-decoration: none; image-rendering: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor; display: block; height: 14px; width: 56px;\" width=\"56\" height=\"14\"> </a> </td> </tr> <tr> <td data-test-copyright-text style=\"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\"> © 2026 LinkedIn Corporation, 1&zwnj;000 West Maude Avenue, Sunnyvale, CA 94085. <span data-test-trademarks-text> LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn. </span> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> <img alt role=\"presentation\" src=\"https://www.linkedin.com/emimp/ip_Tm5BMk0yZ3lMVzEwZW5OM2FXOXdMV1YwOlpXMWhhV3hmYjI1c2FXNWxYMnB2WW5OZmJtVjNYMkZ3Y0d4cFkyRnVkRjl6ZFcxdFlYSjVYekF4Og==.gif\" style=\"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: 1px; height: 1px;\" width=\"1\" height=\"1\"> </body> </html>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-13T12:39:22Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_81",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_81",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "81",
+      "providerFolder": "INBOX",
+      "senderEmail": "messages-noreply@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Piyush, your job post has been paused",
+      "snippet": "Piyush, your job post has been paused",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-13T11:14:14Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_80",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_80",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "80",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your job, Sales And Marketing Specialist, is active!",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-12T14:08:26Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_79",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_79",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "79",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-09T11:40:03Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_78",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_78",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "78",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-09T10:20:43Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_77",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_77",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "77",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your job, Sales And Marketing Specialist, has been closed",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-06T12:04:05Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_76",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_76",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "76",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@noreply.hack2skill.com",
+      "senderName": "Team Hack2skill",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-05T12:22:20Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_75",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_75",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "75",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@noreply.hack2skill.com",
+      "senderName": "Team Hack2skill",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-04T11:45:57Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_74",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_74",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "74",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@marketing.trustpilotinfo.com",
+      "senderName": "The Trustpilot Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Piyush, you qualify for Trustpilot's free plan!",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-03T14:02:54Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_73",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_73",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "73",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@noreply.hack2skill.com",
+      "senderName": "Team Hack2skill",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "You're invited: Builders Pitch Fest",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-03T08:42:24Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_72",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_72",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "72",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@noreply.hack2skill.com",
+      "senderName": "Team Hack2skill",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Builders Pitch Fest 2026: Live Grand Finale in Mumbai 🚀",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-02T14:24:42Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_71",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_71",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "71",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@noreply.hack2skill.com",
+      "senderName": "Hack2skill",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Applications Open: Builders Pitch Fest 2026",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-01T07:32:08Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_70",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_70",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "70",
+      "providerFolder": "INBOX",
+      "senderEmail": "marketing@engage.canva.com",
+      "senderName": "Canva",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Celebrating one million nonprofits with you 💙",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-27T08:08:07Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_69",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_69",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "69",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@marketing.trustpilotinfo.com",
+      "senderName": "The Trustpilot Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Attract and keep customers with Trustpilot",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-25T23:00:14Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_68",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_68",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "68",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@marketing.trustpilotinfo.com",
+      "senderName": "The Trustpilot Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Did you know 55% of consumers prefer open platforms?",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-17T13:00:23Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_67",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_67",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "67",
+      "providerFolder": "INBOX",
+      "senderEmail": "marketing@engage.canva.com",
+      "senderName": "Canva",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": ", you're on a design hot streak 🔥",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-15T07:36:36Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_66",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_66",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "66",
+      "providerFolder": "INBOX",
+      "senderEmail": "marketing@engage.canva.com",
+      "senderName": "Canva",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Level up your docs with visuals",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-12T07:12:16Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_65",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_65",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "65",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "You have 4 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-09T12:47:41Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_64",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_64",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "64",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@marketing.trustpilotinfo.com",
+      "senderName": "The Trustpilot Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "27% increase in online sales revenue with Trustpilot",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-09T07:00:38Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_63",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_63",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "63",
+      "providerFolder": "INBOX",
+      "senderEmail": "messages-noreply@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Piyush, your job post has been paused",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-08T18:17:38Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_62",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_62",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "62",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "You have 12 new applicants for your job: Sales And Marketing Specialist",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-08T13:16:29Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_61",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_61",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "61",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-08T08:48:48Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_60",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_60",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "60",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "[Task Update] Email Monitor: Email access unavailable monitor disabled",
+      "snippet": "",
+      "bodyText": "",
+      "bodyHtml": "<p></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-08T02:32:40Z",
+      "attachments": []
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_59",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_59",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "59",
+      "providerFolder": "INBOX",
+      "senderEmail": "jobs-listings@linkedin.com",
+      "senderName": "LinkedIn",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your job, Sales And Marketing Specialist, is active!",
+      "snippet": "Your job, Sales And Marketing Specialist, is active!",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-07T12:03:47Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_58",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_58",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "58",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-06T23:47:07Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_57",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_57",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "57",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Your temporary ChatGPT login code",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-06T23:38:49Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_56",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_56",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "56",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@marketing.trustpilotinfo.com",
+      "senderName": "The Trustpilot Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "piyush@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Controversial: Bad reviews are good?",
+      "snippet": "Controversial: Bad reviews are good?",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-31T20:00:25Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_55",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_55",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "55",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@email.openai.com",
+      "senderName": "OpenAI",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "New: Lower GPT-5.6 pricing and Fast mode for Sol",
+      "snippet": "New: Lower GPT-5.6 pricing and Fast mode for Sol",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-31T00:21:47Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_48",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_48",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "48",
+      "providerFolder": "INBOX",
+      "senderEmail": "DUNS_Tracker@DNB.com",
+      "senderName": "DUNS Tracker",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "D-U-N-S Number has been generated on 9/3/2026 9:14:25 AM ==> : DR072720263037060513",
+      "snippet": "*Dear Sir / Madam,*\n\nThank you for your patience in waiting to get the D-U-N-S® Number for your business : *DOCDRIL*\n\nPlease find the detail",
+      "bodyText": "*Dear Sir / Madam,*\n\nThank you for your patience in waiting to get the D-U-N-S® Number for your business : *DOCDRIL*\n\nPlease find the details of your company as per Dun & Bradstreet's database:\n\nD&B D-U-N-S Number : 311682940 Company Name : DOCDRIL Address1 : Ward No. 21, Gudri Bazar, Station Road, Near Red & Chief Showroom, Address2 : Samastipur Industrial Area City : Samastipur State : Bihar Pincode : 848101 Country : India\n\nIn case of further assistance, please do not hesitate to contact us:\nEmail: *serviceindia@dnb.com* ( serviceindia@dnb.com )\n\n*Best regards\n\nService India Team\n*",
+      "bodyHtml": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <title>DUNS Tracker</title>\r\n    <style type=\"text/css\">\r\n        p, ul, li {\r\n            font-family: Calibri;\r\n            font-size: 11pt;\r\n        }\r\n\r\n        .tblstyle {\r\n            font-family: Calibri;\r\n        }\r\n\r\n            .tblstyle tr td {\r\n                font-family: Calibri;\r\n            }\r\n\t\t\t\r\n        .DUNS_Table th {\r\n            padding-top: 5px;\r\n            padding-bottom: 5px;\r\n            text-align: left;\r\n            font-family:Calibri;\r\n            font-size:11pt;\r\n           background-color:aliceblue;\r\n            width:150px;\r\n            font-weight:800 !important;\r\n            \r\n        }\r\n\r\n        tr:hover {\r\n             background-color: #87effa;\r\n        }\r\n\r\n        .DUNS_Table {\r\n            padding: 20px;\r\n            border: medium;\r\n            border: thin;\r\n            border-collapse: collapse;\r\n            table-layout: fixed;\r\n            width: 650px;\r\n            border-color: black;\r\n        }\r\n\r\n        th, td {\r\n            padding-left: 5px;\r\n            font-family: Calibri;\r\n            \r\n        }\r\n\r\n        .DUNS_Table td{\r\n            font-size:11pt;\r\n            width:250px;\r\n\t\t\tpadding-top: 5px;\r\n            padding-bottom: 5px;\r\n        }\r\n\r\n       \r\n    </style>\r\n</head>\r\n<body>\r\n\r\n    <table style=\"width: 100%;\" class=\"tblstyle\">\r\n        <tr>\r\n            <td>\r\n                <p>\r\n                    <b>Dear Sir / Madam,</b>\r\n                </p>\r\n                <p>\r\n                    Thank you for your patience in waiting to get the D-U-N-S&reg; Number for your business :<b> DOCDRIL </b>\r\n                </p>\r\n                <p>\r\n                    Please find the details of your company as per Dun & Bradstreet's database:\r\n                </p>\r\n\t\t\t\t<p>\r\n\t\t\t\t\t\t<div class='row'>\r\n            <div style='overflow-x:auto;'>\r\n                <table class='DUNS_Table'>\r\n                    <tbody>\r\n                        <tr>\r\n                            <th colspan='1'>D&B D-U-N-S Number : </th>\r\n                            <td> 311682940</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <th colspan='1'>Company Name : </th>\r\n                            <td> DOCDRIL</td>\r\n                        </tr>                       \r\n                        <tr>\r\n                            <th scope='col'>Address1 : </th>\r\n                            <td>Ward No. 21, Gudri Bazar, Station Road, Near Red & Chief Showroom,</td>\r\n                        </tr>\r\n                           <tr>\r\n                            <th scope='col'>Address2 : </th>\r\n                            <td>Samastipur Industrial Area</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <th scope='col'>City :</th>\r\n                            <td>Samastipur</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <th scope='col'>State :</th>\r\n                            <td>Bihar</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <th scope='col'>Pincode :</th>\r\n                            <td>848101</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <th scope='col'>Country :</th>\r\n                            <td>India</td>\r\n                        </tr>\r\n                    </tbody>\r\n                </table>\r\n            </div>\r\n        </div>\r\n                </p>\r\n\r\n\t\t\t\t<p style=\"font-weight:700 !important;\">\r\n\t\t\t\t\t\t\r\n                </p>\r\n\r\n                <p>\r\n                    In case of further assistance, please do not hesitate to contact us:<br />                  \r\n                    Email: <a href=\"serviceindia@dnb.com\" target=\"_blank\"><b>serviceindia@dnb.com</b></a>\r\n                </p>\r\n                <p>\r\n                    <b>Best regards<br />\r\n                    <img src=\"https://www.dnb.com/content/dam/english/image-library/dnb-mod/DnB_amp_logo.png\" /><br />\r\n                    Service India Team<br />\r\n                </b>\r\n            </td>\r\n        </tr>\r\n    </table>\r\n</body>\r\n</html>\r\n\r\n",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-03T03:44:26Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_46",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_46",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "46",
+      "providerFolder": "INBOX",
+      "senderEmail": "q@tryswifthaven.com",
+      "senderName": "Quentin Vargas",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Ai cinematic videos x Docdril™",
+      "snippet": "Hi Arushi,\r\n\r\nI saw Docdril blends cinematic video editing with AI automation for brands.\r\nGiven your mix of storytelling, UGC, and campaign",
+      "bodyText": "Hi Arushi,\r\n\r\nI saw Docdril blends cinematic video editing with AI automation for brands.\r\nGiven your mix of storytelling, UGC, and campaign work, I thought this\r\nmight be relevant.\r\n\r\nI’m Quentin from Ai cinematic videos and short films. I help creative teams\r\nturn campaign ideas into premium visual concepts fast, so clients can pitch\r\nstronger without a full shoot budget.\r\n\r\nFor a team like Docdril, I can map out 3 cinematic mockup angles for your\r\ncurrent brand campaigns in 15 minutes, or I’ll keep it to a simple written\r\noutline you can use internally.\r\n\r\nOpen to a short reply and I’ll send the outline?\r\n\r\nBest,\r\nQuentin\r\n",
+      "bodyHtml": "<div>Hi Arushi,<br>\r\n<br>\r\nI saw Docdril blends cinematic video editing with AI automation for brands. Given your mix of storytelling, UGC, and campaign work, I thought this might be relevant.<br>\r\n<br>\r\nI’m Quentin from Ai cinematic videos and short films. I help creative teams turn campaign ideas into premium visual concepts fast, so clients can pitch stronger without a full shoot budget.<br>\r\n<br>\r\nFor a team like Docdril, I can map out 3 cinematic mockup angles for your current brand campaigns in 15 minutes, or I’ll keep it to a simple written outline you can use internally.<br>\r\n<br>\r\nOpen to a short reply and I’ll send the outline?<br>\r\n<br>\r\nBest,<br>\r\nQuentin</div>\r\n",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-28T03:00:12Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_45",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_45",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "45",
+      "providerFolder": "INBOX",
+      "senderEmail": "dmarcreport@microsoft.com",
+      "senderName": "DMARC Aggregate Report",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: 530feef57611407291b4d54f2df98f2b",
+      "snippet": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: 530feef57611407291b4d54f2df98f2b",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-28T02:06:33Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_44",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_44",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "44",
+      "providerFolder": "INBOX",
+      "senderEmail": "serviceindia@helpdesk.dnb.com",
+      "senderName": "Serviceindia",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": "Docdril"
+        }
+      ],
+      "subject": "RE: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "RE: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-26T16:30:28Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_43",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_43",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "43",
+      "providerFolder": "INBOX",
+      "senderEmail": "serviceindia@helpdesk.dnb.com",
+      "senderName": "Serviceindia",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": "info@docdril.com"
+        }
+      ],
+      "subject": "FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-24T05:25:11Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_42",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_42",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "42",
+      "providerFolder": "INBOX",
+      "senderEmail": "dmarcreport@microsoft.com",
+      "senderName": "DMARC Aggregate Report",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: c609a2d713004a5bbb0ab92ff7df4429",
+      "snippet": "[Preview] Report Domain: docdril.com Submitter: enterprise.protection.outlook.com Report-ID: c609a2d713004a5bbb0ab92ff7df4429",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-23T02:05:29Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_41",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_41",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "41",
+      "providerFolder": "INBOX",
+      "senderEmail": "postmaster@dnb.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Undeliverable: Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Undeliverable: Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-21T09:56:33Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_40",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_40",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "40",
+      "providerFolder": "INBOX",
+      "senderEmail": "DUNS_Request@DNB.com",
+      "senderName": "DUNS Request",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        },
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "Confirmation of your D-U-N-S Number request at www.DNB.co.in from 8/21/2026 3:20:16 PM ==> : DR072720263037060513",
+      "snippet": "Confirmation of your D-U-N-S Number request at www.DNB.co.in from 8/21/2026 3:20:16 PM ==> : DR072720263037060513",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-21T09:50:18Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_39",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_39",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "39",
+      "providerFolder": "INBOX",
+      "senderEmail": "DUNS_Request@dnb.com",
+      "senderName": "DNBDunsRequest",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        },
+        {
+          "type": "to",
+          "email": "serviceindia@helpdesk.dnb.com",
+          "name": ""
+        }
+      ],
+      "subject": "Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-21T03:26:16Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_38",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_38",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "38",
+      "providerFolder": "INBOX",
+      "senderEmail": "emilyc.jones@brandfulfillmentnetwork.com",
+      "senderName": "Emily Jones",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "docdril emails",
+      "snippet": "docdril emails",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-07T13:03:13Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_37",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_37",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "37",
+      "providerFolder": "INBOX",
+      "senderEmail": "emilyc.jones@brandfulfillmentnetwork.com",
+      "senderName": "Emily Jones",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "docdril emails",
+      "snippet": "docdril emails",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-04T18:31:00Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_36",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_36",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "36",
+      "providerFolder": "INBOX",
+      "senderEmail": "DUNS_Tracker@DNB.com",
+      "senderName": "DUNS Tracker",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your Duns Tracking No DR072720263037060513 -Assigned Relationship Manager",
+      "snippet": "Your Duns Tracking No DR072720263037060513 -Assigned Relationship Manager",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-30T04:39:12Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_35",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_35",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "35",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Clutch Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "[Action Needed] Add key information to your Clutch profile",
+      "snippet": "[Action Needed] Add key information to your Clutch profile",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-27T04:30:10Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_34",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_34",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "34",
+      "providerFolder": "INBOX",
+      "senderEmail": "DNBIndia-SystemAdmin@DNB.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your Duns Tracking No.DR072720263037060513",
+      "snippet": "Your Duns Tracking No.DR072720263037060513",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-26T23:43:11Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_33",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_33",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "33",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Mike at Clutch",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Get Priority Visibility with Clutch Verified",
+      "snippet": "Get Priority Visibility with Clutch Verified",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-23T04:30:06Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_32",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_32",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "32",
+      "providerFolder": "INBOX",
+      "senderEmail": "hello@clutch.co",
+      "senderName": "Clutch",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Update to the Clutch ranking methodology",
+      "snippet": "Update to the Clutch ranking methodology",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-23T02:30:41Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_31",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_31",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "31",
+      "providerFolder": "INBOX",
+      "senderEmail": "info.davidpatrolexd@gmail.com",
+      "senderName": "David Patrolexd",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "(No Subject)",
+      "snippet": "(No Subject)",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-22T13:42:56Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_30",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_30",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "30",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Clutch Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "The key to review success for Docdril",
+      "snippet": "The key to review success for Docdril",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-20T04:30:08Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_29",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_29",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "29",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply-dmarc-support@google.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_28",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_28",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "28",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply-dmarc-support@google.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_27",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_27",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "27",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply-dmarc-support@google.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_26",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_26",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "26",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply-dmarc-support@google.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "snippet": "Report domain: docdril.com Submitter: google.com Report-ID: 13819349601910831523",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T23:59:59Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_25",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_25",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "25",
+      "providerFolder": "INBOX",
+      "senderEmail": "mohitsardana12499@gmail.com",
+      "senderName": "Mohit Sardana",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Kindly Refund of Remaining Advance Payment",
+      "snippet": "Kindly Refund of Remaining Advance Payment",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T06:04:25Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_24",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_24",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "24",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Clutch Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Take this one step to increase buyer trust",
+      "snippet": "Take this one step to increase buyer trust",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T04:30:25Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_23",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_23",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "23",
+      "providerFolder": "INBOX",
+      "senderEmail": "info@reech.social",
+      "senderName": "Ree'ch",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "testing message sent work",
+      "snippet": "testing message sent work",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-14T06:36:54Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_22",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_22",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "22",
+      "providerFolder": "INBOX",
+      "senderEmail": "patelhema95417@gmail.com",
+      "senderName": "h i",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "(No Subject)",
+      "snippet": "(No Subject)",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-13T15:52:36Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_21",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_21",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "21",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Clutch Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "What sets Clutch apart? ",
+      "snippet": "What sets Clutch apart? ",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-13T04:30:07Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_20",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_20",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "20",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Clutch Team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Verify Your Business on Clutch",
+      "snippet": "Verify Your Business on Clutch",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-09T04:30:06Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_19",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_19",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "19",
+      "providerFolder": "INBOX",
+      "senderEmail": "lidianalbandyan0@gmail.com",
+      "senderName": "Lidia Nalbandyan",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "High-Quality Backlink Opportunities for Your SEO Strategy",
+      "snippet": "High-Quality Backlink Opportunities for Your SEO Strategy",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-06T09:28:31Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_18",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_18",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "18",
+      "providerFolder": "INBOX",
+      "senderEmail": "no-reply@clutch.co",
+      "senderName": "Mike at Clutch",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushi@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Add focus areas to your profile",
+      "snippet": "Add focus areas to your profile",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": false,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-06T04:30:07Z"
+    },
+    {
+      "id": "msg_1789488431841_pihgu",
+      "conversationId": "cnv_1789488431841_rvkb6",
+      "mailboxId": "mbx_test_mailbox",
+      "providerMessageId": "<msg-1789488431841@docdril.com>",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "test@docdril.com",
+      "senderName": "Test Mailbox",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "client@healthcarepartners.com"
+        }
+      ],
+      "subject": "Docdril Clinical Suite Demo Confirmation",
+      "snippet": "Looking forward to our demo session on Friday at 2pm.",
+      "bodyText": "Looking forward to our demo session on Friday at 2pm.",
+      "bodyHtml": "<p>Looking forward to our demo session on Friday at 2pm.</p>",
+      "status": "SENT",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "sentAt": "2026-09-15T16:07:11.841Z",
+      "receivedAt": "2026-09-15T16:07:11.841Z"
+    },
+    {
+      "id": "msg_test_flag_toggle",
+      "conversationId": "cnv_test_flag_toggle",
+      "mailboxId": "mbx_test_mailbox",
+      "providerFolder": "INBOX",
+      "senderEmail": "sender@example.com",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "test@docdril.com"
+        }
+      ],
+      "subject": "Flag Toggle Test",
+      "snippet": "Testing flags",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": true,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-15T16:07:11.845Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_1",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_1",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "1",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.in",
+      "senderName": "Piyush Chaudhary",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Checking",
+      "snippet": "Hello founder\r\n\r\n",
+      "bodyText": "Hello founder\r\n\r\n",
+      "bodyHtml": "<p>Hello founder\r<br/>\r<br/></p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-05-06T01:34:42Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_11",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_11",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "11",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": null,
+      "recipients": [
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "Why Automation Is Essential for Modern Business",
+      "snippet": "Automation is becoming increasingly important because it helps businesses save time, reduce repetitive manual work, minimize errors, and imp",
+      "bodyText": "Automation is becoming increasingly important because it helps businesses save time, reduce repetitive manual work, minimize errors, and improve overall productivity. By automating routine processes, teams can focus more on strategy, creativity, customer relationships, and other high-value activities while maintaining greater consistency and efficiency. Whether it is managing leads, sending follow-ups, handling data, generating reports, or streamlining internal workflows, automation allows a business to scale faster without increasing operational workload at the same rate. In today’s competitive environment, adopting automation is not just about convenience—it is a key advantage for working smarter, responding faster, and building a more efficient and scalable business.",
+      "bodyHtml": "<p>Automation is becoming increasingly important because it helps businesses save time, reduce repetitive manual work, minimize errors, and improve overall productivity. By automating routine processes, teams can focus more on strategy, creativity, customer relationships, and other high-value activities while maintaining greater consistency and efficiency. Whether it is managing leads, sending follow-ups, handling data, generating reports, or streamlining internal workflows, automation allows a business to scale faster without increasing operational workload at the same rate. In today’s competitive environment, adopting automation is not just about convenience—it is a key advantage for working smarter, responding faster, and building a more efficient and scalable business.</p>",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-15T16:53:31Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_10",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_10",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "10",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "serviceindia@helpdesk.dnb.com",
+          "name": ""
+        }
+      ],
+      "subject": "Re: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "Re: FW: Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-26T13:37:39Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_9",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_9",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "9",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "india@dnb.com",
+          "name": ""
+        }
+      ],
+      "subject": "Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "snippet": "Dun & Bradstreet D-U-N-S Number Application : DR072720263037060513 - GST Number Correction",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-21T10:44:38Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_8",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_8",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "8",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "DUNS_Request@dnb.com",
+          "name": ""
+        }
+      ],
+      "subject": "Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "snippet": "Re: Dun & Bradstreet D-U-N-S Number Application :DR072720263037060513",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-08-21T09:56:24Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_7",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_7",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "7",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "mohitsardana12499@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "Project Review Outcome & Refund Eligibility (Reference ID: DR-20260716-041)",
+      "snippet": "Project Review Outcome & Refund Eligibility (Reference ID: DR-20260716-041)",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-17T03:26:03Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_6",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_6",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "6",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "mohitsardana12499@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "Re: Kindly Refund of Remaining Advance Payment",
+      "snippet": "Re: Kindly Refund of Remaining Advance Payment",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-16T08:40:53Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_5",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_5",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "5",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "info@reech.social",
+          "name": ""
+        }
+      ],
+      "subject": "Re: testing message sent work",
+      "snippet": "Re: testing message sent work",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-07-14T06:41:06Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_4",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_4",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "4",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "arushibh.work@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "Cat",
+      "snippet": "Cat",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-06-30T15:01:40Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_3",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_3",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "3",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": ""
+        }
+      ],
+      "subject": "tester",
+      "snippet": "tester",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-06-22T05:56:12Z"
+    },
+    {
+      "id": "msg_AC0c7922876c89a969088edca71aaf_2",
+      "conversationId": "cnv_AC0c7922876c89a969088edca71aaf_2",
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "providerMessageId": "2",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "info@docdril.com",
+      "senderName": "Docdril",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Ghyu",
+      "snippet": "Ghyu",
+      "bodyText": "",
+      "bodyHtml": "",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-06-21T17:00:49Z"
+    },
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_85",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_85",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "85",
+      "providerFolder": "INBOX",
+      "senderEmail": "noreply@tm.openai.com",
+      "senderName": "ChatGPT",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "team@docdril.com",
+          "name": ""
+        }
+      ],
+      "subject": "Your temporary ChatGPT login code",
+      "snippet": "Enter this temporary verification code to continue:\n\n341918\n\nDidn't request a verification code? You can ignore this email.\n\nBest,\nThe ChatG",
+      "bodyText": "Enter this temporary verification code to continue:\n\n341918\n\nDidn't request a verification code? You can ignore this email.\n\nBest,\nThe ChatGPT team\n\nChatGPT ( http://url3243.email.openai.com/ls/click?upn=u001.IQLfsj4kk-2BK7JhymNusRMtxuwNyiH8tHYK-2BH0HuuCVk-3D5fjH_KEqdbz3-2FSXktseGVdaQLWCojnvmjRiqfqNp1-2Bd6l6MCaTnhQE9L8EvkZhymySYAl-2BwnglFF0Cb2s9BlfQ-2BG-2BtHINScnndcoEA-2B68doptG5TqkTinL45pkdqvn9en252mx49KGHwmyqjqWHLHhl2ytHkKgd0UATeSQ0aC7ce-2FdR-2FsHGNoaMC-2BjmFoL-2BaMgw0BkX-2Fu10zGGY05oyrdhKZ32dNfKbOHgN-2FWqYn8ZfYRtlwp46IJOSxF-2B6wi-2BEVA-2FVX-2FxUWYA89gg6s6zCU4wNXLT0piKIlItbu3sVb4WGPwukHcfVDMJoWT8CD4NOzS-2B49PiXvLKP2oUrw-2FjsVrP-2BeoN0pbVv3ehjPTwh5aGS8nOjSiJ14qXNA9PmWP6NFsNxKca95klJxNx11kidO4V9ESAmz9gKGbSCAdkM-2BCtJcIYjs-3D )\n\nHelp center ( http://url3243.email.openai.com/ls/click?upn=u001.IQLfsj4kk-2BK7JhymNusRMmfwoG2v3nTgHW39-2Fobue0tn1LK51XoZKbBfyGht7CMa4vuW_KEqdbz3-2FSXktseGVdaQLWCojnvmjRiqfqNp1-2Bd6l6MCaTnhQE9L8EvkZhymySYAl-2BwnglFF0Cb2s9BlfQ-2BG-2BtHINScnndcoEA-2B68doptG5TqkTinL45pkdqvn9en252mx49KGHwmyqjqWHLHhl2ytHkKgd0UATeSQ0aC7ce-2FdR-2FsHGNoaMC-2BjmFoL-2BaMgw0BkX-2Fu10zGGY05oyrdhKZ32dNfKbOHgN-2FWqYn8ZfYRtlxPxeITc2zfTYE-2B83WmOwhlThapfZNH4twO-2BeiYshq4FONvrjVS3quWz17OSppEYVHxaPiWWEBnU3Fooi2i27PEn2W85-2BONudcqMPBDUfespr6kH5T-2Bkxk24Z5y-2B3ULXd-2FJf8ueGa60TJmbrA55xzn-2BHGm05mfLGQZJjYC28J1fziQC9J-2BtNkwPPC4SIX1qbEs-3D )",
+      "bodyHtml": "<html>\r\n  <head>\r\n    <title>Your temporary ChatGPT login code</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <style type=\"text/css\">\r\n      @font-face {\r\n        font-family: \"Söhne\";\r\n        src: url(https://cdn.openai.com/common/fonts/soehne/soehne-buch.woff2)\r\n            format(\"woff2\");\r\n        font-style: normal;\r\n        font-weight: 400;\r\n        font-display: swap;\r\n      }\r\n      .ExternalClass,\r\n      .ExternalClass div,\r\n      .ExternalClass font,\r\n      .ExternalClass p,\r\n      .ExternalClass span,\r\n      .ExternalClass td,\r\n      img {\r\n        line-height: 100%;\r\n      }\r\n      #outlook a {\r\n        padding: 0;\r\n      }\r\n      .ExternalClass,\r\n      .ReadMsgBody {\r\n        width: 100%;\r\n      }\r\n      a,\r\n      blockquote,\r\n      body,\r\n      li,\r\n      p,\r\n      table,\r\n      td {\r\n        -webkit-text-size-adjust: 100%;\r\n        -ms-text-size-adjust: 100%;\r\n      }\r\n      table,\r\n      td {\r\n        mso-table-lspace: 0;\r\n        mso-table-rspace: 0;\r\n      }\r\n      img {\r\n        -ms-interpolation-mode: bicubic;\r\n        border: 0;\r\n        height: auto;\r\n        outline: 0;\r\n        text-decoration: none;\r\n      }\r\n      table {\r\n        border-collapse: collapse !important;\r\n      }\r\n      #bodyCell,\r\n      #bodyTable,\r\n      body {\r\n          height: 100% !important;\r\n          margin: 0;\r\n          padding: 0;\r\n          font-family: Söhne, Roboto, Helvetica, Arial, sans-serif;\r\n        }\r\n\r\n      #bodyCell {\r\n        padding: 20px;\r\n      }\r\n      #bodyTable {\r\n        width: 560px;\r\n      }\r\n      @media only screen and (max-width: 480px) {\r\n        #bodyCell,\r\n        #bodyTable,\r\n        body {\r\n          width: 100% !important;\r\n        }\r\n        a,\r\n        blockquote,\r\n        body,\r\n        li,\r\n        p,\r\n        table,\r\n        td {\r\n          -webkit-text-size-adjust: none !important;\r\n        }\r\n        body {\r\n          min-width: 100% !important;\r\n        }\r\n        #bodyTable {\r\n          max-width: 560px !important;\r\n        }\r\n        #signIn {\r\n          max-width: 280px !important;\r\n        }\r\n      }\r\n    </style>\r\n    <!--[if mso]>\r\n        <style type=\"text/css\">\r\n          #bodyCell,\r\n          #bodyTable,\r\n          body {\r\n            font-family: Helvetica, Arial, sans-serif; !important\r\n          }\r\n        </style>\r\n    <![endif]-->\r\n\r\n  </head>\r\n  <body>\r\n    <center>\r\n      <table\r\n        style=\"width: 560px;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;margin: 0;padding: 0;border-collapse: collapse !important;height: 100% !important;background-color: #ffffff;\"\r\n        align=\"center\"\r\n        border=\"0\"\r\n        cellpadding=\"0\"\r\n        cellspacing=\"0\"\r\n        height=\"100%\"\r\n        width=\"100%\"\r\n        id=\"bodyTable\"\r\n      >\r\n        <tr>\r\n          <td\r\n            align=\"center\"\r\n            valign=\"top\"\r\n            id=\"bodyCell\"\r\n            style=\"-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;mso-table-lspace: 0pt;mso-table-rspace: 0pt;margin: 0;padding: 0 16px;height: 100% !important;\"\r\n          >\r\n            <div class=\"top\" style=\"background-color: #ffffff;color:#202123; padding: 56px 0 32px 0;\">\r\n              <p\r\n                style=\"text-align: left;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin: 0;\"\r\n              >\r\n                \r\n                <img\r\n                  src=\"https://cdn.mcauto-images-production.sendgrid.net/d4ef4a73d51fe844/b7626bee-28ca-4e2f-b25b-7d81af34e7a1/206x51.png\"\r\n                  width=\"206\"\r\n                  height=\"51\"\r\n                  alt=\"ChatGPT\"\r\n                  title=\"\"\r\n                  style=\"height:36px;width:auto;-ms-interpolation-mode: bicubic;border: 0;line-height: 100%;outline: none;text-decoration: none;\"\r\n                >\r\n                \r\n              </p>\r\n            </div>\r\n            <table\r\n              class=\"main\"\r\n            >\r\n              <tr>\r\n                  <td style=\"background-color: #ffffff;color:#353740; text-align: left; line-height:1.5;\">\r\n                      <p style=\"font-size: 16px; line-height: 24px; margin: 0;\">\r\n                        Enter this temporary verification code to continue:\r\n                      </p>\r\n\r\n                      <p style=\"font-family: Menlo, Monaco, Lucida Console, Arial; font-size: 24px; line-height: 28px; background-color: #F3F3F3; color: #5D5D5D; border-radius: 16px; padding: 28px 24px; margin: 24px 0;\">\r\n                        <!--[if mso]>\r\n                            <span style=\"font-family: Lucida Console, Arial, sans-serif;\">\r\n                        <![endif]-->\r\n                        341918\r\n                        <!--[if mso]>\r\n                            </span>\r\n                        <![endif]-->\r\n                      </p>\r\n\r\n                      \r\n\r\n                      <p style=\"font-size: 16px; line-height: 24px; text-align: left; margin: 0; margin-bottom: 24px;\">\r\n                        \r\n                          Didn&#39;t request a verification code? You can ignore this email.\r\n                        \r\n                      </p>\r\n\r\n                      <p style=\"-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin: 0; color: #8F8F8F;\">\r\n                        <br/>Best,<br/>The ChatGPT team\r\n                      </p>\r\n                  </td>\r\n              </tr>\r\n\r\n              <tr>\r\n                <td>\r\n                    <p style=\"height: 1px; width: 100%; background: #E5E5E5; margin: 40px 0;\"></p>\r\n                </td>\r\n              </tr>\r\n            </table>\r\n            <table\r\n              class=\"footer\"\r\n              style=\"text-align: left;background: #ffffff;color:#6e6e80;width: 100%;\"\r\n            >\r\n                <tr>\r\n                    <td>\r\n                        \r\n                        <img\r\n                        src=\"https://cdn.mcauto-images-production.sendgrid.net/d4ef4a73d51fe844/b7626bee-28ca-4e2f-b25b-7d81af34e7a1/206x51.png\"\r\n                        width=\"206\"\r\n                        height=\"51\"\r\n                        alt=\"ChatGPT\"\r\n                        title=\"\"\r\n                        style=\"width:64px;height:auto;-ms-interpolation-mode: bicubic;border: 0;line-height: 100%;outline: none;text-decoration: none;margin-bottom: 16px;\"\r\n                    >\r\n                        \r\n\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td style=\"font-size: 12px; line-height: 16px; padding-bottom: 16px;\">\r\n                        <p style=\"margin: 0;\">\r\n                            \r\n                                <a style=\"color: #8F8F8F\" href=\"http://url3243.email.openai.com/ls/click?upn=u001.IQLfsj4kk-2BK7JhymNusRMtxuwNyiH8tHYK-2BH0HuuCVk-3D5fjH_KEqdbz3-2FSXktseGVdaQLWCojnvmjRiqfqNp1-2Bd6l6MCaTnhQE9L8EvkZhymySYAl-2BwnglFF0Cb2s9BlfQ-2BG-2BtHINScnndcoEA-2B68doptG5TqkTinL45pkdqvn9en252mx49KGHwmyqjqWHLHhl2ytHkKgd0UATeSQ0aC7ce-2FdR-2FsHGNoaMC-2BjmFoL-2BaMgw0BkX-2Fu10zGGY05oyrdhKZ32dNfKbOHgN-2FWqYn8ZfYRtlwp46IJOSxF-2B6wi-2BEVA-2FVX-2FxUWYA89gg6s6zCU4wNXLT0piKIlItbu3sVb4WGPwukHcfVDMJoWT8CD4NOzS-2B49PiXvLKP2oUrw-2FjsVrP-2BeoN0pbVv3ehjPTwh5aGS8nOjSiJ14qXNA9PmWP6NFsNxKca95klJxNx11kidO4V9ESAmz9gKGbSCAdkM-2BCtJcIYjs-3D\">ChatGPT</a>\r\n                            \r\n\r\n                        </p>\r\n                        <p style=\"margin: 0;\">\r\n                            <a style=\"color: #8F8F8F\" href=\"http://url3243.email.openai.com/ls/click?upn=u001.IQLfsj4kk-2BK7JhymNusRMmfwoG2v3nTgHW39-2Fobue0tn1LK51XoZKbBfyGht7CMa4vuW_KEqdbz3-2FSXktseGVdaQLWCojnvmjRiqfqNp1-2Bd6l6MCaTnhQE9L8EvkZhymySYAl-2BwnglFF0Cb2s9BlfQ-2BG-2BtHINScnndcoEA-2B68doptG5TqkTinL45pkdqvn9en252mx49KGHwmyqjqWHLHhl2ytHkKgd0UATeSQ0aC7ce-2FdR-2FsHGNoaMC-2BjmFoL-2BaMgw0BkX-2Fu10zGGY05oyrdhKZ32dNfKbOHgN-2FWqYn8ZfYRtlxPxeITc2zfTYE-2B83WmOwhlThapfZNH4twO-2BeiYshq4FONvrjVS3quWz17OSppEYVHxaPiWWEBnU3Fooi2i27PEn2W85-2BONudcqMPBDUfespr6kH5T-2Bkxk24Z5y-2B3ULXd-2FJf8ueGa60TJmbrA55xzn-2BHGm05mfLGQZJjYC28J1fziQC9J-2BtNkwPPC4SIX1qbEs-3D\">Help center</a>\r\n                        </p>\r\n                    </td>\r\n                </tr>\r\n            </table>\r\n          </td>\r\n        </tr>\r\n      </table>\r\n    </center>\r\n  <img src=\"http://url3243.email.openai.com/wf/open?upn=u001.KBxE1Gg6OIupTTZjIjvan7XTP5AWM6chmHpOmT7dpAsjITgouqjRCMMHx39Czd-2BehAjhJ0NgUKbHvGJMlK7W6iIAn2JUd3JWepj3OqSO5r1etGO8RP01jAY3ey7JNDKUb2UFe6KEIKWeGp8cp45xZxHYlTJ5ys8-2Fvii2OR9sG7TKOE87A-2Bo-2BvHqVPO9qCIYShchDOG4mHodcrpz9nqe83AhSwYAB-2B6sbTMxKlvx-2FARJqUs0dPPq-2BQu2CUfsBo9RhZ7B9DigHED15-2FKYkY-2BMzWDVyhnzIWKsYEmjaJXnJz4mYLyg-2Bgn5ywZ7nn-2B-2BVtw4uBNBZN7mbHvx-2BBp80S7hPi75q84A0Qq43Jjw5aE7eMeXth1XSMgYLBbp-2FlEOt5Bvd8Onx9BWiz-2BmoncX7JkaVJxRNGBI3-2Ft-2B8-2BjbPgkoCmS-2BgOxqfemAJBRJTNgxuOm6U\" alt=\"\" width=\"1\" height=\"1\" border=\"0\" style=\"height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;\"/></body>\r\n</html>\r\n",
+      "status": "RECEIVED",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-15T16:21:57Z"
+    }
+  ],
+  "contacts": [],
+  "templates": [
+    {
+      "id": "tpl_general_intro",
+      "organizationId": "org_docdril_primary",
+      "title": "Introduction & Proposal",
+      "subject": "Connecting with Docdril: {{company}} Discussion",
+      "bodyHtml": "<p>Hi {{first_name}},</p><p>Thank you for connecting. I am reaching out regarding our discussion.</p><p>Best regards,<br>{{sender_name}}</p>",
+      "bodyText": "Hi {{first_name}},\n\nThank you for connecting. I am reaching out regarding our discussion.\n\nBest regards,\n{{sender_name}}",
+      "category": "business",
+      "variables": [
+        "first_name",
+        "company",
+        "sender_name"
+      ]
+    }
+  ],
+  "signatures": [
+    {
+      "id": "sig_default",
+      "organizationId": "org_docdril_primary",
+      "userId": null,
+      "mailboxId": null,
+      "name": "Professional Default",
+      "contentHtml": "<p style=\"font-family: sans-serif; font-size: 13px; color: #475569;\"><strong>DocMail</strong> | Docdril Communication Platform<br><span style=\"color: #f59e0b;\">www.docdril.com</span></p>",
+      "isDefault": true
+    }
+  ],
+  "apiKeys": [
+    {
+      "id": "key_primary",
+      "organizationId": "org_docdril_primary",
+      "name": "Docdril CRM Service Credential",
+      "prefix": "dd_live",
+      "scopes": [
+        "messages:read",
+        "messages:send",
+        "contacts:read",
+        "contacts:write"
+      ],
+      "lastUsedAt": "2026-09-15T16:00:56.716Z",
+      "isRevoked": false,
+      "createdAt": "2026-09-15T16:00:56.716Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud_1789488431844",
+      "organizationId": "org_docdril_primary",
+      "action": "message.sent",
+      "entityType": "message",
+      "entityId": "msg_1789488431841_pihgu",
+      "metadata": {
+        "mailbox": "test@docdril.com",
+        "to": [
+          "client@healthcarepartners.com"
+        ],
+        "subject": "Docdril Clinical Suite Demo Confirmation"
+      },
+      "createdAt": "2026-09-15T16:07:11.844Z"
+    }
+  ]
+}

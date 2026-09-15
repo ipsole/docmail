@@ -1,0 +1,546 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RoleType {
+  OWNER
+  ADMINISTRATOR
+  MANAGER
+  MEMBER
+  VIEWER
+}
+
+enum MailboxStatus {
+  ACTIVE
+  INACTIVE
+  SYNCING
+  ERROR
+}
+
+enum MessageStatus {
+  RECEIVED
+  SENT
+  DRAFT
+  QUEUED
+  FAILED
+}
+
+enum WebhookStatus {
+  ACTIVE
+  PAUSED
+  DISABLED
+}
+
+enum DeliveryStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model Organization {
+  id                    String                 @id @default(uuid())
+  name                  String
+  slug                  String                 @unique
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+
+  users                 User[]
+  mailboxes             Mailbox[]
+  providerAccounts      ProviderAccount[]
+  contacts              Contact[]
+  templates             Template[]
+  signatures            Signature[]
+  apiKeys               ApiKey[]
+  webhookSubscriptions  WebhookSubscription[]
+  events                Event[]
+  auditLogs             AuditLog[]
+
+  @@map("organizations")
+}
+
+model User {
+  id             String         @id @default(uuid())
+  organizationId String         @map("organization_id")
+  email          String         @unique
+  name           String
+  passwordHash   String         @map("password_hash")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  userRoles      UserRole[]
+  mailboxAccess  MailboxAccess[]
+  signatures     Signature[]
+  notifications  Notification[]
+  auditLogs      AuditLog[]
+
+  @@map("users")
+}
+
+model Role {
+  id          String     @id @default(uuid())
+  name        RoleType   @unique
+  description String?
+  createdAt   DateTime   @default(now()) @map("created_at")
+
+  userRoles   UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  code        String           @unique
+  description String?
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  roles       RolePermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String     @map("role_id")
+  permissionId String     @map("permission_id")
+
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model UserRole {
+  userId    String   @map("user_id")
+  roleId    String   @map("role_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model ProviderAccount {
+  id                           String    @id @default(uuid())
+  organizationId               String    @map("organization_id")
+  provider                     String    @default("hostinger") // hostinger
+  providerAccountName          String    @map("provider_account_name")
+  encryptedCredentialsReference String   @map("encrypted_credentials_reference")
+  status                       String    @default("active") // active, revoked, error
+  metadata                     Json?
+  createdAt                    DateTime  @default(now()) @map("created_at")
+  updatedAt                    DateTime  @updatedAt @map("updated_at")
+
+  organization                 Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  mailboxes                    Mailbox[]
+
+  @@map("provider_accounts")
+}
+
+model Mailbox {
+  id                String         @id @default(uuid())
+  organizationId    String         @map("organization_id")
+  providerAccountId String         @map("provider_account_id")
+  provider          String         @default("hostinger")
+  providerMailboxId String         @map("provider_mailbox_id") // Hostinger resourceId e.g. AC...
+  emailAddress      String         @unique @map("email_address")
+  displayName       String         @map("display_name")
+  status            MailboxStatus  @default(ACTIVE)
+  quotaBytes        BigInt         @default(0) @map("quota_bytes")
+  usedBytes         BigInt         @default(0) @map("used_bytes")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+
+  organization      Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  providerAccount   ProviderAccount @relation(fields: [providerAccountId], references: [id], onDelete: Cascade)
+  accessList        MailboxAccess[]
+  aliases           Alias[]
+  forwarders        Forwarder[]
+  autoreplies       Autoreply[]
+  conversations     Conversation[]
+  messages          Message[]
+  drafts            Draft[]
+  signatures        Signature[]
+
+  @@index([organizationId])
+  @@index([providerMailboxId])
+  @@map("mailboxes")
+}
+
+model MailboxAccess {
+  id         String   @id @default(uuid())
+  mailboxId  String   @map("mailbox_id")
+  userId     String   @map("user_id")
+  canRead    Boolean  @default(true) @map("can_read")
+  canSend    Boolean  @default(true) @map("can_send")
+  canManage  Boolean  @default(false) @map("can_manage")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  mailbox    Mailbox  @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([mailboxId, userId])
+  @@map("mailbox_access")
+}
+
+model Alias {
+  id         String   @id @default(uuid())
+  mailboxId  String   @map("mailbox_id")
+  aliasEmail String   @unique @map("alias_email")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  mailbox    Mailbox  @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+
+  @@index([mailboxId])
+  @@map("aliases")
+}
+
+model Forwarder {
+  id                 String   @id @default(uuid())
+  mailboxId          String   @map("mailbox_id")
+  destinationEmail   String   @map("destination_email")
+  keepCopy           Boolean  @default(true) @map("keep_copy")
+  isActive           Boolean  @default(true) @map("is_active")
+  verificationStatus String   @default("verified") @map("verification_status")
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  mailbox            Mailbox  @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+
+  @@index([mailboxId])
+  @@map("forwarders")
+}
+
+model Autoreply {
+  id          String    @id @default(uuid())
+  mailboxId   String    @map("mailbox_id")
+  subject     String
+  body        String
+  displayName String?   @map("display_name")
+  startsAt    DateTime? @map("starts_at")
+  endsAt      DateTime? @map("ends_at")
+  isEnabled   Boolean   @default(false) @map("is_enabled")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  mailbox     Mailbox   @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+
+  @@index([mailboxId])
+  @@map("autoreplies")
+}
+
+model Conversation {
+  id                   String     @id @default(uuid())
+  mailboxId            String     @map("mailbox_id")
+  contactId            String?    @map("contact_id")
+  subject              String
+  snippet              String?
+  unreadCount          Int        @default(0) @map("unread_count")
+  messageCount         Int        @default(1) @map("message_count")
+  isStarred            Boolean    @default(false) @map("is_starred")
+  isArchived           Boolean    @default(false) @map("is_archived")
+  isTrash              Boolean    @default(false) @map("is_trash")
+  isSpam               Boolean    @default(false) @map("is_spam")
+  lastMessageAt        DateTime   @default(now()) @map("last_message_at")
+  providerThreadId     String?    @map("provider_thread_id")
+  createdAt            DateTime   @default(now()) @map("created_at")
+  updatedAt            DateTime   @updatedAt @map("updated_at")
+
+  mailbox              Mailbox    @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+  contact              Contact?   @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  messages             Message[]
+
+  @@index([mailboxId, lastMessageAt])
+  @@index([contactId])
+  @@map("conversations")
+}
+
+model Message {
+  id                String         @id @default(uuid())
+  conversationId    String         @map("conversation_id")
+  mailboxId         String         @map("mailbox_id")
+  providerMessageId String?        @map("provider_message_id") // Hostinger UID or RFC Message-ID
+  providerFolder    String         @default("INBOX") @map("provider_folder")
+  senderEmail       String         @map("sender_email")
+  senderName        String?        @map("sender_name")
+  subject           String
+  snippet           String?
+  bodyText          String?        @map("body_text")
+  bodyHtml          String?        @map("body_html")
+  headers           Json?
+  status            MessageStatus  @default(RECEIVED)
+  isRead            Boolean        @default(false) @map("is_read")
+  isStarred         Boolean        @default(false) @map("is_starred")
+  hasAttachments    Boolean        @default(false) @map("has_attachments")
+  sentAt            DateTime?      @map("sent_at")
+  receivedAt        DateTime       @default(now()) @map("received_at")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+
+  conversation      Conversation   @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  mailbox           Mailbox        @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+  recipients        Recipient[]
+  attachments       Attachment[]
+  messageLabels     MessageLabel[]
+
+  @@index([conversationId])
+  @@index([mailboxId, providerFolder])
+  @@index([providerMessageId])
+  @@map("messages")
+}
+
+model Recipient {
+  id        String   @id @default(uuid())
+  messageId String   @map("message_id")
+  type      String   // to, cc, bcc
+  name      String?
+  email     String
+
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+  @@index([email])
+  @@map("recipients")
+}
+
+model Attachment {
+  id          String   @id @default(uuid())
+  messageId   String?  @map("message_id")
+  draftId     String?  @map("draft_id")
+  filename    String
+  contentType String   @map("content_type")
+  sizeBytes   Int      @map("size_bytes")
+  storageKey  String   @map("storage_key")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  message     Message? @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  draft       Draft?   @relation(fields: [draftId], references: [id], onDelete: Cascade)
+
+  @@index([messageId])
+  @@index([draftId])
+  @@map("attachments")
+}
+
+model Label {
+  id            String         @id @default(uuid())
+  name          String
+  color         String         @default("#0c80eb")
+  createdAt     DateTime       @default(now()) @map("created_at")
+
+  messageLabels MessageLabel[]
+
+  @@map("labels")
+}
+
+model MessageLabel {
+  messageId String   @map("message_id")
+  labelId   String   @map("label_id")
+
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  label     Label    @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, labelId])
+  @@map("message_labels")
+}
+
+model Draft {
+  id                String       @id @default(uuid())
+  mailboxId         String       @map("mailbox_id")
+  inReplyToMessageId String?     @map("in_reply_to_message_id")
+  to                Json         @default("[]") // array of strings
+  cc                Json         @default("[]")
+  bcc               Json         @default("[]")
+  subject           String       @default("")
+  bodyText          String       @default("") @map("body_text")
+  bodyHtml          String       @default("") @map("body_html")
+  providerDraftId   String?      @map("provider_draft_id")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  mailbox           Mailbox      @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+  attachments       Attachment[]
+
+  @@index([mailboxId])
+  @@map("drafts")
+}
+
+model Contact {
+  id                String         @id @default(uuid())
+  organizationId    String         @map("organization_id")
+  name              String
+  email             String
+  company           String?
+  phone             String?
+  notes             String?
+  tags              Json           @default("[]")
+  lastInteractionAt DateTime?      @map("last_interaction_at")
+  metadata          Json?
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+
+  organization      Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  conversations     Conversation[]
+
+  @@unique([organizationId, email])
+  @@index([organizationId])
+  @@map("contacts")
+}
+
+model Template {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  title          String
+  subject        String
+  bodyHtml       String       @map("body_html")
+  bodyText       String?      @map("body_text")
+  category       String       @default("general") // general, crm, support, sales
+  variables      Json         @default("[]") // e.g. ["first_name", "company"]
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@map("templates")
+}
+
+model Signature {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  userId         String?      @map("user_id")
+  mailboxId      String?      @map("mailbox_id")
+  name           String
+  contentHtml    String       @map("content_html")
+  isDefault      Boolean      @default(false) @map("is_default")
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mailbox        Mailbox?     @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@map("signatures")
+}
+
+model Integration {
+  id          String   @id @default(uuid())
+  type        String   // hostinger, crm, ai, support
+  name        String
+  status      String   @default("connected")
+  config      Json?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("integrations")
+}
+
+model ApiKey {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  name           String
+  keyHash        String       @unique @map("key_hash")
+  prefix         String
+  scopes         Json         @default("[]") // ["messages:read", "messages:send", ...]
+  lastUsedAt     DateTime?    @map("last_used_at")
+  expiresAt      DateTime?    @map("expires_at")
+  isRevoked      Boolean      @default(false) @map("is_revoked")
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@map("api_keys")
+}
+
+model WebhookSubscription {
+  id             String            @id @default(uuid())
+  organizationId String            @map("organization_id")
+  name           String
+  targetUrl      String            @map("target_url")
+  secret         String
+  events         Json              @default("[]") // ["message.received", "message.sent", ...]
+  status         WebhookStatus     @default(ACTIVE)
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  deliveries     WebhookDelivery[]
+
+  @@index([organizationId])
+  @@map("webhook_subscriptions")
+}
+
+model WebhookDelivery {
+  id             String              @id @default(uuid())
+  subscriptionId String              @map("subscription_id")
+  eventType      String              @map("event_type")
+  payload        Json
+  responseCode   Int?                @map("response_code")
+  responseBody   String?             @map("response_body")
+  status         DeliveryStatus      @default(PENDING)
+  attemptCount   Int                 @default(1) @map("attempt_count")
+  error          String?
+  deliveredAt    DateTime?           @map("delivered_at")
+  createdAt      DateTime            @default(now()) @map("created_at")
+
+  subscription   WebhookSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@map("webhook_deliveries")
+}
+
+model Event {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  type           String       // message.received, message.sent, etc.
+  entityId       String       @map("entity_id")
+  entityType     String       @map("entity_type")
+  payload        Json
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@map("events")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  title     String
+  content   String
+  isRead    Boolean  @default(false) @map("is_read")
+  linkUrl   String?  @map("link_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model AuditLog {
+  id             String       @id @default(uuid())
+  organizationId String       @map("organization_id")
+  userId         String?      @map("user_id")
+  action         String
+  entityType     String       @map("entity_type")
+  entityId       String?      @map("entity_id")
+  metadata       Json?
+  ipAddress      String?      @map("ip_address")
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@map("audit_logs")
+}
