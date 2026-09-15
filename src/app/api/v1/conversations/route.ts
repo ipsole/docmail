@@ -47,11 +47,14 @@ export async function GET(req: NextRequest) {
         try {
           const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
           const provider = new HostingerMailProvider(effectiveToken);
-          const messageList = await provider.listMessages(mbx.providerMailboxId, folder, 1, 25);
+          const cleanFolder = folder.replace(/^INBOX\./, '');
+          const hostingerFolder = cleanFolder === 'Spam' ? 'Junk' : cleanFolder;
+          const messageList = await provider.listMessages(mbx.providerMailboxId, hostingerFolder, 1, 25);
 
           for (const msgHeader of messageList.messages) {
-            const messageDocdrilId = `msg_${mbx.providerMailboxId}_${msgHeader.uid}`;
-            const conversationId = `cnv_${mbx.providerMailboxId}_${msgHeader.uid}`;
+            const folderTag = cleanFolder === 'INBOX' ? '' : `_${cleanFolder}`;
+            const messageDocdrilId = `msg_${mbx.providerMailboxId}${folderTag}_${msgHeader.uid}`;
+            const conversationId = `cnv_${mbx.providerMailboxId}${folderTag}_${msgHeader.uid}`;
 
             const existing = await db.findMessageById(messageDocdrilId);
             if (!existing) {

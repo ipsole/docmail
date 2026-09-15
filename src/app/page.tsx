@@ -25,6 +25,7 @@ export default function DocMailDashboard() {
   const [composerInitialTo, setComposerInitialTo] = useState<string[]>([]);
   const [composerInitialSubject, setComposerInitialSubject] = useState('');
   const [composerInReplyToCnvId, setComposerInReplyToCnvId] = useState<string | undefined>(undefined);
+  const [composerRecipientName, setComposerRecipientName] = useState<string>('');
 
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isAiDrawerOpen, setIsAiDrawerOpen] = useState(false);
@@ -189,6 +190,7 @@ export default function DocMailDashboard() {
       message.subject.startsWith('Re:') ? message.subject : `Re: ${message.subject}`
     );
     setComposerInReplyToCnvId(message.conversationId);
+    setComposerRecipientName(message.senderName || '');
     setIsComposerOpen(true);
   };
 
@@ -198,6 +200,7 @@ export default function DocMailDashboard() {
       message.subject.startsWith('Fwd:') ? message.subject : `Fwd: ${message.subject}`
     );
     setComposerInReplyToCnvId(message.conversationId);
+    setComposerRecipientName('');
     setIsComposerOpen(true);
   };
 
@@ -206,7 +209,13 @@ export default function DocMailDashboard() {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <Navbar
-        onComposeClick={() => setIsComposerOpen(true)}
+        onComposeClick={() => {
+          setComposerInitialTo([]);
+          setComposerInitialSubject('');
+          setComposerInReplyToCnvId(undefined);
+          setComposerRecipientName('');
+          setIsComposerOpen(true);
+        }}
         onSettingsClick={() => setIsSettingsModalOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -306,6 +315,9 @@ export default function DocMailDashboard() {
         initialTo={composerInitialTo}
         initialSubject={composerInitialSubject}
         initialInReplyToConversationId={composerInReplyToCnvId}
+        initialRecipientName={composerRecipientName}
+        activeMailbox={mailboxes.find((m) => m.id === selectedMailboxId) || mailboxes[0]}
+        mailboxes={mailboxes}
         onSendSuccess={loadConversations}
       />
 

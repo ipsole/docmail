@@ -31,6 +31,19 @@
   ],
   "conversations": [
     {
+      "id": "cnv_ACed584379339f00d742210b2639ac_Sent_2",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "subject": "Checking in regarding {{project}}",
+      "snippet": "Hi Piyush, Just checking in to see if you had a chance to review the materials we sent over for the Docdril initiative?",
+      "unreadCount": 0,
+      "messageCount": 1,
+      "isStarred": false,
+      "isArchived": false,
+      "isTrash": false,
+      "isSpam": false,
+      "lastMessageAt": "2026-09-15T20:12:05Z"
+    },
+    {
       "id": "cnv_ACed584379339f00d742210b2639ac_86",
       "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
       "subject": "Hire me im founder",
@@ -1007,6 +1020,31 @@
     }
   ],
   "messages": [
+    {
+      "id": "msg_ACed584379339f00d742210b2639ac_Sent_2",
+      "conversationId": "cnv_ACed584379339f00d742210b2639ac_Sent_2",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "providerMessageId": "2",
+      "providerFolder": "INBOX.Sent",
+      "senderEmail": "team@docdril.com",
+      "senderName": "team",
+      "recipients": [
+        {
+          "type": "to",
+          "email": "itpiyu@gmail.com",
+          "name": "Piyush Chaudhary"
+        }
+      ],
+      "subject": "Checking in regarding {{project}}",
+      "snippet": "Hi Piyush, Just checking in to see if you had a chance to review the materials we sent over for the Docdril initiative?",
+      "bodyText": "Hi Piyush,\n\nJust checking in to see if you had a chance to review the materials we sent over for the Docdril initiative?\n\nLet me know if you have any questions.",
+      "bodyHtml": "<p>Hi Piyush,</p><p>Just checking in to see if you had a chance to review the materials we sent over for the Docdril initiative?</p><p>Let me know if you have any questions.</p><br><br><p style=\"font-family: -apple-system, BlinkMacSystemFont, \\x27Segoe UI\\x27, Roboto, sans-serif; font-size: 13px; color: #334155; line-height: 1.6;\">Warm regards,<br><strong style=\"color: #0f172a;\">Team Docdril</strong><br><a href=\"https://docdril.com\" style=\"color: #e11d48; text-decoration: none; font-weight: 500;\">www.docdril.com</a></p>",
+      "status": "SENT",
+      "isRead": true,
+      "isStarred": false,
+      "hasAttachments": false,
+      "receivedAt": "2026-09-15T20:12:05Z"
+    },
     {
       "id": "msg_ACed584379339f00d742210b2639ac_84",
       "conversationId": "cnv_ACed584379339f00d742210b2639ac_84",
@@ -3008,13 +3046,22 @@
   ],
   "signatures": [
     {
-      "id": "sig_default",
+      "id": "sig_team",
       "organizationId": "org_docdril_primary",
       "userId": null,
-      "mailboxId": null,
-      "name": "Professional Default",
-      "contentHtml": "<p style=\"font-family: sans-serif; font-size: 13px; color: #475569;\"><strong>DocMail</strong> | Docdril Communication Platform<br><span style=\"color: #f59e0b;\">www.docdril.com</span></p>",
+      "mailboxId": "mbx_ACed584379339f00d742210b2639ac",
+      "name": "Team Docdril",
+      "contentHtml": "<p style=\"font-family: -apple-system, BlinkMacSystemFont, \\x27Segoe UI\\x27, Roboto, sans-serif; font-size: 13px; color: #334155; line-height: 1.6; margin-top: 16px;\">Warm regards,<br><strong style=\"color: #0f172a;\">Team Docdril</strong><br><a href=\"https://docdril.com\" style=\"color: #e11d48; text-decoration: none; font-weight: 500;\">www.docdril.com</a></p>",
       "isDefault": true
+    },
+    {
+      "id": "sig_info",
+      "organizationId": "org_docdril_primary",
+      "userId": null,
+      "mailboxId": "mbx_AC0c7922876c89a969088edca71aaf",
+      "name": "Docdril",
+      "contentHtml": "<p style=\"font-family: -apple-system, BlinkMacSystemFont, \\x27Segoe UI\\x27, Roboto, sans-serif; font-size: 13px; color: #334155; line-height: 1.6; margin-top: 16px;\">Best regards,<br><strong style=\"color: #0f172a;\">Docdril</strong><br><a href=\"https://docdril.com\" style=\"color: #e11d48; text-decoration: none; font-weight: 500;\">www.docdril.com</a></p>",
+      "isDefault": false
     }
   ],
   "apiKeys": [

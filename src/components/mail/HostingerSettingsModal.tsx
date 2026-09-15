@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Webhook, Bot, Shield, Check, Copy, ExternalLink, Globe, Key } from 'lucide-react';
+import { X, Webhook, Bot, Shield, Check, Copy, ExternalLink, Globe, Sparkles, Key } from 'lucide-react';
 
 interface HostingerSettingsModalProps {
   isOpen: boolean;
@@ -14,20 +14,23 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
   onClose,
   currentUser,
 }) => {
-  const [activeTab, setActiveTab] = useState<'webhooks' | 'mcp' | 'deployment'>('webhooks');
+  const [activeTab, setActiveTab] = useState<'chatgpt' | 'webhooks' | 'deployment'>('chatgpt');
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const webhookUrl = 'https://docmail.docdril.com/api/v1/webhooks/hostinger';
+  const chatgptOpenApiUrl = 'https://docmail.docdril.com/api/v1/openapi.json';
+  const mcpUrl = 'https://docmail.docdril.com/api/v1/mcp';
+  const apiKey = 'dd_live_crm_service_key';
+
   const mcpConfigJson = JSON.stringify(
     {
       mcpServers: {
-        'hostinger-mail': {
-          command: 'npx',
-          args: ['-y', '@hostinger/mail-mcp-server'],
-          env: {
-            HOSTINGER_API_TOKEN: '35896e7a96cd8cb8a66e1a1ece92df977d33047bf1102cfb747618598372059b',
+        'docmail-service': {
+          url: 'https://docmail.docdril.com/api/v1/mcp',
+          headers: {
+            Authorization: 'Bearer dd_live_crm_service_key',
           },
         },
       },
@@ -44,7 +47,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md select-none">
-      <div className="glass-surface w-full max-w-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl bg-white/80 max-h-[90vh] flex flex-col">
+      <div className="glass-surface w-full max-w-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl bg-white/85 max-h-[92vh] flex flex-col">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -56,20 +59,32 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
         {/* Header */}
         <div className="flex items-center space-x-3.5">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 to-rose-500 flex items-center justify-center text-white shadow-[0_0_16px_rgba(244,114,182,0.6)]">
-            <Bot className="w-6 h-6" />
+            <Sparkles className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-lg font-extrabold text-slate-900 tracking-tight">
-              DocMail Gateway & Agentic Settings
+              DocMail Gateway & AI Integrations
             </h2>
             <p className="text-xs text-slate-500">
-              Inbound Webhooks, MCP AI Server, and docmail.docdril.com configuration
+              Connect ChatGPT, Claude MCP, inboxes, and docmail.docdril.com ecosystem
             </p>
           </div>
         </div>
 
         {/* Navigation Tabs */}
         <div className="flex space-x-2 border-b border-white/60 pb-2">
+          <button
+            onClick={() => setActiveTab('chatgpt')}
+            className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              activeTab === 'chatgpt'
+                ? 'obsidian-card shadow-md'
+                : 'glass-card text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Bot className="w-3.5 h-3.5 text-pink-400" />
+            <span>1. ChatGPT & MCP AI</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('webhooks')}
             className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
@@ -79,19 +94,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
             }`}
           >
             <Webhook className="w-3.5 h-3.5 text-rose-400" />
-            <span>1. Inbound Webhook</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('mcp')}
-            className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'mcp'
-                ? 'obsidian-card shadow-md'
-                : 'glass-card text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Bot className="w-3.5 h-3.5 text-pink-400" />
-            <span>2. MCP Server (AI)</span>
+            <span>2. Inbound Webhooks</span>
           </button>
 
           <button
@@ -103,13 +106,98 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
             }`}
           >
             <Globe className="w-3.5 h-3.5 text-emerald-400" />
-            <span>3. Vercel & Auth</span>
+            <span>3. Deployment & Auth</span>
           </button>
         </div>
 
         {/* Tab Contents */}
         <div className="flex-1 overflow-y-auto pr-1 space-y-4 text-xs text-slate-700">
-          {/* TAB 1: WEBHOOKS */}
+          {/* TAB 1: CHATGPT & MCP */}
+          {activeTab === 'chatgpt' && (
+            <div className="space-y-4">
+              {/* ChatGPT Custom GPT Action Link */}
+              <div className="glass-inset p-4 rounded-2xl space-y-2 border border-rose-100">
+                <div className="font-bold text-slate-900 flex items-center justify-between">
+                  <span className="flex items-center space-x-1.5">
+                    <Sparkles className="w-4 h-4 text-rose-500" />
+                    <span>ChatGPT Custom GPT Action (OpenAPI Schema URL):</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    Active & Ready
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={chatgptOpenApiUrl}
+                    className="w-full bg-white/80 border border-white/80 p-2 rounded-xl font-mono text-[11px] text-slate-800"
+                  />
+                  <button
+                    onClick={() => copyToClipboard(chatgptOpenApiUrl, 'openapi')}
+                    className="rose-glow-btn px-3 py-2 text-xs font-bold flex items-center space-x-1 cursor-pointer flex-shrink-0"
+                  >
+                    {copiedField === 'openapi' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === 'openapi' ? 'Copied' : 'Copy URL'}</span>
+                  </button>
+                </div>
+                <p className="text-[11px] text-slate-500">
+                  Paste this URL directly into ChatGPT under <strong>Configure &rarr; Actions &rarr; Import from URL</strong>.
+                </p>
+              </div>
+
+              {/* API Key */}
+              <div className="glass-card p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 flex items-center space-x-1.5">
+                    <Key className="w-4 h-4 text-amber-500" />
+                    <span>Your Bearer API Key for ChatGPT / Claude:</span>
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(apiKey, 'apikey')}
+                    className="glass-card px-2.5 py-1 text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center space-x-1 cursor-pointer"
+                  >
+                    {copiedField === 'apikey' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedField === 'apikey' ? 'Copied' : 'Copy Key'}</span>
+                  </button>
+                </div>
+                <div className="font-mono bg-slate-100 p-2 rounded-xl text-slate-800 text-[11px] font-semibold select-all">
+                  {apiKey}
+                </div>
+              </div>
+
+              {/* Step-by-Step Guide for ChatGPT */}
+              <div className="glass-surface p-4 space-y-2.5 bg-white/90 border border-white/80">
+                <h4 className="font-extrabold text-slate-900 text-xs">How to connect with ChatGPT in 30 seconds:</h4>
+                <ol className="list-decimal list-inside space-y-1.5 text-slate-600 font-medium pl-1 leading-relaxed">
+                  <li>Open <strong>ChatGPT</strong> &rarr; Click <strong>Explore GPTs</strong> &rarr; Click <strong>+ Create</strong>.</li>
+                  <li>In the <strong>Configure</strong> tab, scroll down and click <strong>Create new action</strong>.</li>
+                  <li>Click <strong>Import from URL</strong> and paste: <code className="bg-slate-100 px-1 py-0.5 rounded font-mono text-[10px] text-rose-600">{chatgptOpenApiUrl}</code></li>
+                  <li>Under <strong>Authentication</strong>, select <strong>API Key</strong> &rarr; Auth Type: <strong>Bearer</strong> &rarr; paste the key above.</li>
+                  <li>Done! ChatGPT now has full abilities to search threads, read emails, draft replies, manage contacts, and apply templates.</li>
+                </ol>
+              </div>
+
+              {/* MCP Protocol Endpoint */}
+              <div className="glass-inset p-4 rounded-2xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900">Claude & Desktop MCP Server Endpoint</span>
+                  <button
+                    onClick={() => copyToClipboard(mcpUrl, 'mcp')}
+                    className="glass-card px-2.5 py-1 text-xs font-bold text-slate-700 hover:text-slate-900 flex items-center space-x-1 cursor-pointer"
+                  >
+                    {copiedField === 'mcp' ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                    <span>{copiedField === 'mcp' ? 'Copied' : 'Copy Endpoint'}</span>
+                  </button>
+                </div>
+                <div className="font-mono bg-white/80 p-2 rounded-xl text-slate-800 text-[11px]">
+                  {mcpUrl}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: WEBHOOKS */}
           {activeTab === 'webhooks' && (
             <div className="space-y-4">
               <div className="glass-inset p-4 rounded-2xl space-y-2">
@@ -134,7 +222,7 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
                   />
                   <button
                     onClick={() => copyToClipboard(webhookUrl, 'webhook')}
-                    className="rose-glow-btn px-3 py-2 text-xs font-bold flex items-center space-x-1 cursor-pointer"
+                    className="rose-glow-btn px-3 py-2 text-xs font-bold flex items-center space-x-1 cursor-pointer flex-shrink-0"
                   >
                     {copiedField === 'webhook' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedField === 'webhook' ? 'Copied' : 'Copy'}</span>
@@ -145,50 +233,17 @@ export const HostingerSettingsModal: React.FC<HostingerSettingsModalProps> = ({
               <div className="glass-card p-4 space-y-2.5">
                 <h4 className="font-extrabold text-slate-900 text-xs">How to configure your Webhook:</h4>
                 <ol className="list-decimal list-inside space-y-1.5 text-slate-600 font-medium pl-1 leading-relaxed">
-                  <li>In your Mail Control Panel (Hostinger / cPanel), navigate to <strong>Emails &rarr; docdril.com &rarr; Webhooks</strong>.</li>
+                  <li>In your Mail Control Panel, navigate to <strong>Emails &rarr; docdril.com &rarr; Webhooks</strong>.</li>
                   <li>Click <strong>Set up</strong>.</li>
                   <li>Paste the Webhook URL: <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[10px]">{webhookUrl}</code></li>
                   <li>Check the event triggers: <strong>message.received</strong> and <strong>message.sent</strong>.</li>
-                  <li>Save the webhook. If a Webhook Secret is generated, copy it and add it as <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[10px]">HOSTINGER_WEBHOOK_SECRET</code> in Vercel.</li>
+                  <li>Both <code className="font-bold">team@docdril.com</code> and <code className="font-bold">info@docdril.com</code> can route to this same webhook URL seamlessly.</li>
                 </ol>
               </div>
 
               <div className="glass-inset p-3 rounded-xl flex items-center space-x-2 text-emerald-700 font-semibold text-[11px]">
                 <Shield className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                 <span>DocMail's webhook receiver includes automatic HMAC SHA-256 validation and idempotent delivery defense.</span>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 2: MCP SERVER */}
-          {activeTab === 'mcp' && (
-            <div className="space-y-4">
-              <div className="glass-inset p-4 rounded-2xl space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900">Model Context Protocol (MCP) Configuration</span>
-                  <button
-                    onClick={() => copyToClipboard(mcpConfigJson, 'mcp')}
-                    className="rose-glow-btn px-3 py-1.5 text-xs font-bold flex items-center space-x-1 cursor-pointer"
-                  >
-                    {copiedField === 'mcp' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedField === 'mcp' ? 'Copied JSON' : 'Copy JSON'}</span>
-                  </button>
-                </div>
-                <p className="text-[11px] text-slate-500">
-                  Add this to your <code className="font-mono bg-white/60 px-1 rounded">claude_desktop_config.json</code> or Cursor / Antigravity settings to let AI models directly read and draft emails on your mailboxes:
-                </p>
-                <pre className="bg-zinc-900 text-zinc-100 p-3.5 rounded-xl font-mono text-[11px] overflow-x-auto">
-                  {mcpConfigJson}
-                </pre>
-              </div>
-
-              <div className="glass-card p-4 space-y-2">
-                <h4 className="font-bold text-slate-900">What MCP Enables For Docdril:</h4>
-                <ul className="list-disc list-inside space-y-1 text-slate-600 pl-1">
-                  <li>Autonomous email reading, drafting, and thread triage directly from AI agents.</li>
-                  <li>Zero-latency natural language inbox queries ("Find placement invites from universities").</li>
-                  <li>Seamless multi-agent workflows integrated with your existing developer stack.</li>
-                </ul>
               </div>
             </div>
           )}

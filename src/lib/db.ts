@@ -86,13 +86,22 @@ class DocMailDatabase {
 
   signatures: DocdrilSignature[] = [
     {
-      id: 'sig_default',
+      id: 'sig_team',
       organizationId: 'org_docdril_primary',
       userId: null,
-      mailboxId: null,
-      name: 'Professional Default',
-      contentHtml: '<p style="font-family: sans-serif; font-size: 13px; color: #475569;"><strong>DocMail</strong> | Docdril Communication Platform<br><span style="color: #f59e0b;">www.docdril.com</span></p>',
+      mailboxId: 'mbx_ACed584379339f00d742210b2639ac',
+      name: 'Team Docdril',
+      contentHtml: '<p style="font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 13px; color: #334155; line-height: 1.6; margin-top: 16px;">Warm regards,<br><strong style="color: #0f172a;">Team Docdril</strong><br><a href="https://docdril.com" style="color: #e11d48; text-decoration: none; font-weight: 500;">www.docdril.com</a></p>',
       isDefault: true,
+    },
+    {
+      id: 'sig_info',
+      organizationId: 'org_docdril_primary',
+      userId: null,
+      mailboxId: 'mbx_AC0c7922876c89a969088edca71aaf',
+      name: 'Docdril',
+      contentHtml: '<p style="font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif; font-size: 13px; color: #334155; line-height: 1.6; margin-top: 16px;">Best regards,<br><strong style="color: #0f172a;">Docdril</strong><br><a href="https://docdril.com" style="color: #e11d48; text-decoration: none; font-weight: 500;">www.docdril.com</a></p>',
+      isDefault: false,
     },
   ];
 
@@ -264,9 +273,19 @@ export const db = {
 
     if (params.folder) {
       const folder = params.folder;
-      const folderMsgs = memoryDb.messages.filter(
-        (m) => m.mailboxId === params.mailboxId && (m.providerFolder === folder || (!m.providerFolder && folder === 'INBOX'))
-      );
+      const cleanFolder = folder.replace(/^INBOX\./, '');
+      const folderMsgs = memoryDb.messages.filter((m) => {
+        if (m.mailboxId !== params.mailboxId) return false;
+        const msgFolder = m.providerFolder || 'INBOX';
+        const cleanMsgFolder = msgFolder.replace(/^INBOX\./, '');
+        if (cleanFolder === 'INBOX' || folder === 'INBOX') {
+          return cleanMsgFolder === 'INBOX' || !m.providerFolder;
+        }
+        return (
+          cleanMsgFolder.toLowerCase() === cleanFolder.toLowerCase() ||
+          msgFolder.toLowerCase() === folder.toLowerCase()
+        );
+      });
       const cnvIdsInFolder = new Set(folderMsgs.map((m) => m.conversationId));
       list = list.filter((c) => cnvIdsInFolder.has(c.id));
     }
@@ -320,12 +339,24 @@ export const db = {
   },
 
   async createMessage(msg: DocdrilMessage): Promise<DocdrilMessage> {
-    // Avoid duplicates by providerMessageId or id
-    const existing = memoryDb.messages.find(
-      (m) => (m.providerMessageId && m.providerMessageId === msg.providerMessageId) || m.id === msg.id
-    );
+    // Avoid duplicates: match by exact id OR by (mailboxId + providerFolder + providerMessageId)
+    const msgFolderClean = (msg.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
+    const existing = memoryDb.messages.find((m) => {
+      if (m.id === msg.id) return true;
+      if (
+        msg.providerMessageId &&
+        m.providerMessageId === msg.providerMessageId &&
+        m.mailboxId === msg.mailboxId
+      ) {
+        const mFolderClean = (m.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
+        return mFolderClean === msgFolderClean;
+      }
+      return false;
+    });
+
     if (existing) {
       Object.assign(existing, msg);
+      memoryDb.saveToDisk();
       return existing;
     }
 

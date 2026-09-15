@@ -28,8 +28,13 @@ export async function GET(
     if (!conversation && effectiveToken) {
       const cleanId = id.replace(/^(cnv_|msg_)/, '');
       const parts = cleanId.split('_');
-      const mbxResource = parts.length > 1 ? parts[0] : '1699703';
-      const uid = parts.length > 1 ? parts[1] : parts[0];
+      let mbxResource = parts[0] || '1699703';
+      let folderName = 'INBOX';
+      let uid = parts[1];
+      if (parts.length >= 3) {
+        folderName = parts[1];
+        uid = parts[2];
+      }
 
       const mbx =
         (await db.findMailboxByProviderId(mbxResource)) ||
@@ -40,15 +45,18 @@ export async function GET(
         try {
           const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
           const provider = new HostingerMailProvider(effectiveToken);
-          const detail = await provider.getMessage(mbx.providerMailboxId, 'INBOX', uid);
+          const cleanFolder = folderName.replace(/^INBOX\./, '');
+          const hostingerFolder = cleanFolder === 'Spam' ? 'Junk' : cleanFolder;
+          const detail = await provider.getMessage(mbx.providerMailboxId, hostingerFolder, uid);
           if (detail) {
-            const messageDocdrilId = `msg_${mbx.providerMailboxId}_${uid}`;
+            const folderTag = cleanFolder === 'INBOX' ? '' : `_${cleanFolder}`;
+            const messageDocdrilId = `msg_${mbx.providerMailboxId}${folderTag}_${uid}`;
             const liveMessage = {
               id: messageDocdrilId,
               conversationId: id,
               mailboxId: mbx.id,
               providerMessageId: String(uid),
-              providerFolder: 'INBOX',
+              providerFolder: folderName,
               senderEmail: detail.from?.address || 'unknown@sender.com',
               senderName: detail.from?.name || null,
               recipients: detail.to?.map((r) => ({ type: 'to' as const, email: r.address, name: r.name })) || [],
@@ -95,9 +103,11 @@ export async function GET(
           for (const msg of conversation.messages) {
             if ((!msg.bodyHtml || msg.bodyHtml === '<p></p>') && msg.providerMessageId) {
               try {
+                const cleanMsgFolder = (msg.providerFolder || 'INBOX').replace(/^INBOX\./, '');
+                const hostingerFolder = cleanMsgFolder === 'Spam' ? 'Junk' : cleanMsgFolder;
                 const detail = await provider.getMessage(
                   mbx.providerMailboxId,
-                  msg.providerFolder || 'INBOX',
+                  hostingerFolder,
                   msg.providerMessageId
                 );
                 if (detail) {
