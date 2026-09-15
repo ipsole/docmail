@@ -27,12 +27,36 @@ const TOOLS = [
   },
   {
     name: 'get_conversation',
-    description: 'Get full conversation thread details with message content, text, html, sender, and recipients.',
+    description: 'Get full conversation thread with complete message bodies, text, html, sender, and recipients. Can pass conversationId, messageId, or subject title.',
     inputSchema: {
       type: 'object',
-      required: ['conversationId'],
       properties: {
-        conversationId: { type: 'string', description: 'Conversation ID (e.g. cnv_ACed584379339f00d742210b2639ac_Sent_2)' },
+        conversationId: { type: 'string', description: 'Conversation ID, message ID, or subject search query' },
+        subject: { type: 'string', description: 'Optional subject search title' },
+      },
+    },
+  },
+  {
+    name: 'read_email',
+    description: 'Read the complete body text and details of an email. Provide conversation ID, message ID, or subject keywords.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID or message ID' },
+        query: { type: 'string', description: 'Subject or keyword to find the email' },
+      },
+    },
+  },
+  {
+    name: 'search_emails',
+    description: 'Search emails across subjects, senders, and body content across inboxes.',
+    inputSchema: {
+      type: 'object',
+      required: ['query'],
+      properties: {
+        query: { type: 'string', description: 'Search term or keyword (e.g. "Dun & Bradstreet", "GST", "invoice")' },
+        mailboxId: { type: 'string', description: 'Optional mailbox filter ("team@docdril.com" or "info@docdril.com")' },
+        folder: { type: 'string', description: 'Folder name. Default is INBOX.' },
       },
     },
   },
@@ -49,6 +73,19 @@ const TOOLS = [
         from: { type: 'string', description: 'Sender address ("team@docdril.com" or "info@docdril.com"). Defaults to team@docdril.com.' },
         mailboxId: { type: 'string', description: 'Optional mailbox ID or email address.' },
         inReplyToConversationId: { type: 'string', description: 'Conversation ID if this is a reply.' },
+      },
+    },
+  },
+  {
+    name: 'reply_email',
+    description: 'Reply directly to an email conversation thread. Auto-populates recipients and thread subject.',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationId', 'bodyText'],
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID to reply to' },
+        bodyText: { type: 'string', description: 'Reply message body text' },
+        from: { type: 'string', description: 'Sender address ("team@docdril.com" or "info@docdril.com")' },
       },
     },
   },
@@ -143,6 +180,71 @@ function resolveMailbox(identifier: string | undefined, mailboxes: any[]) {
         m.displayName.toLowerCase() === clean
     ) || null
   );
+}
+
+function stripHtmlTags(html: string | undefined): string {
+  if (!html) return '';
+  return html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<\/p>/gi, '\n\n')
+    .replace(/<br\s*[\/]?>/gi, '\n')
+    .replace(/<[^>]+>/gi, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/\n\s*\n\s*\n/g, '\n\n')
+    .trim();
+}
+
+async function ensureConversationBodies(conversation: any) {
+  if (!conversation || !conversation.messages || conversation.messages.length === 0) {
+    return conversation;
+  }
+
+  const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+  const token = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+  if (!token) return conversation;
+
+  const mbx = await db.findMailboxById(conversation.mailboxId);
+  if (!mbx?.providerMailboxId) return conversation;
+
+  const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+  const provider = new HostingerMailProvider(token);
+
+  for (const msg of conversation.messages) {
+    if ((!msg.bodyText || msg.bodyText.trim() === '') && msg.providerMessageId) {
+      try {
+        const cleanFolder = (msg.providerFolder || 'INBOX').replace(/^INBOX\./, '');
+        const hostingerFolder = cleanFolder === 'Spam' ? 'Junk' : cleanFolder;
+        const detail = await provider.getMessage(
+          mbx.providerMailboxId,
+          hostingerFolder,
+          msg.providerMessageId
+        );
+        if (detail) {
+          msg.bodyText = detail.text || stripHtmlTags(detail.html) || '';
+          msg.bodyHtml = detail.html || (detail.text ? `<p>${detail.text.replace(/\n/g, '<br>')}</p>` : '');
+          if (detail.attachments?.length) {
+            msg.attachments = detail.attachments.map((a: any) => ({
+              id: a.id,
+              filename: a.filename,
+              contentType: a.contentType,
+              sizeBytes: a.sizeBytes || a.size || 0,
+            }));
+            msg.hasAttachments = true;
+          }
+          await db.createMessage(msg);
+        }
+      } catch (err: any) {
+        console.warn(`[MCP Body Loader] Failed to load body for message ${msg.id}:`, err.message);
+      }
+    }
+  }
+
+  return conversation;
 }
 
 export async function GET(req: NextRequest) {
@@ -342,9 +444,59 @@ export async function POST(req: NextRequest) {
             break;
           }
 
-          case 'get_conversation': {
-            if (!args.conversationId) throw new Error('Missing argument "conversationId"');
-            toolResult = await db.findConversationById(args.conversationId);
+          case 'get_conversation':
+          case 'read_email': {
+            const queryId = args.conversationId || args.id || args.messageId;
+            let conv = queryId ? await db.findConversationById(queryId) : null;
+
+            // If not found by conversation ID, check if queryId is a message ID
+            if (!conv && queryId) {
+              const msg = await db.findMessageById(queryId);
+              if (msg) {
+                conv = await db.findConversationById(msg.conversationId);
+              }
+            }
+
+            // If still not found, search by subject or query
+            const searchQuery = args.subject || args.query || (!conv && queryId ? queryId : null);
+            if (!conv && searchQuery) {
+              const allConvs = await db.listConversations({});
+              const q = String(searchQuery).toLowerCase();
+              conv =
+                allConvs.find((c) => c.subject.toLowerCase().includes(q)) ||
+                allConvs.find((c) => c.snippet.toLowerCase().includes(q)) ||
+                null;
+              if (conv) {
+                conv = await db.findConversationById(conv.id);
+              }
+            }
+
+            if (!conv) {
+              throw new Error(`Email conversation not found for identifier: "${queryId || searchQuery}"`);
+            }
+
+            conv = await ensureConversationBodies(conv);
+            toolResult = conv;
+            break;
+          }
+
+          case 'search_emails': {
+            if (!args.query) throw new Error('Missing argument "query"');
+            const mailboxes = await db.listMailboxes(orgId);
+            const mailboxMap = new Map(mailboxes.map((m) => [m.id, m.emailAddress]));
+            const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes);
+            const folder = args.folder || 'INBOX';
+
+            const rawConversations = await db.listConversations({
+              mailboxId: targetMailbox ? targetMailbox.id : undefined,
+              folder,
+              search: args.query,
+            });
+
+            toolResult = rawConversations.map((c) => ({
+              ...c,
+              mailboxEmail: mailboxMap.get(c.mailboxId) || c.mailboxId,
+            }));
             break;
           }
 
@@ -362,6 +514,33 @@ export async function POST(req: NextRequest) {
               subject: args.subject,
               bodyText: args.bodyText,
               inReplyToConversationId: args.inReplyToConversationId,
+            });
+            break;
+          }
+
+          case 'reply_email': {
+            if (!args.conversationId || !args.bodyText) {
+              throw new Error('Missing required arguments: conversationId or bodyText');
+            }
+            const conv = await db.findConversationById(args.conversationId);
+            if (!conv) throw new Error(`Conversation ${args.conversationId} not found`);
+
+            const lastMsg = conv.messages && conv.messages.length > 0
+              ? conv.messages[conv.messages.length - 1]
+              : null;
+
+            const to = lastMsg?.senderEmail ? [lastMsg.senderEmail] : ['team@docdril.com'];
+            const subject = conv.subject.startsWith('Re:') ? conv.subject : `Re: ${conv.subject}`;
+
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.from, mailboxes) || (await db.findMailboxById(conv.mailboxId)) || mailboxes[0];
+
+            toolResult = await MailService.sendEmail({
+              mailboxId: targetMailbox.id,
+              to,
+              subject,
+              bodyText: args.bodyText,
+              inReplyToConversationId: conv.id,
             });
             break;
           }
