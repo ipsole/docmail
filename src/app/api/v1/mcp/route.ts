@@ -302,10 +302,11 @@ export async function OPTIONS() {
 export async function POST(req: NextRequest) {
   try {
     let authContext = null;
+    let authError: string | null = null;
     try {
       authContext = await authenticateRequest(req);
-    } catch {
-      // Fallback allowed for MCP execution
+    } catch (err: any) {
+      authError = err.message || 'Unauthorized';
     }
 
     const orgId = authContext?.organizationId || 'org_docdril_primary';
@@ -417,8 +418,27 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 6. Tools Call
+    // 6. Tools Call (Requires valid DocMail API Key authentication)
     if (method === 'tools/call') {
+      if (!authContext) {
+        return NextResponse.json(
+          {
+            jsonrpc: '2.0',
+            id: id ?? null,
+            error: {
+              code: -32001,
+              message: `Unauthorized: ${authError || 'A valid DocMail API Key (dd_live_...) is required to access mail and execute tools. Generate one in DocMail Settings.'}`,
+            },
+          },
+          {
+            status: 401,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+            },
+          }
+        );
+      }
+
       const { name, arguments: args = {} } = params || {};
       let toolResult: any = null;
 

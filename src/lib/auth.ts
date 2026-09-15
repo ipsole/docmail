@@ -86,12 +86,22 @@ export async function authenticateRequest(req: NextRequest): Promise<AuthContext
     };
   }
 
-  // 3. Fallback dev user session
-  return {
-    type: 'user',
-    organizationId: DEFAULT_ORG_ID,
-    user: DEFAULT_DEV_USER,
-    role: DEFAULT_DEV_USER.role,
-    scopes: ['admin:all', 'messages:read', 'messages:send', 'contacts:read', 'contacts:write'],
-  };
+  // 3. Fallback dev user session ONLY on localhost in development mode
+  const host = req.headers.get('host') || '';
+  const isLocalDev =
+    process.env.NODE_ENV === 'test' ||
+    (process.env.NODE_ENV !== 'production' &&
+      (host.includes('localhost') || host.includes('127.0.0.1')));
+
+  if (isLocalDev) {
+    return {
+      type: 'user',
+      organizationId: DEFAULT_ORG_ID,
+      user: DEFAULT_DEV_USER,
+      role: DEFAULT_DEV_USER.role,
+      scopes: ['admin:all', 'messages:read', 'messages:send', 'contacts:read', 'contacts:write'],
+    };
+  }
+
+  throw new Error('Unauthorized: A valid DocMail API key or authenticated user session is required.');
 }
