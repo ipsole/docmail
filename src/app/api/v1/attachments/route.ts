@@ -14,8 +14,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Missing parameters' }, { status: 400 });
     }
 
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
     const mbx = await db.findMailboxById(mailboxId);
-    if (!mbx?.providerMailboxId || !process.env.HOSTINGER_MAIL_API_TOKEN) {
+    if (!mbx?.providerMailboxId || !effectiveToken) {
       return NextResponse.json({ success: false, error: 'Mailbox or token not configured' }, { status: 404 });
     }
 
@@ -23,7 +26,7 @@ export async function GET(req: NextRequest) {
 
     const upstream = await fetch(hostingerUrl, {
       headers: {
-        Authorization: `Bearer ${process.env.HOSTINGER_MAIL_API_TOKEN}`,
+        Authorization: `Bearer ${effectiveToken}`,
       },
     });
 

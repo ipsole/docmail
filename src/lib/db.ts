@@ -80,17 +80,65 @@ class DocMailDatabase {
   loadFromDisk() {
     if (process.env.NODE_ENV === 'test') return;
     try {
-      if (fs.existsSync(DB_FILE_PATH)) {
-        const raw = fs.readFileSync(DB_FILE_PATH, 'utf8');
+      // 1. If running on Vercel and /tmp file does not exist yet, copy from bundled data/docmail_db.json
+      const bundledPath = path.resolve(process.cwd(), 'data', 'docmail_db.json');
+      if (DB_FILE_PATH !== bundledPath && !fs.existsSync(DB_FILE_PATH) && fs.existsSync(bundledPath)) {
+        try {
+          const content = fs.readFileSync(bundledPath, 'utf8');
+          const dir = path.dirname(DB_FILE_PATH);
+          if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+          fs.writeFileSync(DB_FILE_PATH, content, 'utf8');
+        } catch (copyErr) {
+          console.warn('[DocMailDatabase] Failed copying seed data to /tmp:', copyErr);
+        }
+      }
+
+      const filePathToRead = fs.existsSync(DB_FILE_PATH) ? DB_FILE_PATH : bundledPath;
+      if (fs.existsSync(filePathToRead)) {
+        const raw = fs.readFileSync(filePathToRead, 'utf8');
         const data = JSON.parse(raw);
-        if (Array.isArray(data.mailboxes)) this.mailboxes = data.mailboxes;
-        if (Array.isArray(data.conversations)) this.conversations = data.conversations;
-        if (Array.isArray(data.messages)) this.messages = data.messages;
-        if (Array.isArray(data.contacts)) this.contacts = data.contacts;
+        if (Array.isArray(data.mailboxes) && data.mailboxes.length > 0) this.mailboxes = data.mailboxes;
+        if (Array.isArray(data.conversations) && data.conversations.length > 0) this.conversations = data.conversations;
+        if (Array.isArray(data.messages) && data.messages.length > 0) this.messages = data.messages;
+        if (Array.isArray(data.contacts) && data.contacts.length > 0) this.contacts = data.contacts;
         if (Array.isArray(data.templates) && data.templates.length > 0) this.templates = data.templates;
         if (Array.isArray(data.signatures) && data.signatures.length > 0) this.signatures = data.signatures;
         if (Array.isArray(data.apiKeys) && data.apiKeys.length > 0) this.apiKeys = data.apiKeys;
-        if (Array.isArray(data.auditLogs)) this.auditLogs = data.auditLogs;
+        if (Array.isArray(data.auditLogs) && data.auditLogs.length > 0) this.auditLogs = data.auditLogs;
+      }
+
+      // Default mailboxes fallback so cold start never leaves UI stuck
+      if (this.mailboxes.length === 0) {
+        this.mailboxes = [
+          {
+            id: 'mbx_1699703',
+            organizationId: 'org_docdril_primary',
+            providerAccountId: 'acc_hostinger_docdril',
+            provider: 'hostinger',
+            providerMailboxId: '1699703',
+            emailAddress: 'team@docdril.com',
+            displayName: 'Team Docdril',
+            status: 'ACTIVE',
+            quotaBytes: 5368709120,
+            usedBytes: 1530920,
+            createdAt: '2026-03-01T00:00:00.000Z',
+            updatedAt: '2026-03-15T00:00:00.000Z',
+          },
+          {
+            id: 'mbx_1699704',
+            organizationId: 'org_docdril_primary',
+            providerAccountId: 'acc_hostinger_docdril',
+            provider: 'hostinger',
+            providerMailboxId: '1699704',
+            emailAddress: 'info@docdril.com',
+            displayName: 'Info Docdril',
+            status: 'ACTIVE',
+            quotaBytes: 5368709120,
+            usedBytes: 819200,
+            createdAt: '2026-03-01T00:00:00.000Z',
+            updatedAt: '2026-03-15T00:00:00.000Z',
+          },
+        ];
       }
     } catch (e) {
       console.warn('[DocMailDatabase] Error loading db from disk:', e);

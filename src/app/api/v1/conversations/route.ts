@@ -38,12 +38,15 @@ export async function GET(req: NextRequest) {
     });
 
     // Auto-sync from Hostinger if no conversations cached for this mailbox & folder
-    if (conversations.length === 0 && process.env.HOSTINGER_MAIL_API_TOKEN) {
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
+    if (conversations.length === 0 && effectiveToken) {
       const mbx = await db.findMailboxById(mailboxId);
       if (mbx?.providerMailboxId) {
         try {
           const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
-          const provider = new HostingerMailProvider(process.env.HOSTINGER_MAIL_API_TOKEN);
+          const provider = new HostingerMailProvider(effectiveToken);
           const messageList = await provider.listMessages(mbx.providerMailboxId, folder, 1, 30);
 
           for (const msgHeader of messageList.messages) {

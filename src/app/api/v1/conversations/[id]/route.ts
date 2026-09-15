@@ -29,12 +29,15 @@ export async function GET(
     }
 
     // Lazy load message bodies from Hostinger if needed
-    if (process.env.HOSTINGER_MAIL_API_TOKEN && conversation.messages) {
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
+    if (effectiveToken && conversation.messages) {
       const mbx = await db.findMailboxById(conversation.mailboxId);
       if (mbx?.providerMailboxId) {
         try {
           const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
-          const provider = new HostingerMailProvider(process.env.HOSTINGER_MAIL_API_TOKEN);
+          const provider = new HostingerMailProvider(effectiveToken);
 
           for (const msg of conversation.messages) {
             if ((!msg.bodyHtml || msg.bodyHtml === '<p></p>') && msg.providerMessageId) {

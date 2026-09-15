@@ -8,11 +8,14 @@ export async function GET(req: NextRequest) {
     const auth = await authenticateRequest(req);
     let mailboxes = await db.listMailboxes(auth.organizationId);
 
-    // Auto-discover mailboxes if db is empty and token is in env
-    if (mailboxes.length === 0 && process.env.HOSTINGER_MAIL_API_TOKEN) {
+    // Auto-discover mailboxes if db is empty and token is available
+    const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+    const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+
+    if (mailboxes.length === 0 && effectiveToken) {
       try {
         const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
-        const provider = new HostingerMailProvider(process.env.HOSTINGER_MAIL_API_TOKEN);
+        const provider = new HostingerMailProvider(effectiveToken);
         const account = await provider.getAccount();
         if (account.mailboxes && account.mailboxes.length > 0) {
           for (const mbx of account.mailboxes) {
