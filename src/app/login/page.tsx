@@ -159,20 +159,6 @@ export default function LoginPage() {
               </>
             )}
           </button>
-
-          <div className="relative flex py-1 items-center">
-            <div className="flex-grow border-t border-slate-200/80"></div>
-            <span className="flex-shrink mx-3 text-[10px] uppercase font-bold text-slate-400">or</span>
-            <div className="flex-grow border-t border-slate-200/80"></div>
-          </div>
-
-          <a
-            href="/api/auth/dev-login"
-            className="w-full flex items-center justify-center space-x-2 bg-slate-900 hover:bg-slate-800 text-white py-3.5 px-4 rounded-2xl font-bold text-xs transition-all cursor-pointer shadow-md hover:scale-[1.01] active:scale-[0.99]"
-          >
-            <ShieldCheck className="w-4 h-4 text-rose-400" />
-            <span>Enter as Administrator (Piyush Chaudhary)</span>
-          </a>
         </div>
 
         {/* Security Footer Notice */}

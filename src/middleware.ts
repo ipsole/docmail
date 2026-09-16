@@ -26,13 +26,6 @@ export function middleware(req: NextRequest) {
   }
 
   const sessionCookie = req.cookies.get('docmail_session')?.value;
-  const host = req.headers.get('host') || '';
-  const isLocalhost = host.includes('localhost') || host.includes('127.0.0.1');
-
-  // If on localhost and no session, automatically log in as admin so user never gets stuck
-  if (isLocalhost && !sessionCookie && pathname === '/') {
-    return NextResponse.redirect(new URL('/api/auth/dev-login', req.url));
-  }
 
   // If visiting login page: redirect to dashboard if already authenticated
   if (pathname === '/login') {
@@ -42,11 +35,8 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // If not authenticated, redirect to /login
+  // If not authenticated, strictly redirect to /login
   if (!sessionCookie) {
-    if (isLocalhost) {
-      return NextResponse.redirect(new URL('/api/auth/dev-login', req.url));
-    }
     const loginUrl = new URL('/login', req.url);
     return NextResponse.redirect(loginUrl);
   }
