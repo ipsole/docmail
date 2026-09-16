@@ -16,6 +16,8 @@ export const firebaseConfig = {
  */
 export const DEFAULT_AUTHORIZED_ADMINS = [
   'itpiyu@gmail.com', // Primary administrator
+  'arushibh.work@gmail.com', // Authorized administrator
+  'arushibh.work@gmail', // Alternative representation
 ];
 
 export const DEFAULT_ALLOWED_DOMAINS = [

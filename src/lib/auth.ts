@@ -103,14 +103,8 @@ export async function authenticateRequest(req: NextRequest): Promise<AuthContext
     };
   }
 
-  // 3. Fallback dev user session ONLY on localhost in development mode
-  const host = req.headers.get('host') || '';
-  const isLocalDev =
-    process.env.NODE_ENV === 'test' ||
-    (process.env.NODE_ENV !== 'production' &&
-      (host.includes('localhost') || host.includes('127.0.0.1')));
-
-  if (isLocalDev) {
+  // 3. Automated unit test suite support
+  if (process.env.NODE_ENV === 'test') {
     return {
       type: 'user',
       organizationId: DEFAULT_ORG_ID,
@@ -120,5 +114,5 @@ export async function authenticateRequest(req: NextRequest): Promise<AuthContext
     };
   }
 
-  throw new Error('Unauthorized: A valid DocMail API key or authenticated user session is required.');
+  throw new Error('Unauthorized: A valid DocMail API key or authenticated Google user session is required.');
 }

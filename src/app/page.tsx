@@ -134,6 +134,10 @@ export default function DocMailDashboard() {
       }
 
       const res = await fetch(url);
+      if (res.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
       const data = await res.json();
       if (data.data) {
         setConversations(data.data);
@@ -155,11 +159,28 @@ export default function DocMailDashboard() {
   const loadTags = useCallback(async () => {
     try {
       const res = await fetch('/api/v1/tags');
+      if (res.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
       const d = await res.json();
       if (d.data) setTagsList(d.data);
     } catch (e) {
       console.warn('Failed to load tags:', e);
     }
+  }, []);
+
+  // Strict session gatekeeper on mount
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then((res) => {
+        if (!res.ok) {
+          window.location.href = '/login';
+        }
+      })
+      .catch(() => {
+        window.location.href = '/login';
+      });
   }, []);
 
   useEffect(() => {
