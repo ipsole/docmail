@@ -50,7 +50,24 @@ export async function authenticateRequest(req: NextRequest): Promise<AuthContext
     rawKey = req.nextUrl.searchParams.get('apiKey')!.trim();
   }
 
-  // 1. API Key authentication
+  // 1. OAuth Access Token authentication (issued via OAuth 2.0 flow for ChatGPT)
+  if (rawKey && rawKey.startsWith('dd_oauth_')) {
+    const { verifyAccessToken } = await import('./oauth');
+    const tokenPayload = verifyAccessToken(rawKey);
+    if (!tokenPayload) {
+      throw new Error('Invalid or expired OAuth access token. Please re-authenticate.');
+    }
+
+    return {
+      type: 'api_key',
+      organizationId: DEFAULT_ORG_ID,
+      apiKeyName: `OAuth (${tokenPayload.clientId})`,
+      scopes: tokenPayload.scope ? tokenPayload.scope.split(' ') : ['messages:read', 'messages:send', 'contacts:read'],
+      role: 'ADMINISTRATOR',
+    };
+  }
+
+  // 2. Docdril API Key authentication
   if (rawKey) {
     const apiKey = await db.findApiKey(rawKey);
     if (!apiKey || apiKey.isRevoked) {

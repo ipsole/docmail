@@ -6,6 +6,7 @@ export function middleware(req: NextRequest) {
   // Allow static assets, public paths, auth, OpenAPI, MCP, and webhook endpoints
   if (
     pathname.startsWith('/_next') ||
+    pathname.startsWith('/.well-known') ||
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/api/v1/webhooks') ||
     pathname === '/api/v1/openapi.json' ||
