@@ -134,18 +134,7 @@ class DocMailDatabase {
     },
   ];
 
-  apiKeys: DocdrilApiKey[] = [
-    {
-      id: 'key_primary',
-      organizationId: 'org_docdril_primary',
-      name: 'Docdril CRM Service Credential',
-      prefix: 'dd_live',
-      scopes: ['messages:read', 'messages:send', 'contacts:read', 'contacts:write'],
-      lastUsedAt: new Date().toISOString(),
-      isRevoked: false,
-      createdAt: new Date().toISOString(),
-    },
-  ];
+  apiKeys: DocdrilApiKey[] = [];
 
   webhookSubscriptions: DocdrilWebhookSubscription[] = [];
   auditLogs: DocdrilAuditLog[] = [];
@@ -689,16 +678,9 @@ export const db = {
     memoryDb.loadFromDisk();
     const { hashApiKey } = await import('./crypto');
     const hash = hashApiKey(keyOrHash);
+    // Strict hash-only comparison: SHA-256(provided key) must match stored keyHash
     const found = memoryDb.apiKeys.find(
-      (k) =>
-        !k.isRevoked &&
-        (k.keyHash === keyOrHash ||
-          k.keyHash === hash ||
-          k.rawSecretKey === keyOrHash ||
-          (k.prefix && keyOrHash.startsWith(`dd_live_${k.prefix}`)) ||
-          (k.prefix && keyOrHash.startsWith(k.prefix)) ||
-          k.id === keyOrHash ||
-          (keyOrHash.startsWith('dd_live_') && k.prefix === 'dd_live'))
+      (k) => !k.isRevoked && k.keyHash === hash
     );
     if (found) {
       found.lastUsedAt = new Date().toISOString();
@@ -743,6 +725,11 @@ export const db = {
   // Audit Logs
   async logAudit(log: DocdrilAuditLog): Promise<void> {
     memoryDb.auditLogs.unshift(log);
+    // Cap at 1000 entries to prevent unbounded growth
+    if (memoryDb.auditLogs.length > 1000) {
+      memoryDb.auditLogs = memoryDb.auditLogs.slice(0, 1000);
+    }
+    memoryDb.saveToDisk();
   },
 
   async listAuditLogs(organizationId: string): Promise<DocdrilAuditLog[]> {

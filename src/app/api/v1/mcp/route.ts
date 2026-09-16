@@ -3,6 +3,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { MailService } from '@/services/mail/mail.service';
 import { authenticateRequest } from '@/lib/auth';
+import { isAuditable, logAudit } from '@/lib/audit';
+import { checkRateLimit, rateLimitHeaders } from '@/lib/rate-limit';
+
+// Trusted origins for CORS — server-to-server calls (ChatGPT, Cursor) don't use CORS
+const CORS_ALLOWED_ORIGINS = new Set([
+  'https://docmail.docdril.com',
+  'https://chatgpt.com',
+  'https://chat.openai.com',
+  'https://platform.openai.com',
+]);
+
+function getCorsOrigin(req: NextRequest): string {
+  const origin = req.headers.get('origin') || '';
+  return CORS_ALLOWED_ORIGINS.has(origin) ? origin : 'https://docmail.docdril.com';
+}
+
 
 const TOOLS = [
   {
@@ -156,16 +172,6 @@ const TOOLS = [
       },
     },
   },
-  {
-    name: 'empty_trash',
-    description: 'Permanently purge all emails and conversations in Trash.',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        mailboxId: { type: 'string', description: 'Mailbox ID' },
-      },
-    },
-  },
 ];
 
 function resolveMailbox(identifier: string | undefined, mailboxes: any[]) {
@@ -248,6 +254,8 @@ async function ensureConversationBodies(conversation: any) {
 }
 
 export async function GET(req: NextRequest) {
+  const corsOrigin = getCorsOrigin(req);
+
   // Support MCP SSE Transport for Cursor & Claude Desktop remote connections
   if (req?.headers?.get?.('accept')?.includes('text/event-stream')) {
     const sessionId = `mcp_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
@@ -265,22 +273,23 @@ export async function GET(req: NextRequest) {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache, no-transform',
         'Connection': 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': corsOrigin,
       },
     });
   }
 
+  // Public discovery — only server name and endpoint, no tool schemas
   return NextResponse.json(
     {
       name: 'DocMail MCP Server',
       version: '1.0.0',
-      description: 'Model Context Protocol (MCP) server for DocMail by Docdril',
+      description: 'Model Context Protocol (MCP) server for DocMail by Docdril. Authenticate with a Bearer API key to access tools.',
       endpoint: 'https://docmail.docdril.com/api/v1/mcp',
-      tools: TOOLS,
+      auth: 'Bearer dd_live_... API key required',
     },
     {
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': corsOrigin,
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, key, x-api-key, api-key',
       },
@@ -288,11 +297,12 @@ export async function GET(req: NextRequest) {
   );
 }
 
-export async function OPTIONS() {
+export async function OPTIONS(req: NextRequest) {
+  const corsOrigin = getCorsOrigin(req);
   return new NextResponse(null, {
     status: 204,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': corsOrigin,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization, key, x-api-key, api-key',
     },
@@ -300,6 +310,7 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
+  const corsOrigin = getCorsOrigin(req);
   try {
     let authContext = null;
     let authError: string | null = null;
@@ -310,6 +321,9 @@ export async function POST(req: NextRequest) {
     }
 
     const orgId = authContext?.organizationId || 'org_docdril_primary';
+    const callerIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
+    const rateLimitId = authContext?.apiKeyName || callerIp;
+
     let body: any = {};
     try {
       body = await req.json();
@@ -319,11 +333,34 @@ export async function POST(req: NextRequest) {
 
     const { id, method, params } = body || {};
 
+    // Rate limit check for all methods
+    const rlMethod = method || 'tools/call';
+    const rlResult = checkRateLimit(rlMethod, rateLimitId);
+    if (!rlResult.allowed) {
+      return NextResponse.json(
+        {
+          jsonrpc: '2.0',
+          id: id ?? null,
+          error: {
+            code: -32029,
+            message: `Rate limit exceeded. Try again in ${Math.ceil((rlResult.retryAfterMs || 60000) / 1000)} seconds.`,
+          },
+        },
+        {
+          status: 429,
+          headers: {
+            'Access-Control-Allow-Origin': corsOrigin,
+            ...rateLimitHeaders(rlResult),
+          },
+        }
+      );
+    }
+
     // 0. Notifications (initialized, cancelled, progress, etc.)
     if (method?.startsWith('notifications/') || (id === undefined && method !== 'initialize')) {
       return new NextResponse(null, {
         status: 204,
-        headers: { 'Access-Control-Allow-Origin': '*' },
+        headers: { 'Access-Control-Allow-Origin': corsOrigin },
       });
     }
 
@@ -336,7 +373,7 @@ export async function POST(req: NextRequest) {
           result: {},
         },
         {
-          headers: { 'Access-Control-Allow-Origin': '*' },
+          headers: { 'Access-Control-Allow-Origin': corsOrigin },
         }
       );
     }
@@ -362,14 +399,30 @@ export async function POST(req: NextRequest) {
         },
         {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': corsOrigin,
           },
         }
       );
     }
 
-    // 3. Tools List
+    // 3. Tools List (Requires authentication to prevent tool enumeration)
     if (method === 'tools/list') {
+      if (!authContext) {
+        return NextResponse.json(
+          {
+            jsonrpc: '2.0',
+            id: id ?? null,
+            error: {
+              code: -32001,
+              message: `Unauthorized: ${authError || 'A valid DocMail API Key is required to list available tools.'}`,
+            },
+          },
+          {
+            status: 401,
+            headers: { 'Access-Control-Allow-Origin': corsOrigin },
+          }
+        );
+      }
       return NextResponse.json(
         {
           jsonrpc: '2.0',
@@ -380,7 +433,7 @@ export async function POST(req: NextRequest) {
         },
         {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': corsOrigin,
           },
         }
       );
@@ -397,7 +450,7 @@ export async function POST(req: NextRequest) {
           },
         },
         {
-          headers: { 'Access-Control-Allow-Origin': '*' },
+          headers: { 'Access-Control-Allow-Origin': corsOrigin },
         }
       );
     }
@@ -413,7 +466,7 @@ export async function POST(req: NextRequest) {
           },
         },
         {
-          headers: { 'Access-Control-Allow-Origin': '*' },
+          headers: { 'Access-Control-Allow-Origin': corsOrigin },
         }
       );
     }
@@ -433,13 +486,36 @@ export async function POST(req: NextRequest) {
           {
             status: 401,
             headers: {
-              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Origin': corsOrigin,
             },
           }
         );
       }
 
       const { name, arguments: args = {} } = params || {};
+
+      // Per-tool rate limiting for destructive operations
+      if (name === 'send_email' || name === 'reply_email') {
+        const toolRl = checkRateLimit(name, rateLimitId);
+        if (!toolRl.allowed) {
+          return NextResponse.json(
+            {
+              jsonrpc: '2.0',
+              id: id ?? null,
+              error: {
+                code: -32029,
+                message: `Rate limit for ${name} exceeded. Max 10 emails per minute. Try again in ${Math.ceil((toolRl.retryAfterMs || 60000) / 1000)}s.`,
+              },
+            },
+            {
+              status: 429,
+              headers: { 'Access-Control-Allow-Origin': corsOrigin, ...rateLimitHeaders(toolRl) },
+            }
+          );
+        }
+      }
+
+      const startTime = Date.now();
       let toolResult: any = null;
 
       try {
@@ -635,16 +711,20 @@ export async function POST(req: NextRequest) {
             break;
           }
 
-          case 'empty_trash': {
-            const mailboxes = await db.listMailboxes(orgId);
-            const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes) || mailboxes[0];
-            const count = await db.emptyTrash(targetMailbox?.id);
-            toolResult = { emptiedCount: count, message: 'Trash emptied successfully' };
-            break;
-          }
-
           default:
             throw new Error(`Unknown tool "${name}"`);
+        }
+
+        // Audit log for sensitive operations
+        if (isAuditable(name)) {
+          await logAudit({
+            tool: name,
+            apiKeyPrefix: authContext.apiKeyName || authContext.organizationId || 'unknown',
+            callerIp,
+            args,
+            status: 'success',
+            durationMs: Date.now() - startTime,
+          });
         }
 
         return NextResponse.json(
@@ -662,11 +742,24 @@ export async function POST(req: NextRequest) {
           },
           {
             headers: {
-              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Origin': corsOrigin,
             },
           }
         );
       } catch (toolError: any) {
+        // Audit log errors for sensitive operations too
+        if (isAuditable(name)) {
+          await logAudit({
+            tool: name,
+            apiKeyPrefix: authContext?.apiKeyName || authContext?.organizationId || 'unknown',
+            callerIp,
+            args,
+            status: 'error',
+            errorMessage: toolError.message || String(toolError),
+            durationMs: Date.now() - startTime,
+          });
+        }
+
         return NextResponse.json(
           {
             jsonrpc: '2.0',
@@ -683,7 +776,7 @@ export async function POST(req: NextRequest) {
           },
           {
             headers: {
-              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Origin': corsOrigin,
             },
           }
         );
@@ -702,7 +795,7 @@ export async function POST(req: NextRequest) {
       {
         status: 400,
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': corsOrigin,
         },
       }
     );
@@ -719,7 +812,7 @@ export async function POST(req: NextRequest) {
       {
         status: 500,
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': corsOrigin,
         },
       }
     );
