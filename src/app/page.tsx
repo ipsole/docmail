@@ -222,9 +222,31 @@ export default function DocMailDashboard() {
 
   const handleToggleStar = async (e: React.MouseEvent, conversationId: string, currentVal: boolean) => {
     e.stopPropagation();
+    const nextVal = !currentVal;
     setConversations((prev) =>
-      prev.map((c) => (c.id === conversationId ? { ...c, isStarred: !currentVal } : c))
+      prev.map((c) => {
+        if (c.id !== conversationId) return c;
+        let tags = c.tags ? [...c.tags] : ['general'];
+        if (nextVal) {
+          if (!tags.includes('important')) tags.push('important');
+        } else {
+          tags = tags.filter((t) => t !== 'important');
+          if (tags.length === 0) tags = ['general'];
+        }
+        return { ...c, isStarred: nextVal, tags };
+      })
     );
+
+    try {
+      await fetch(`/api/v1/conversations/${conversationId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isStarred: nextVal }),
+      });
+      loadTags();
+    } catch (err) {
+      console.error('Failed to persist star status:', err);
+    }
   };
 
   const handleReply = (message: DocdrilMessage) => {

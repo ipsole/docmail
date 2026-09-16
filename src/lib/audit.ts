@@ -26,6 +26,9 @@ const AUDITABLE_TOOLS = new Set([
   'create_contact',
   'create_template',
   'tag_conversation',
+  'tag_conversations',
+  'star_conversation',
+  'star_conversations',
 ]);
 
 export function isAuditable(toolName: string): boolean {

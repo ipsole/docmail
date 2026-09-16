@@ -9,11 +9,24 @@ export async function POST(req: NextRequest) {
     const auth = await authenticateRequest(req);
     const body = await req.json();
 
-    const { action, conversationIds = [], mailboxId: rawMailboxId } = body || {};
+    const { action, conversationIds = [], mailboxId: rawMailboxId, tag } = body || {};
 
-    if (!action || !['trash', 'restore', 'delete_forever', 'empty_trash'].includes(action)) {
+    const allowedActions = [
+      'trash',
+      'restore',
+      'delete_forever',
+      'empty_trash',
+      'add_tag',
+      'remove_tag',
+      'star',
+      'unstar',
+      'mark_read',
+      'mark_unread',
+    ];
+
+    if (!action || !allowedActions.includes(action)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid action. Allowed: "trash", "restore", "delete_forever", "empty_trash"' },
+        { success: false, error: `Invalid action. Allowed: ${allowedActions.map((a) => `"${a}"`).join(', ')}` },
         { status: 400 }
       );
     }
@@ -104,6 +117,72 @@ export async function POST(req: NextRequest) {
 
       case 'empty_trash': {
         affectedCount = await db.emptyTrash(mailboxId);
+        break;
+      }
+
+      case 'add_tag': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        if (!tag) {
+          return NextResponse.json({ success: false, error: 'tag is required for add_tag' }, { status: 400 });
+        }
+        affectedIds = await db.batchAddTag(conversationIds, tag);
+        affectedCount = affectedIds.length;
+        break;
+      }
+
+      case 'remove_tag': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        if (!tag) {
+          return NextResponse.json({ success: false, error: 'tag is required for remove_tag' }, { status: 400 });
+        }
+        affectedIds = await db.batchRemoveTag(conversationIds, tag);
+        affectedCount = affectedIds.length;
+        break;
+      }
+
+      case 'star': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        affectedIds = await db.batchSetStarred(conversationIds, true);
+        affectedCount = affectedIds.length;
+        break;
+      }
+
+      case 'unstar': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        affectedIds = await db.batchSetStarred(conversationIds, false);
+        affectedCount = affectedIds.length;
+        break;
+      }
+
+      case 'mark_read': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        for (const id of conversationIds) {
+          await db.updateConversation(id, { unreadCount: 0 }).catch(() => {});
+        }
+        affectedIds = conversationIds;
+        affectedCount = affectedIds.length;
+        break;
+      }
+
+      case 'mark_unread': {
+        if (!conversationIds.length) {
+          return NextResponse.json({ success: false, error: 'conversationIds array is required' }, { status: 400 });
+        }
+        for (const id of conversationIds) {
+          await db.updateConversation(id, { unreadCount: 1 }).catch(() => {});
+        }
+        affectedIds = conversationIds;
+        affectedCount = affectedIds.length;
         break;
       }
     }

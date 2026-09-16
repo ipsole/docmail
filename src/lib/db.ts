@@ -839,8 +839,11 @@ export const db = {
     const cleanTag = tag.trim().toLowerCase();
     if (cleanTag && !cnv.tags.includes(cleanTag)) {
       cnv.tags.push(cleanTag);
-      memoryDb.saveToDisk();
     }
+    if (cleanTag === 'important') {
+      cnv.isStarred = true;
+    }
+    memoryDb.saveToDisk();
     return cnv;
   },
 
@@ -851,9 +854,82 @@ export const db = {
     if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
     const cleanTag = tag.trim().toLowerCase();
     cnv.tags = cnv.tags.filter((t) => t.toLowerCase() !== cleanTag);
+    if (cleanTag === 'important') {
+      cnv.isStarred = false;
+    }
     if (cnv.tags.length === 0) cnv.tags = ['general'];
     memoryDb.saveToDisk();
     return cnv;
+  },
+
+  async batchAddTag(conversationIds: string[], tag: string): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const cleanTag = tag.trim().toLowerCase();
+    if (!cleanTag) return [];
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
+        if (!cnv.tags.includes(cleanTag)) {
+          cnv.tags.push(cleanTag);
+        }
+        if (cleanTag === 'important') {
+          cnv.isStarred = true;
+        }
+        affected.push(cnv.id);
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async batchRemoveTag(conversationIds: string[], tag: string): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const cleanTag = tag.trim().toLowerCase();
+    if (!cleanTag) return [];
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
+        cnv.tags = cnv.tags.filter((t) => t.toLowerCase() !== cleanTag);
+        if (cleanTag === 'important') {
+          cnv.isStarred = false;
+        }
+        if (cnv.tags.length === 0) cnv.tags = ['general'];
+        affected.push(cnv.id);
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async batchSetStarred(conversationIds: string[], isStarred: boolean): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        cnv.isStarred = isStarred;
+        if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
+        if (isStarred) {
+          if (!cnv.tags.includes('important')) cnv.tags.push('important');
+        } else {
+          cnv.tags = cnv.tags.filter((t) => t.toLowerCase() !== 'important');
+          if (cnv.tags.length === 0) cnv.tags = ['general'];
+        }
+        affected.push(cnv.id);
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
   },
 
   async listTags(organizationId?: string): Promise<{ tag: string; count: number }[]> {

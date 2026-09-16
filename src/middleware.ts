@@ -10,6 +10,7 @@ export function middleware(req: NextRequest) {
     pathname.startsWith('/api/auth') ||
     pathname.startsWith('/api/v1/webhooks') ||
     pathname === '/api/v1/openapi.json' ||
+    pathname === '/openapi.json' ||
     pathname.startsWith('/api/v1/mcp') ||
     pathname === '/docdril.svg' ||
     pathname === '/favicon.ico' ||

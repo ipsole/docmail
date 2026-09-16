@@ -119,14 +119,55 @@ const TOOLS = [
   },
   {
     name: 'tag_conversation',
-    description: 'Add or remove tags on an email conversation (e.g. "important", "general", "client", "invoice").',
+    description: 'Add or remove tags on an email conversation (e.g. "important", "general", "client", "invoice"). Accepts conversationId or an array of conversationIds.',
     inputSchema: {
       type: 'object',
-      required: ['conversationId', 'tag'],
+      required: ['tag'],
       properties: {
         conversationId: { type: 'string', description: 'Conversation ID to tag' },
-        tag: { type: 'string', description: 'Tag name to add or remove' },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to tag in batch' },
+        query: { type: 'string', description: 'Optional subject or sender keyword to match conversations to tag' },
+        tag: { type: 'string', description: 'Tag name to add or remove (e.g. "important", "general")' },
         action: { type: 'string', enum: ['add', 'remove'], description: 'Action to perform. Default is "add".' },
+      },
+    },
+  },
+  {
+    name: 'tag_conversations',
+    description: 'Tag multiple email conversations in one operation with tags like "important", "general", "client", or custom labels.',
+    inputSchema: {
+      type: 'object',
+      required: ['tag'],
+      properties: {
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to tag in batch' },
+        query: { type: 'string', description: 'Optional keyword to find and tag matching conversations' },
+        tag: { type: 'string', description: 'Tag name to apply or remove' },
+        action: { type: 'string', enum: ['add', 'remove'], description: 'Action to perform. Default is "add".' },
+      },
+    },
+  },
+  {
+    name: 'star_conversation',
+    description: 'Star or unstar an email conversation. Starring an email automatically tags it as "important".',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID to star or unstar' },
+        isStarred: { type: 'boolean', description: 'True to star, false to unstar. Default is true.' },
+        action: { type: 'string', enum: ['star', 'unstar'], description: 'Alternative action syntax: "star" or "unstar"' },
+      },
+    },
+  },
+  {
+    name: 'star_conversations',
+    description: 'Star or unstar multiple email conversations in one operation. Synchronizes the "important" tag across all selected emails.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to star or unstar' },
+        query: { type: 'string', description: 'Optional keyword to find matching emails to star/unstar' },
+        isStarred: { type: 'boolean', description: 'True to star, false to unstar. Default is true.' },
+        action: { type: 'string', enum: ['star', 'unstar'], description: 'Alternative action syntax: "star" or "unstar"' },
       },
     },
   },
@@ -742,16 +783,83 @@ export async function POST(req: NextRequest) {
             break;
           }
 
-          case 'tag_conversation': {
-            if (!args.conversationId || !args.tag) {
-              throw new Error('Missing required arguments: conversationId or tag');
+          case 'tag_conversation':
+          case 'tag_conversations': {
+            if (!args.tag) {
+              throw new Error('Missing required argument: "tag"');
             }
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+
+            if (targetIds.length === 0) {
+              throw new Error('Missing required argument: "conversationId", "conversationIds", or "query"');
+            }
+
             if (args.action === 'remove') {
-              toolResult = await db.removeTagFromConversation(args.conversationId, args.tag);
+              const affected = await db.batchRemoveTag(targetIds, args.tag);
+              toolResult = {
+                action: 'remove',
+                tag: args.tag,
+                affectedCount: affected.length,
+                affectedIds: affected,
+                message: `Tag "${args.tag}" removed from ${affected.length} conversation(s).`,
+              };
             } else {
-              toolResult = await db.addTagToConversation(args.conversationId, args.tag);
+              const affected = await db.batchAddTag(targetIds, args.tag);
+              toolResult = {
+                action: 'add',
+                tag: args.tag,
+                affectedCount: affected.length,
+                affectedIds: affected,
+                message: `Tag "${args.tag}" applied to ${affected.length} conversation(s).`,
+              };
             }
-            if (!toolResult) throw new Error(`Conversation ${args.conversationId} not found`);
+            break;
+          }
+
+          case 'star_conversation':
+          case 'star_conversations': {
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+
+            if (targetIds.length === 0) {
+              throw new Error('Missing required argument: "conversationId", "conversationIds", or "query"');
+            }
+
+            const shouldStar =
+              args.isStarred !== undefined
+                ? Boolean(args.isStarred)
+                : args.action === 'unstar'
+                ? false
+                : true;
+
+            const affected = await db.batchSetStarred(targetIds, shouldStar);
+            toolResult = {
+              action: shouldStar ? 'star' : 'unstar',
+              isStarred: shouldStar,
+              affectedCount: affected.length,
+              affectedIds: affected,
+              importantTagSynchronized: true,
+              message: `${affected.length} conversation(s) ${shouldStar ? 'starred (and tagged important)' : 'unstarred'}.`,
+            };
             break;
           }
 

@@ -107,4 +107,67 @@ test('Permanent Deletion & Tags Management', async (t) => {
     // Clean up
     await db.deleteConversationsPermanently([testCnvId], testMailboxId);
   });
+
+  await t.test('should batch tag and star multiple conversations seamlessly', async () => {
+    const testMailboxId = 'mbx_ACed584379339f00d742210b2639ac';
+    const cnv1 = `cnv_batch_${Date.now()}_1`;
+    const cnv2 = `cnv_batch_${Date.now()}_2`;
+
+    await db.createMessage({
+      id: `msg_batch_${Date.now()}_1`,
+      conversationId: cnv1,
+      mailboxId: testMailboxId,
+      providerFolder: 'INBOX',
+      senderEmail: 'duns@dnb.com',
+      recipients: [{ type: 'to', email: 'team@docdril.com' }],
+      subject: 'Dun & Bradstreet D-U-N-S Number Application',
+      snippet: 'Your D-U-N-S Number Application has been processed',
+      bodyText: 'D-U-N-S Number 311682940',
+      bodyHtml: '',
+      status: 'RECEIVED',
+      isRead: true,
+      isStarred: false,
+      hasAttachments: false,
+      receivedAt: new Date().toISOString(),
+    });
+
+    await db.createMessage({
+      id: `msg_batch_${Date.now()}_2`,
+      conversationId: cnv2,
+      mailboxId: testMailboxId,
+      providerFolder: 'INBOX',
+      senderEmail: 'duns@dnb.com',
+      recipients: [{ type: 'to', email: 'team@docdril.com' }],
+      subject: 'Confirmation of your D-U-N-S Number request',
+      snippet: 'Tracking number assigned',
+      bodyText: 'Details inside',
+      bodyHtml: '',
+      status: 'RECEIVED',
+      isRead: true,
+      isStarred: false,
+      hasAttachments: false,
+      receivedAt: new Date().toISOString(),
+    });
+
+    // 1. Batch tag both with "duns" and "important"
+    const tagged = await db.batchAddTag([cnv1, cnv2], 'important');
+    assert.equal(tagged.length, 2);
+
+    const checkCnv1 = await db.findConversationById(cnv1);
+    const checkCnv2 = await db.findConversationById(cnv2);
+    assert.ok(checkCnv1?.tags?.includes('important'));
+    assert.ok(checkCnv2?.tags?.includes('important'));
+    assert.equal(checkCnv1?.isStarred, true, 'Tagging important should automatically set isStarred');
+    assert.equal(checkCnv2?.isStarred, true, 'Tagging important should automatically set isStarred');
+
+    // 2. Batch set starred to false
+    await db.batchSetStarred([cnv1, cnv2], false);
+    const unstarredCnv1 = await db.findConversationById(cnv1);
+    assert.equal(unstarredCnv1?.isStarred, false);
+    assert.equal(unstarredCnv1?.tags?.includes('important'), false, 'Unstarring should remove important tag');
+
+    // Clean up
+    await db.deleteConversationsPermanently([cnv1, cnv2], testMailboxId);
+  });
 });
+

@@ -67,6 +67,13 @@ export async function GET() {
               schema: { type: 'string', enum: ['true', 'false'] },
               description: 'Filter for starred / flagged emails.',
             },
+            {
+              name: 'tag',
+              in: 'query',
+              required: false,
+              schema: { type: 'string' },
+              description: 'Filter conversations by tag (e.g. "important", "general", "client", "invoice").',
+            },
           ],
           responses: {
             '200': {
@@ -89,6 +96,7 @@ export async function GET() {
                             unreadCount: { type: 'number' },
                             messageCount: { type: 'number' },
                             isStarred: { type: 'boolean' },
+                            tags: { type: 'array', items: { type: 'string' } },
                             lastMessageAt: { type: 'string' },
                           },
                         },
@@ -179,12 +187,60 @@ export async function GET() {
               },
             },
           },
+          patch: {
+            operationId: 'updateConversation',
+            summary: 'Update conversation flags (star/unstar, read/unread) or add/remove tags',
+            parameters: [
+              {
+                name: 'id',
+                in: 'path',
+                required: true,
+                schema: { type: 'string' },
+                description: 'Conversation ID',
+              },
+            ],
+            requestBody: {
+              required: true,
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      isStarred: {
+                        type: 'boolean',
+                        description: 'Star or unstar conversation. Automatically synchronizes the important tag.',
+                      },
+                      addTag: {
+                        type: 'string',
+                        description: 'Tag to add to conversation (e.g. "important", "general", "client")',
+                      },
+                      removeTag: {
+                        type: 'string',
+                        description: 'Tag to remove from conversation',
+                      },
+                      isTrash: {
+                        type: 'boolean',
+                        description: 'Move to trash (true) or restore (false)',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            responses: {
+              '200': {
+                description: 'Conversation updated successfully',
+              },
+            },
+          },
         },
       },
       '/api/v1/conversations/batch': {
         post: {
           operationId: 'batchConversationsAction',
-          summary: 'Perform batch action: trash, restore, delete_forever, or empty_trash',
+          summary: 'Perform batch action: add_tag, remove_tag, star, unstar, trash, restore, delete_forever, empty_trash',
+          description:
+            'Execute batch actions across multiple conversations in one call. Supports tagging (add_tag/remove_tag with tag), starring (star/unstar), trashing, restoring, or purging permanently.',
           requestBody: {
             required: true,
             content: {
@@ -195,17 +251,32 @@ export async function GET() {
                   properties: {
                     action: {
                       type: 'string',
-                      enum: ['trash', 'restore', 'delete_forever', 'empty_trash'],
-                      description: 'Action to perform',
+                      enum: [
+                        'add_tag',
+                        'remove_tag',
+                        'star',
+                        'unstar',
+                        'trash',
+                        'restore',
+                        'delete_forever',
+                        'empty_trash',
+                        'mark_read',
+                        'mark_unread',
+                      ],
+                      description: 'Batch action to execute. Use "add_tag" with tag="important" or "star" to flag emails.',
                     },
                     conversationIds: {
                       type: 'array',
                       items: { type: 'string' },
-                      description: 'Array of conversation IDs (required for trash, restore, delete_forever)',
+                      description: 'Array of conversation IDs (required for all actions except empty_trash)',
+                    },
+                    tag: {
+                      type: 'string',
+                      description: 'Tag name (e.g. "important", "general", "client", "duns") - required when action is add_tag or remove_tag',
                     },
                     mailboxId: {
                       type: 'string',
-                      description: 'Mailbox ID',
+                      description: 'Optional Mailbox ID',
                     },
                   },
                 },
@@ -215,6 +286,75 @@ export async function GET() {
           responses: {
             '200': {
               description: 'Batch action executed successfully',
+            },
+          },
+        },
+      },
+      '/api/v1/tags': {
+        get: {
+          operationId: 'listTags',
+          summary: 'List all tags and their conversation counts',
+          description: 'Retrieves all available tags (general, important, and custom tags) with email counts.',
+          responses: {
+            '200': {
+              description: 'List of tags',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      success: { type: 'boolean' },
+                      data: {
+                        type: 'array',
+                        items: {
+                          type: 'object',
+                          properties: {
+                            tag: { type: 'string' },
+                            count: { type: 'number' },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        post: {
+          operationId: 'tagConversations',
+          summary: 'Tag or untag one or multiple email conversations in one operation',
+          description:
+            'Applies or removes tags (e.g. "important", "general", "client") on conversations. Accepts a single conversationId or an array of conversationIds for batch tagging in one single operation.',
+          requestBody: {
+            required: true,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['tag'],
+                  properties: {
+                    conversationId: { type: 'string', description: 'Single conversation ID to tag' },
+                    conversationIds: {
+                      type: 'array',
+                      items: { type: 'string' },
+                      description: 'Array of conversation IDs to tag in batch',
+                    },
+                    tag: { type: 'string', description: 'Tag name to apply or remove (e.g. "important", "general", "duns")' },
+                    action: {
+                      type: 'string',
+                      enum: ['add', 'remove'],
+                      default: 'add',
+                      description: 'Action to perform: add tag or remove tag',
+                    },
+                  },
+                },
+              },
+            },
+          },
+          responses: {
+            '200': {
+              description: 'Tagging completed successfully',
             },
           },
         },
