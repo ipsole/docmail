@@ -405,24 +405,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Tools List (Requires authentication to prevent tool enumeration)
+    // 3. Tools List (public — tool schemas are API documentation, not sensitive data)
     if (method === 'tools/list') {
-      if (!authContext) {
-        return NextResponse.json(
-          {
-            jsonrpc: '2.0',
-            id: id ?? null,
-            error: {
-              code: -32001,
-              message: `Unauthorized: ${authError || 'A valid DocMail API Key is required to list available tools.'}`,
-            },
-          },
-          {
-            status: 401,
-            headers: { 'Access-Control-Allow-Origin': corsOrigin },
-          }
-        );
-      }
       return NextResponse.json(
         {
           jsonrpc: '2.0',
