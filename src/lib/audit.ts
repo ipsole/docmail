@@ -19,16 +19,27 @@ export interface AuditEntry {
 const AUDITABLE_TOOLS = new Set([
   'send_email',
   'reply_email',
+  'forward_email',
+  'save_draft',
+  'delete_draft',
   'trash_conversations',
   'restore_conversations',
   'delete_conversation_permanently',
   'empty_trash',
   'create_contact',
+  'update_contact',
+  'delete_contact',
   'create_template',
+  'update_template',
+  'delete_template',
+  'update_signature',
   'tag_conversation',
   'tag_conversations',
   'star_conversation',
   'star_conversations',
+  'archive_conversations',
+  'mark_as_spam',
+  'batch_action',
 ]);
 
 export function isAuditable(toolName: string): boolean {

@@ -255,6 +255,227 @@ const TOOLS = [
       },
     },
   },
+  {
+    name: 'get_mailbox_overview',
+    description: 'Get an executive overview of all mailboxes with live statistics: unread, starred, trash, spam, total emails, and storage quota.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'forward_email',
+    description: 'Forward an existing email conversation to new recipients with standard forwarded headers and thread content.',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationId', 'to'],
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID to forward' },
+        to: { type: 'array', items: { type: 'string' }, description: 'Recipient email addresses' },
+        comment: { type: 'string', description: 'Optional note or commentary placed above the forwarded message' },
+        from: { type: 'string', description: 'Sender mailbox ("team@docdril.com" or "info@docdril.com")' },
+      },
+    },
+  },
+  {
+    name: 'save_draft',
+    description: 'Save a new draft email or update an existing draft in the Drafts folder without sending.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        draftId: { type: 'string', description: 'Optional draft ID if updating an existing draft' },
+        conversationId: { type: 'string', description: 'Optional conversation ID' },
+        to: { type: 'array', items: { type: 'string' }, description: 'Recipient emails' },
+        subject: { type: 'string', description: 'Draft subject' },
+        bodyText: { type: 'string', description: 'Draft plain text body' },
+        bodyHtml: { type: 'string', description: 'Draft HTML body' },
+        from: { type: 'string', description: 'Sender address ("team@docdril.com" or "info@docdril.com")' },
+      },
+    },
+  },
+  {
+    name: 'delete_draft',
+    description: 'Discard and delete a draft email from the Drafts folder.',
+    inputSchema: {
+      type: 'object',
+      required: ['draftId'],
+      properties: {
+        draftId: { type: 'string', description: 'Draft message ID to delete' },
+      },
+    },
+  },
+  {
+    name: 'mark_as_read',
+    description: 'Mark one or multiple email conversations as read.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Single conversation ID to mark read' },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to mark read in batch' },
+        query: { type: 'string', description: 'Keyword to search and mark matching conversations as read' },
+      },
+    },
+  },
+  {
+    name: 'mark_as_unread',
+    description: 'Mark one or multiple email conversations as unread.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Single conversation ID to mark unread' },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to mark unread in batch' },
+        query: { type: 'string', description: 'Keyword to search and mark matching conversations as unread' },
+      },
+    },
+  },
+  {
+    name: 'archive_conversations',
+    description: 'Archive or unarchive one or multiple email conversations.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Single conversation ID to archive' },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to archive in batch' },
+        query: { type: 'string', description: 'Keyword to search and archive matching conversations' },
+        action: { type: 'string', enum: ['archive', 'unarchive'], default: 'archive', description: 'Action: archive or unarchive' },
+      },
+    },
+  },
+  {
+    name: 'mark_as_spam',
+    description: 'Mark or unmark email conversations as spam / junk.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        conversationId: { type: 'string', description: 'Single conversation ID' },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to mark as spam' },
+        query: { type: 'string', description: 'Keyword to search and mark matching conversations as spam' },
+        action: { type: 'string', enum: ['spam', 'unspam'], default: 'spam', description: 'Action: spam or unspam' },
+      },
+    },
+  },
+  {
+    name: 'batch_action',
+    description: 'Execute any batch action across conversations in a single atomic call: add_tag, remove_tag, star, unstar, mark_read, mark_unread, archive, unarchive, spam, unspam, trash, restore, delete_forever.',
+    inputSchema: {
+      type: 'object',
+      required: ['action'],
+      properties: {
+        action: {
+          type: 'string',
+          enum: [
+            'add_tag',
+            'remove_tag',
+            'star',
+            'unstar',
+            'mark_read',
+            'mark_unread',
+            'archive',
+            'unarchive',
+            'spam',
+            'unspam',
+            'trash',
+            'restore',
+            'delete_forever',
+          ],
+          description: 'The batch action to perform',
+        },
+        conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs' },
+        query: { type: 'string', description: 'Keyword to search and select matching conversations' },
+        tag: { type: 'string', description: 'Tag name (e.g. "important", "general", "client", "duns")' },
+        mailboxId: { type: 'string', description: 'Optional mailbox filter' },
+      },
+    },
+  },
+  {
+    name: 'get_contact',
+    description: 'Get details for a specific contact by ID or email address.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'Contact ID' },
+        email: { type: 'string', description: 'Contact email address' },
+      },
+    },
+  },
+  {
+    name: 'update_contact',
+    description: 'Update an existing contact in the DocMail address book.',
+    inputSchema: {
+      type: 'object',
+      required: ['id'],
+      properties: {
+        id: { type: 'string', description: 'Contact ID to update' },
+        name: { type: 'string', description: 'Updated full name' },
+        email: { type: 'string', description: 'Updated email address' },
+        company: { type: 'string', description: 'Updated company name' },
+        notes: { type: 'string', description: 'Updated notes' },
+      },
+    },
+  },
+  {
+    name: 'delete_contact',
+    description: 'Delete a contact from the DocMail address book.',
+    inputSchema: {
+      type: 'object',
+      required: ['id'],
+      properties: {
+        id: { type: 'string', description: 'Contact ID to delete' },
+      },
+    },
+  },
+  {
+    name: 'get_template',
+    description: 'Get an email template by ID or search by title.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'Template ID' },
+        title: { type: 'string', description: 'Template title to search' },
+      },
+    },
+  },
+  {
+    name: 'update_template',
+    description: 'Update an existing email template in DocMail.',
+    inputSchema: {
+      type: 'object',
+      required: ['id'],
+      properties: {
+        id: { type: 'string', description: 'Template ID to update' },
+        title: { type: 'string', description: 'Updated template title' },
+        subject: { type: 'string', description: 'Updated default subject line' },
+        bodyText: { type: 'string', description: 'Updated body text with placeholders' },
+        category: { type: 'string', description: 'Updated category' },
+      },
+    },
+  },
+  {
+    name: 'delete_template',
+    description: 'Delete an email template from DocMail.',
+    inputSchema: {
+      type: 'object',
+      required: ['id'],
+      properties: {
+        id: { type: 'string', description: 'Template ID to delete' },
+      },
+    },
+  },
+  {
+    name: 'list_signatures',
+    description: 'List email signatures configured for mailboxes in DocMail.',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'update_signature',
+    description: 'Update an email signature for a mailbox in DocMail.',
+    inputSchema: {
+      type: 'object',
+      required: ['id', 'content'],
+      properties: {
+        id: { type: 'string', description: 'Signature ID to update' },
+        content: { type: 'string', description: 'HTML or text signature content' },
+        isDefault: { type: 'boolean', description: 'Whether this signature is default' },
+      },
+    },
+  },
 ];
 
 function resolveMailbox(identifier: string | undefined, mailboxes: any[]) {
@@ -921,6 +1142,310 @@ export async function POST(req: NextRequest) {
             }
 
             toolResult = { emptiedCount: count, message: 'Trash emptied and purged permanently.' };
+            break;
+          }
+
+          case 'get_mailbox_overview': {
+            toolResult = await db.getMailboxStats(orgId);
+            break;
+          }
+
+          case 'forward_email': {
+            if (!args.conversationId || !args.to) {
+              throw new Error('Missing required arguments: conversationId or to');
+            }
+            const cnv = await db.findConversationById(args.conversationId);
+            if (!cnv) throw new Error(`Conversation ${args.conversationId} not found`);
+            const msgs = await db.listMessagesByConversation(args.conversationId);
+            const latestMsg = msgs[msgs.length - 1];
+            const fwdSubject = cnv.subject.startsWith('Fwd:') ? cnv.subject : `Fwd: ${cnv.subject}`;
+            const headerBlock = `\n\n---------- Forwarded message ---------\nFrom: ${latestMsg?.senderName ? `${latestMsg.senderName} <${latestMsg.senderEmail}>` : latestMsg?.senderEmail || 'Unknown'}\nDate: ${latestMsg?.receivedAt || new Date().toISOString()}\nSubject: ${cnv.subject}\nTo: ${(latestMsg?.recipients || []).map((r) => r.email).join(', ')}\n\n`;
+            const fwdBody = `${args.comment ? `${args.comment}\n\n` : ''}${headerBlock}${latestMsg?.bodyText || ''}`;
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.from || args.mailboxId, mailboxes) || (await db.findMailboxById(cnv.mailboxId)) || mailboxes[0];
+            const { MailService } = await import('@/services/mail/mail.service');
+            const toList = Array.isArray(args.to) ? args.to : [args.to];
+            toolResult = await MailService.sendEmail({
+              mailboxId: targetMailbox.id,
+              to: toList,
+              subject: fwdSubject,
+              bodyText: fwdBody,
+            });
+            break;
+          }
+
+          case 'save_draft': {
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.mailboxId || args.from, mailboxes) || mailboxes[0];
+            const draftMsgId = args.draftId || `draft_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+            const cnvId = args.conversationId || `cnv_draft_${Date.now()}`;
+            const draftMessage: any = {
+              id: draftMsgId,
+              conversationId: cnvId,
+              mailboxId: targetMailbox.id,
+              providerFolder: 'INBOX.Drafts',
+              senderEmail: targetMailbox.emailAddress,
+              senderName: targetMailbox.displayName,
+              recipients: (Array.isArray(args.to) ? args.to : args.to ? [args.to] : []).map((email: string) => ({ type: 'to' as const, email })),
+              subject: args.subject || '(Draft)',
+              snippet: (args.bodyText || '').substring(0, 140),
+              bodyText: args.bodyText || '',
+              bodyHtml: args.bodyHtml || `<p>${args.bodyText || ''}</p>`,
+              status: 'DRAFT',
+              isRead: true,
+              isStarred: false,
+              hasAttachments: false,
+              receivedAt: new Date().toISOString(),
+            };
+            await db.createMessage(draftMessage);
+            toolResult = { draftId: draftMsgId, conversationId: cnvId, status: 'DRAFT_SAVED' };
+            break;
+          }
+
+          case 'delete_draft': {
+            if (!args.draftId) throw new Error('Missing required argument: draftId');
+            const draft = await db.findMessageById(args.draftId);
+            if (draft) {
+              await db.deleteConversationsPermanently([draft.conversationId], draft.mailboxId);
+            }
+            toolResult = { draftId: args.draftId, status: 'DRAFT_DELETED' };
+            break;
+          }
+
+          case 'mark_as_read': {
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+            if (targetIds.length === 0) throw new Error('Missing conversationId, conversationIds, or query');
+            const affected = await db.markReadConversations(targetIds, true);
+            toolResult = { affectedCount: affected.length, affectedIds: affected, isRead: true };
+            break;
+          }
+
+          case 'mark_as_unread': {
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+            if (targetIds.length === 0) throw new Error('Missing conversationId, conversationIds, or query');
+            const affected = await db.markReadConversations(targetIds, false);
+            toolResult = { affectedCount: affected.length, affectedIds: affected, isRead: false };
+            break;
+          }
+
+          case 'archive_conversations': {
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+            if (targetIds.length === 0) throw new Error('Missing conversationId, conversationIds, or query');
+            const shouldArchive = args.action !== 'unarchive';
+            const affected = await db.archiveConversations(targetIds, shouldArchive);
+            toolResult = { affectedCount: affected.length, affectedIds: affected, isArchived: shouldArchive };
+            break;
+          }
+
+          case 'mark_as_spam': {
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+            if (targetIds.length === 0) throw new Error('Missing conversationId, conversationIds, or query');
+            const shouldSpam = args.action !== 'unspam';
+            const affected = await db.markSpamConversations(targetIds, shouldSpam);
+            toolResult = { affectedCount: affected.length, affectedIds: affected, isSpam: shouldSpam };
+            break;
+          }
+
+          case 'batch_action': {
+            if (!args.action) throw new Error('Missing required argument: action');
+            const rawIds: string[] = Array.isArray(args.conversationIds)
+              ? args.conversationIds.filter(Boolean)
+              : args.conversationId
+              ? [args.conversationId]
+              : [];
+            let targetIds = rawIds;
+            if (targetIds.length === 0 && args.query) {
+              const matched = await db.listConversations({ search: args.query });
+              targetIds = matched.map((c) => c.id);
+            }
+
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes) || mailboxes[0];
+
+            switch (args.action) {
+              case 'add_tag': {
+                if (!args.tag) throw new Error('Missing tag for add_tag');
+                const affected = await db.batchAddTag(targetIds, args.tag);
+                toolResult = { action: 'add_tag', tag: args.tag, affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'remove_tag': {
+                if (!args.tag) throw new Error('Missing tag for remove_tag');
+                const affected = await db.batchRemoveTag(targetIds, args.tag);
+                toolResult = { action: 'remove_tag', tag: args.tag, affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'star': {
+                const affected = await db.batchSetStarred(targetIds, true);
+                toolResult = { action: 'star', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'unstar': {
+                const affected = await db.batchSetStarred(targetIds, false);
+                toolResult = { action: 'unstar', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'mark_read': {
+                const affected = await db.markReadConversations(targetIds, true);
+                toolResult = { action: 'mark_read', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'mark_unread': {
+                const affected = await db.markReadConversations(targetIds, false);
+                toolResult = { action: 'mark_unread', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'archive': {
+                const affected = await db.archiveConversations(targetIds, true);
+                toolResult = { action: 'archive', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'unarchive': {
+                const affected = await db.archiveConversations(targetIds, false);
+                toolResult = { action: 'unarchive', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'spam': {
+                const affected = await db.markSpamConversations(targetIds, true);
+                toolResult = { action: 'spam', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'unspam': {
+                const affected = await db.markSpamConversations(targetIds, false);
+                toolResult = { action: 'unspam', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'trash': {
+                const affected = await db.moveConversationsToTrash(targetIds, targetMailbox.id);
+                toolResult = { action: 'trash', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'restore': {
+                const affected = await db.restoreConversationsFromTrash(targetIds, targetMailbox.id);
+                toolResult = { action: 'restore', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              case 'delete_forever': {
+                const affected = await db.deleteConversationsPermanently(targetIds, targetMailbox.id);
+                toolResult = { action: 'delete_forever', affectedCount: affected.length, affectedIds: affected };
+                break;
+              }
+              default:
+                throw new Error(`Unknown batch action "${args.action}"`);
+            }
+            break;
+          }
+
+          case 'get_contact': {
+            let contact = args.id ? await db.findContactById(args.id) : null;
+            if (!contact && args.email) {
+              contact = await db.findContactByEmail(orgId, args.email);
+            }
+            if (!contact) throw new Error('Contact not found');
+            toolResult = contact;
+            break;
+          }
+
+          case 'update_contact': {
+            if (!args.id) throw new Error('Missing required argument: id');
+            const updated = await db.updateContact(args.id, {
+              ...(args.name ? { name: args.name } : {}),
+              ...(args.email ? { email: args.email } : {}),
+              ...(args.company ? { company: args.company } : {}),
+              ...(args.notes ? { notes: args.notes } : {}),
+            });
+            if (!updated) throw new Error(`Contact ${args.id} not found`);
+            toolResult = updated;
+            break;
+          }
+
+          case 'delete_contact': {
+            if (!args.id) throw new Error('Missing required argument: id');
+            const success = await db.deleteContact(args.id);
+            toolResult = { id: args.id, success, message: success ? 'Contact deleted' : 'Contact not found' };
+            break;
+          }
+
+          case 'get_template': {
+            let tpl = args.id ? await db.findTemplateById(args.id) : null;
+            if (!tpl && args.title) {
+              const templates = await db.listTemplates(orgId);
+              tpl = templates.find((t) => t.title.toLowerCase().includes(args.title.toLowerCase())) || null;
+            }
+            if (!tpl) throw new Error('Template not found');
+            toolResult = tpl;
+            break;
+          }
+
+          case 'update_template': {
+            if (!args.id) throw new Error('Missing required argument: id');
+            const updated = await db.updateTemplate(args.id, {
+              ...(args.title ? { title: args.title } : {}),
+              ...(args.subject ? { subject: args.subject } : {}),
+              ...(args.bodyText ? { bodyText: args.bodyText } : {}),
+              ...(args.category ? { category: args.category } : {}),
+            });
+            if (!updated) throw new Error(`Template ${args.id} not found`);
+            toolResult = updated;
+            break;
+          }
+
+          case 'delete_template': {
+            if (!args.id) throw new Error('Missing required argument: id');
+            const success = await db.deleteTemplate(args.id);
+            toolResult = { id: args.id, success, message: success ? 'Template deleted' : 'Template not found' };
+            break;
+          }
+
+          case 'list_signatures': {
+            toolResult = await db.listSignatures(orgId);
+            break;
+          }
+
+          case 'update_signature': {
+            if (!args.id) throw new Error('Missing required argument: id');
+            const updated = await db.updateSignature(args.id, {
+              ...(args.content ? { content: args.content } : {}),
+              ...(args.isDefault !== undefined ? { isDefault: Boolean(args.isDefault) } : {}),
+            });
+            if (!updated) throw new Error(`Signature ${args.id} not found`);
+            toolResult = updated;
             break;
           }
 

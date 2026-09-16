@@ -715,14 +715,37 @@ export const db = {
     return false;
   },
 
+  async updateContact(id: string, updates: Partial<DocdrilContact>): Promise<DocdrilContact | null> {
+    memoryDb.loadFromDisk();
+    const contact = memoryDb.contacts.find((c) => c.id === id);
+    if (!contact) return null;
+    Object.assign(contact, updates);
+    memoryDb.saveToDisk();
+    return contact;
+  },
+
   // Templates
   async listTemplates(organizationId: string): Promise<DocdrilTemplate[]> {
     memoryDb.loadFromDisk();
     return memoryDb.templates;
   },
 
+  async findTemplateById(id: string): Promise<DocdrilTemplate | null> {
+    memoryDb.loadFromDisk();
+    return memoryDb.templates.find((t) => t.id === id) || null;
+  },
+
   async createTemplate(template: DocdrilTemplate): Promise<DocdrilTemplate> {
     memoryDb.templates.unshift(template);
+    memoryDb.saveToDisk();
+    return template;
+  },
+
+  async updateTemplate(id: string, updates: Partial<DocdrilTemplate>): Promise<DocdrilTemplate | null> {
+    memoryDb.loadFromDisk();
+    const template = memoryDb.templates.find((t) => t.id === id);
+    if (!template) return null;
+    Object.assign(template, updates);
     memoryDb.saveToDisk();
     return template;
   },
@@ -740,6 +763,41 @@ export const db = {
   // Signatures
   async listSignatures(organizationId: string): Promise<DocdrilSignature[]> {
     return memoryDb.signatures;
+  },
+
+  async updateSignature(id: string, updates: Partial<DocdrilSignature>): Promise<DocdrilSignature | null> {
+    memoryDb.loadFromDisk();
+    const sig = memoryDb.signatures.find((s) => s.id === id);
+    if (!sig) return null;
+    Object.assign(sig, updates);
+    memoryDb.saveToDisk();
+    return sig;
+  },
+
+  // Mailbox Stats & Overview
+  async getMailboxStats(organizationId?: string) {
+    memoryDb.loadFromDisk();
+    const mailboxes = memoryDb.mailboxes.filter((m) => !organizationId || m.organizationId === organizationId);
+    return mailboxes.map((mbx) => {
+      const convs = memoryDb.conversations.filter((c) => c.mailboxId === mbx.id);
+      const unreadCount = convs.filter((c) => !c.isTrash && !c.isSpam && c.unreadCount > 0).length;
+      const starredCount = convs.filter((c) => !c.isTrash && c.isStarred).length;
+      const trashCount = convs.filter((c) => c.isTrash).length;
+      const spamCount = convs.filter((c) => c.isSpam).length;
+      const totalCount = convs.filter((c) => !c.isTrash && !c.isSpam).length;
+      return {
+        mailboxId: mbx.id,
+        emailAddress: mbx.emailAddress,
+        displayName: mbx.displayName,
+        unreadCount,
+        starredCount,
+        trashCount,
+        spamCount,
+        totalConversations: totalCount,
+        quotaBytes: mbx.quotaBytes,
+        usedBytes: mbx.usedBytes,
+      };
+    });
   },
 
   // API Keys
@@ -925,6 +983,64 @@ export const db = {
           if (cnv.tags.length === 0) cnv.tags = ['general'];
         }
         affected.push(cnv.id);
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async markReadConversations(conversationIds: string[], isRead: boolean = true): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        cnv.unreadCount = isRead ? 0 : 1;
+        affected.push(cnv.id);
+      }
+    }
+    for (const msg of memoryDb.messages) {
+      if (idSet.has(msg.conversationId)) {
+        msg.isRead = isRead;
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async archiveConversations(conversationIds: string[], archive: boolean = true): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        cnv.isArchived = archive;
+        affected.push(cnv.id);
+      }
+    }
+
+    memoryDb.saveToDisk();
+    return affected;
+  },
+
+  async markSpamConversations(conversationIds: string[], isSpam: boolean = true): Promise<string[]> {
+    memoryDb.loadFromDisk();
+    const idSet = new Set(conversationIds);
+    const affected: string[] = [];
+
+    for (const cnv of memoryDb.conversations) {
+      if (idSet.has(cnv.id)) {
+        cnv.isSpam = isSpam;
+        affected.push(cnv.id);
+      }
+    }
+    for (const msg of memoryDb.messages) {
+      if (idSet.has(msg.conversationId)) {
+        msg.providerFolder = isSpam ? 'INBOX.Spam' : 'INBOX';
       }
     }
 
