@@ -13,6 +13,8 @@ import {
   Trash2,
   RotateCcw,
   AlertTriangle,
+  Tag,
+  Plus,
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -28,6 +30,7 @@ interface MessageViewProps {
   onMoveToTrash?: (conversationId: string) => void;
   onRestoreFromTrash?: (conversationId: string) => void;
   onDeletePermanently?: (conversationId: string) => void;
+  onToggleTag?: (conversationId: string, tag: string, action: 'add' | 'remove') => void;
   isLoading?: boolean;
 }
 
@@ -43,6 +46,7 @@ export const MessageView: React.FC<MessageViewProps> = ({
   onMoveToTrash,
   onRestoreFromTrash,
   onDeletePermanently,
+  onToggleTag,
   isLoading = false,
 }) => {
   if (isLoading && !conversation) {
@@ -115,7 +119,7 @@ export const MessageView: React.FC<MessageViewProps> = ({
             <h1 className="text-sm sm:text-base font-bold text-white tracking-tight truncate max-w-[200px] sm:max-w-md">
               {conversation.subject || '(No Subject)'}
             </h1>
-            <div className="flex items-center space-x-2 text-[11px] sm:text-xs text-zinc-400 mt-0.5">
+            <div className="flex items-center space-x-2 text-[11px] sm:text-xs text-zinc-400 mt-0.5 flex-wrap gap-y-1">
               <span>
                 {messages.length} {messages.length === 1 ? 'Message' : 'Messages'}
               </span>
@@ -124,6 +128,54 @@ export const MessageView: React.FC<MessageViewProps> = ({
                 <span className="text-rose-400 font-medium">In Trash</span>
               ) : (
                 <span className="text-rose-300 font-medium">Encrypted & Verified</span>
+              )}
+
+              {/* Interactive Tag Badges */}
+              {Array.isArray(conversation.tags) &&
+                conversation.tags.map((t) => {
+                  const isImp = t === 'important';
+                  return (
+                    <button
+                      key={t}
+                      onClick={() => onToggleTag && onToggleTag(conversation.id, t, 'remove')}
+                      className={`text-[9px] font-bold px-2 py-0.5 rounded-full capitalize cursor-pointer transition-all ${
+                        isImp
+                          ? 'bg-rose-500/30 text-rose-200 border border-rose-400/40 hover:bg-rose-500/50'
+                          : 'bg-white/10 text-zinc-300 border border-white/20 hover:bg-white/20'
+                      }`}
+                      title={`Click to remove tag "${t}"`}
+                    >
+                      {t} &times;
+                    </button>
+                  );
+                })}
+
+              {/* Quick Tag Add Buttons */}
+              {onToggleTag && (
+                <div className="flex items-center space-x-1 ml-1">
+                  {!conversation.tags?.includes('important') && (
+                    <button
+                      onClick={() => onToggleTag(conversation.id, 'important', 'add')}
+                      className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 hover:bg-rose-500/40 transition-colors cursor-pointer"
+                      title="Mark as Important"
+                    >
+                      + Important
+                    </button>
+                  )}
+                  <button
+                    onClick={() => {
+                      const newTag = window.prompt('Enter custom tag name (e.g. invoice, client, followup):');
+                      if (newTag && newTag.trim()) {
+                        onToggleTag(conversation.id, newTag.trim().toLowerCase(), 'add');
+                      }
+                    }}
+                    className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-white/10 text-zinc-300 hover:bg-white/20 transition-colors cursor-pointer flex items-center space-x-0.5"
+                    title="Add custom tag"
+                  >
+                    <Plus className="w-2.5 h-2.5" />
+                    <span>Tag</span>
+                  </button>
+                </div>
               )}
             </div>
           </div>

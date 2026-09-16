@@ -202,7 +202,11 @@ export async function DELETE(
           .map(async (m) => {
             const hostingerFolder = getHostingerFolder(m.providerFolder);
             if (permanent) {
-              return provider.deleteMessage(mbx.providerMailboxId, hostingerFolder, m.providerMessageId);
+              // Delete from original folder AND from Trash in case it was already in Trash
+              await provider.deleteMessage(mbx.providerMailboxId, hostingerFolder, m.providerMessageId).catch(() => {});
+              if (hostingerFolder !== 'Trash') {
+                await provider.deleteMessage(mbx.providerMailboxId, 'Trash', m.providerMessageId).catch(() => {});
+              }
             } else {
               return provider.moveMessage(mbx.providerMailboxId, hostingerFolder, m.providerMessageId, 'Trash');
             }
@@ -280,6 +284,10 @@ export async function PATCH(
           console.warn('[Trash Hostinger Sync Warning]', remoteErr.message);
         }
       }
+    } else if (body.addTag) {
+      await db.addTagToConversation(id, body.addTag);
+    } else if (body.removeTag) {
+      await db.removeTagFromConversation(id, body.removeTag);
     } else {
       await db.updateConversation(id, body);
     }

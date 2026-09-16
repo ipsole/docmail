@@ -237,9 +237,27 @@ export const ConversationList: React.FC<ConversationListProps> = ({
                 </p>
 
                 <div className="mt-2.5 flex items-center justify-between text-[10px] text-slate-400 pl-7">
-                  <span className="glass-inset px-2.5 py-0.5 rounded-full text-slate-700 font-semibold">
-                    {c.messageCount} {c.messageCount === 1 ? 'msg' : 'msgs'}
-                  </span>
+                  <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
+                    <span className="glass-inset px-2.5 py-0.5 rounded-full text-slate-700 font-semibold">
+                      {c.messageCount} {c.messageCount === 1 ? 'msg' : 'msgs'}
+                    </span>
+                    {Array.isArray(c.tags) &&
+                      c.tags.map((t) => {
+                        const isImp = t === 'important';
+                        return (
+                          <span
+                            key={t}
+                            className={`px-2 py-0.5 rounded-full text-[9px] font-bold capitalize ${
+                              isImp
+                                ? 'bg-rose-100 text-rose-700 border border-rose-200'
+                                : 'bg-slate-100 text-slate-600 border border-slate-200'
+                            }`}
+                          >
+                            {t}
+                          </span>
+                        );
+                      })}
+                  </div>
 
                   {isTrash && (
                     <span className="text-[10px] font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-md">

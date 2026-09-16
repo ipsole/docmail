@@ -21,8 +21,11 @@ const AUDITABLE_TOOLS = new Set([
   'reply_email',
   'trash_conversations',
   'restore_conversations',
+  'delete_conversation_permanently',
+  'empty_trash',
   'create_contact',
   'create_template',
+  'tag_conversation',
 ]);
 
 export function isAuditable(toolName: string): boolean {

@@ -15,11 +15,15 @@ import {
   FileText,
   Shield,
   X,
+  Tag,
 } from 'lucide-react';
 
 interface SidebarProps {
   currentFolder: string;
   onSelectFolder: (folder: string) => void;
+  selectedTag?: string;
+  onSelectTag?: (tag: string) => void;
+  tags?: { tag: string; count: number }[];
   unreadCount: number;
   isOpenMobile?: boolean;
   onCloseMobile?: () => void;
@@ -28,6 +32,9 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({
   currentFolder,
   onSelectFolder,
+  selectedTag = '',
+  onSelectTag,
+  tags = [],
   unreadCount,
   isOpenMobile = false,
   onCloseMobile,
@@ -115,6 +122,79 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </button>
               );
             })}
+          </nav>
+        </div>
+
+        {/* Mailbox Tags */}
+        <div className="glass-surface p-3 space-y-1 shadow-sm">
+          <div className="flex items-center justify-between px-3 py-1">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Tags</span>
+            <Tag className="w-3 h-3 text-slate-400" />
+          </div>
+          <nav className="space-y-1">
+            {/* General Tag */}
+            <button
+              onClick={() => {
+                if (onSelectTag) onSelectTag(selectedTag === 'general' ? '' : 'general');
+                if (onCloseMobile) onCloseMobile();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs transition-all cursor-pointer ${
+                selectedTag === 'general'
+                  ? 'obsidian-card shadow-md font-bold'
+                  : 'text-slate-700 hover:bg-white/40 font-medium'
+              }`}
+            >
+              <div className="flex items-center space-x-2.5">
+                <span className="w-2 h-2 rounded-full bg-slate-400 flex-shrink-0" />
+                <span className="capitalize">General</span>
+              </div>
+            </button>
+
+            {/* Important Tag */}
+            <button
+              onClick={() => {
+                if (onSelectTag) onSelectTag(selectedTag === 'important' ? '' : 'important');
+                if (onCloseMobile) onCloseMobile();
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs transition-all cursor-pointer ${
+                selectedTag === 'important'
+                  ? 'obsidian-card shadow-md font-bold'
+                  : 'text-slate-700 hover:bg-white/40 font-medium'
+              }`}
+            >
+              <div className="flex items-center space-x-2.5">
+                <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_6px_rgba(244,63,94,0.7)] flex-shrink-0" />
+                <span className="capitalize">Important</span>
+              </div>
+            </button>
+
+            {/* Custom Dynamic Tags */}
+            {tags
+              .filter((t) => t.tag !== 'general' && t.tag !== 'important')
+              .map((t) => (
+                <button
+                  key={t.tag}
+                  onClick={() => {
+                    if (onSelectTag) onSelectTag(selectedTag === t.tag ? '' : t.tag);
+                    if (onCloseMobile) onCloseMobile();
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-2xl text-xs transition-all cursor-pointer ${
+                    selectedTag === t.tag
+                      ? 'obsidian-card shadow-md font-bold'
+                      : 'text-slate-700 hover:bg-white/40 font-medium'
+                  }`}
+                >
+                  <div className="flex items-center space-x-2.5">
+                    <span className="w-2 h-2 rounded-full bg-sky-400 flex-shrink-0" />
+                    <span className="capitalize">{t.tag}</span>
+                  </div>
+                  {t.count > 0 && (
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                      {t.count}
+                    </span>
+                  )}
+                </button>
+              ))}
           </nav>
         </div>
 

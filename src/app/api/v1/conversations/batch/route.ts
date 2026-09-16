@@ -133,17 +133,23 @@ export async function POST(req: NextRequest) {
             })
           );
         } else if (action === 'delete_forever' || action === 'empty_trash') {
-          // Group by source folder and delete permanently
+          // Group by source folder and delete permanently from both source folder AND Trash
           const folderToUids = new Map<string, string[]>();
+          const allUids: string[] = [];
           for (const t of syncTasks) {
             const f = t.sourceFolder || 'Trash';
             if (!folderToUids.has(f)) folderToUids.set(f, []);
             folderToUids.get(f)!.push(t.providerMessageId);
+            allUids.push(t.providerMessageId);
           }
 
           const deletePromises: Promise<any>[] = [];
           for (const [folder, uids] of folderToUids.entries()) {
-            deletePromises.push(provider.deleteMessages(mbx.providerMailboxId, folder, uids));
+            deletePromises.push(provider.deleteMessages(mbx.providerMailboxId, folder, uids).catch(() => {}));
+          }
+          // Also explicitly purge all UIDs from Trash on Hostinger
+          if (allUids.length > 0) {
+            deletePromises.push(provider.deleteMessages(mbx.providerMailboxId, 'Trash', allUids).catch(() => {}));
           }
           await Promise.allSettled(deletePromises);
         }

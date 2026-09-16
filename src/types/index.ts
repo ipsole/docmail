@@ -48,6 +48,7 @@ export interface DocdrilConversation {
   isSpam: boolean;
   lastMessageAt: string;
   providerThreadId?: string | null;
+  tags?: string[];
   messages?: DocdrilMessage[];
 }
 

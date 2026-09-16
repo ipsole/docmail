@@ -38,6 +38,7 @@ const TOOLS = [
         },
         q: { type: 'string', description: 'Search term for subject or snippet.' },
         starred: { type: 'boolean', description: 'Filter only starred emails.' },
+        tag: { type: 'string', description: 'Filter by tag name (e.g. "general", "important", or any custom tag)' },
       },
     },
   },
@@ -73,6 +74,7 @@ const TOOLS = [
         query: { type: 'string', description: 'Search term or keyword (e.g. "Dun & Bradstreet", "GST", "invoice")' },
         mailboxId: { type: 'string', description: 'Optional mailbox filter ("team@docdril.com" or "info@docdril.com")' },
         folder: { type: 'string', description: 'Folder name. Default is INBOX.' },
+        tag: { type: 'string', description: 'Optional tag filter (e.g. "important", "general")' },
       },
     },
   },
@@ -109,6 +111,24 @@ const TOOLS = [
     name: 'list_mailboxes',
     description: 'List all connected Docdril mailboxes (team@docdril.com, info@docdril.com). Both inboxes are accessible via this single MCP server.',
     inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'list_tags',
+    description: 'List all conversation tags with their usage counts (e.g. general, important, custom tags).',
+    inputSchema: { type: 'object', properties: {} },
+  },
+  {
+    name: 'tag_conversation',
+    description: 'Add or remove tags on an email conversation (e.g. "important", "general", "client", "invoice").',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationId', 'tag'],
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID to tag' },
+        tag: { type: 'string', description: 'Tag name to add or remove' },
+        action: { type: 'string', enum: ['add', 'remove'], description: 'Action to perform. Default is "add".' },
+      },
+    },
   },
   {
     name: 'list_contacts',
@@ -169,6 +189,28 @@ const TOOLS = [
       properties: {
         conversationIds: { type: 'array', items: { type: 'string' }, description: 'Array of conversation IDs to restore' },
         mailboxId: { type: 'string', description: 'Mailbox ID' },
+      },
+    },
+  },
+  {
+    name: 'delete_conversation_permanently',
+    description: 'Permanently and irreversibly delete a conversation from DocMail and Hostinger mail server.',
+    inputSchema: {
+      type: 'object',
+      required: ['conversationId'],
+      properties: {
+        conversationId: { type: 'string', description: 'Conversation ID to permanently delete' },
+        mailboxId: { type: 'string', description: 'Mailbox ID' },
+      },
+    },
+  },
+  {
+    name: 'empty_trash',
+    description: 'Permanently purge all emails and conversations in Trash forever from both DocMail and the mail server.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        mailboxId: { type: 'string', description: 'Optional mailbox ID or email' },
       },
     },
   },
@@ -692,6 +734,85 @@ export async function POST(req: NextRequest) {
             const mailboxes = await db.listMailboxes(orgId);
             const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes);
             toolResult = await db.restoreConversationsFromTrash(args.conversationIds, targetMailbox?.id);
+            break;
+          }
+
+          case 'list_tags': {
+            toolResult = await db.listTags(orgId);
+            break;
+          }
+
+          case 'tag_conversation': {
+            if (!args.conversationId || !args.tag) {
+              throw new Error('Missing required arguments: conversationId or tag');
+            }
+            if (args.action === 'remove') {
+              toolResult = await db.removeTagFromConversation(args.conversationId, args.tag);
+            } else {
+              toolResult = await db.addTagToConversation(args.conversationId, args.tag);
+            }
+            if (!toolResult) throw new Error(`Conversation ${args.conversationId} not found`);
+            break;
+          }
+
+          case 'delete_conversation_permanently': {
+            if (!args.conversationId) throw new Error('Missing required argument: conversationId');
+            const cnv = await db.findConversationById(args.conversationId);
+            if (!cnv) throw new Error(`Conversation ${args.conversationId} not found`);
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes) || (await db.findMailboxById(cnv.mailboxId));
+
+            // Execute local permanent deletion + tombstone recording
+            await db.deleteConversationsPermanently([args.conversationId], cnv.mailboxId);
+
+            // Synchronize purge to Hostinger server
+            const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+            const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+            if (effectiveToken && targetMailbox?.providerMailboxId) {
+              try {
+                const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+                const provider = new HostingerMailProvider(effectiveToken);
+                const msgs = await db.listMessagesByConversation(args.conversationId);
+                for (const m of msgs) {
+                  if (m.providerMessageId) {
+                    await provider.deleteMessage(targetMailbox.providerMailboxId, 'INBOX', m.providerMessageId).catch(() => {});
+                    await provider.deleteMessage(targetMailbox.providerMailboxId, 'Trash', m.providerMessageId).catch(() => {});
+                  }
+                }
+              } catch (hErr: any) {
+                console.warn('[MCP Permanent Delete Hostinger Sync Warning]', hErr.message);
+              }
+            }
+
+            toolResult = { success: true, message: `Conversation ${args.conversationId} permanently deleted.` };
+            break;
+          }
+
+          case 'empty_trash': {
+            const mailboxes = await db.listMailboxes(orgId);
+            const targetMailbox = resolveMailbox(args.mailboxId || args.mailbox, mailboxes) || mailboxes[0];
+            const count = await db.emptyTrash(targetMailbox?.id);
+
+            // Synchronize purge to Hostinger server
+            const { HOSTINGER_CONFIG } = await import('@/config/hostinger.config');
+            const effectiveToken = process.env.HOSTINGER_MAIL_API_TOKEN || HOSTINGER_CONFIG.apiToken;
+            if (effectiveToken && targetMailbox?.providerMailboxId) {
+              try {
+                const { HostingerMailProvider } = await import('@/services/mail/hostinger.provider');
+                const provider = new HostingerMailProvider(effectiveToken);
+                const trashMsgs = await db.listTrashMessages(targetMailbox.id);
+                const uids = trashMsgs
+                  .map((m) => m.providerMessageId)
+                  .filter((id): id is string => Boolean(id));
+                if (uids.length > 0) {
+                  await provider.deleteMessages(targetMailbox.providerMailboxId, 'Trash', uids).catch(() => {});
+                }
+              } catch (hErr: any) {
+                console.warn('[MCP Empty Trash Hostinger Sync Warning]', hErr.message);
+              }
+            }
+
+            toolResult = { emptiedCount: count, message: 'Trash emptied and purged permanently.' };
             break;
           }
 

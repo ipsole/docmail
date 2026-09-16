@@ -142,6 +142,8 @@ class DocMailDatabase {
   forwarders: any[] = [];
   autoreplies: any[] = [];
   processedWebhookEvents = new Set<string>();
+  tombstoneUids: string[] = [];
+  tombstoneConversationIds: string[] = [];
 
   constructor() {
     if (process.env.NODE_ENV !== 'test') {
@@ -177,6 +179,25 @@ class DocMailDatabase {
         if (Array.isArray(data.signatures) && data.signatures.length > 0) this.signatures = data.signatures;
         if (Array.isArray(data.apiKeys) && data.apiKeys.length > 0) this.apiKeys = data.apiKeys;
         if (Array.isArray(data.auditLogs) && data.auditLogs.length > 0) this.auditLogs = data.auditLogs;
+        if (Array.isArray(data.tombstoneUids)) this.tombstoneUids = data.tombstoneUids;
+        if (Array.isArray(data.tombstoneConversationIds)) this.tombstoneConversationIds = data.tombstoneConversationIds;
+      }
+
+      // Ensure every conversation has a tags array with at least 'general'
+      for (const cnv of this.conversations) {
+        if (!Array.isArray(cnv.tags)) {
+          cnv.tags = cnv.isStarred ? ['general', 'important'] : ['general'];
+        }
+      }
+
+      // Purge any messages or conversations that match tombstones
+      const deadUidSet = new Set(this.tombstoneUids);
+      const deadCnvSet = new Set(this.tombstoneConversationIds);
+      if (deadUidSet.size > 0 || deadCnvSet.size > 0) {
+        this.messages = this.messages.filter(
+          (m) => !deadUidSet.has(m.id) && !deadUidSet.has(m.providerMessageId || '') && !deadCnvSet.has(m.conversationId)
+        );
+        this.conversations = this.conversations.filter((c) => !deadCnvSet.has(c.id));
       }
 
       // Default mailboxes fallback so cold start never leaves UI stuck
@@ -259,6 +280,8 @@ class DocMailDatabase {
         signatures: this.signatures,
         apiKeys: this.apiKeys,
         auditLogs: this.auditLogs,
+        tombstoneUids: this.tombstoneUids,
+        tombstoneConversationIds: this.tombstoneConversationIds,
       };
       const tmpFile = `${DB_FILE_PATH}.${Date.now()}.${Math.random().toString(36).substring(2, 6)}.tmp`;
       fs.writeFileSync(tmpFile, JSON.stringify(data, null, 2), 'utf8');
@@ -313,11 +336,17 @@ export const db = {
     isStarred?: boolean;
     contactId?: string;
     search?: string;
+    tag?: string;
   }): Promise<DocdrilConversation[]> {
     memoryDb.loadFromDisk();
     let list = params.mailboxId && params.mailboxId !== 'all'
       ? memoryDb.conversations.filter((c) => c.mailboxId === params.mailboxId)
       : memoryDb.conversations;
+
+    if (params.tag) {
+      const targetTag = params.tag.toLowerCase().trim();
+      list = list.filter((c) => (c.tags || ['general']).some((t) => t.toLowerCase() === targetTag));
+    }
 
     if (params.folder) {
       const folder = params.folder;
@@ -443,6 +472,25 @@ export const db = {
     const idSet = new Set(conversationIds);
     const affected: string[] = [];
 
+    // 1. Record conversation IDs in tombstones
+    for (const cid of conversationIds) {
+      if (!memoryDb.tombstoneConversationIds.includes(cid)) {
+        memoryDb.tombstoneConversationIds.push(cid);
+      }
+    }
+
+    // 2. Record all matching message IDs / providerMessageIds in tombstones
+    for (const m of memoryDb.messages) {
+      if (idSet.has(m.conversationId) && m.mailboxId === mailboxId) {
+        if (m.id && !memoryDb.tombstoneUids.includes(m.id)) {
+          memoryDb.tombstoneUids.push(m.id);
+        }
+        if (m.providerMessageId && !memoryDb.tombstoneUids.includes(m.providerMessageId)) {
+          memoryDb.tombstoneUids.push(m.providerMessageId);
+        }
+      }
+    }
+
     memoryDb.conversations = memoryDb.conversations.filter((c) => {
       if (idSet.has(c.id) && c.mailboxId === mailboxId) {
         affected.push(c.id);
@@ -479,6 +527,23 @@ export const db = {
       }
     }
 
+    // Record tombstones for all emptied items
+    for (const cid of trashCnvIds) {
+      if (!memoryDb.tombstoneConversationIds.includes(cid)) {
+        memoryDb.tombstoneConversationIds.push(cid);
+      }
+    }
+    for (const msg of memoryDb.messages) {
+      if (trashCnvIds.has(msg.conversationId) && msg.mailboxId === mailboxId) {
+        if (msg.id && !memoryDb.tombstoneUids.includes(msg.id)) {
+          memoryDb.tombstoneUids.push(msg.id);
+        }
+        if (msg.providerMessageId && !memoryDb.tombstoneUids.includes(msg.providerMessageId)) {
+          memoryDb.tombstoneUids.push(msg.providerMessageId);
+        }
+      }
+    }
+
     const count = trashCnvIds.size;
     memoryDb.conversations = memoryDb.conversations.filter((c) => !trashCnvIds.has(c.id));
     memoryDb.messages = memoryDb.messages.filter((m) => !trashCnvIds.has(m.conversationId));
@@ -508,6 +573,15 @@ export const db = {
   },
 
   async createMessage(msg: DocdrilMessage): Promise<DocdrilMessage> {
+    // Check tombstones: if this message or its conversation was permanently deleted, drop it!
+    if (
+      memoryDb.tombstoneUids.includes(msg.id) ||
+      (msg.providerMessageId && memoryDb.tombstoneUids.includes(msg.providerMessageId)) ||
+      memoryDb.tombstoneConversationIds.includes(msg.conversationId)
+    ) {
+      return msg; // Do not recreate deleted messages
+    }
+
     // Avoid duplicates: match by exact id OR by (mailboxId + providerFolder + providerMessageId)
     const msgFolderClean = (msg.providerFolder || 'INBOX').replace(/^INBOX\./, '').toLowerCase();
     const isTrash = msgFolderClean === 'trash';
@@ -754,5 +828,49 @@ export const db = {
 
   markWebhookEventProcessed(eventId: string): void {
     memoryDb.processedWebhookEvents.add(eventId);
+  },
+
+  // Tags Management
+  async addTagToConversation(id: string, tag: string): Promise<DocdrilConversation | null> {
+    memoryDb.loadFromDisk();
+    const cnv = memoryDb.conversations.find((c) => c.id === id);
+    if (!cnv) return null;
+    if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
+    const cleanTag = tag.trim().toLowerCase();
+    if (cleanTag && !cnv.tags.includes(cleanTag)) {
+      cnv.tags.push(cleanTag);
+      memoryDb.saveToDisk();
+    }
+    return cnv;
+  },
+
+  async removeTagFromConversation(id: string, tag: string): Promise<DocdrilConversation | null> {
+    memoryDb.loadFromDisk();
+    const cnv = memoryDb.conversations.find((c) => c.id === id);
+    if (!cnv) return null;
+    if (!Array.isArray(cnv.tags)) cnv.tags = ['general'];
+    const cleanTag = tag.trim().toLowerCase();
+    cnv.tags = cnv.tags.filter((t) => t.toLowerCase() !== cleanTag);
+    if (cnv.tags.length === 0) cnv.tags = ['general'];
+    memoryDb.saveToDisk();
+    return cnv;
+  },
+
+  async listTags(organizationId?: string): Promise<{ tag: string; count: number }[]> {
+    memoryDb.loadFromDisk();
+    const tagCounts = new Map<string, number>();
+    tagCounts.set('general', 0);
+    tagCounts.set('important', 0);
+
+    for (const cnv of memoryDb.conversations) {
+      if (cnv.isTrash) continue;
+      const tags = Array.isArray(cnv.tags) && cnv.tags.length > 0 ? cnv.tags : ['general'];
+      for (const t of tags) {
+        const clean = t.toLowerCase().trim();
+        tagCounts.set(clean, (tagCounts.get(clean) || 0) + 1);
+      }
+    }
+
+    return Array.from(tagCounts.entries()).map(([tag, count]) => ({ tag, count }));
   },
 };

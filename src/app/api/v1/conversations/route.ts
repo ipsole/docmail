@@ -21,6 +21,7 @@ export async function GET(req: NextRequest) {
     const starred = searchParams.get('starred');
     const contactId = searchParams.get('contactId');
     const search = searchParams.get('q');
+    const tag = searchParams.get('tag');
 
     const mailboxes = await db.listMailboxes(auth.organizationId);
     const mailboxId = mailboxIdParam || mailboxes[0]?.id;
@@ -35,6 +36,7 @@ export async function GET(req: NextRequest) {
       isStarred: starred === 'true' ? true : undefined,
       contactId: contactId || undefined,
       search: search || undefined,
+      tag: tag || undefined,
     });
 
     // Sync latest messages from Hostinger
@@ -96,6 +98,7 @@ export async function GET(req: NextRequest) {
             isStarred: starred === 'true' ? true : undefined,
             contactId: contactId || undefined,
             search: search || undefined,
+            tag: tag || undefined,
           });
         } catch (syncErr: any) {
           console.warn('[Conversations Sync Error]', syncErr.message);

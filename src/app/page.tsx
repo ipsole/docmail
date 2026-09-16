@@ -15,6 +15,8 @@ export default function DocMailDashboard() {
   const [mailboxes, setMailboxes] = useState<DocdrilMailbox[]>([]);
   const [selectedMailboxId, setSelectedMailboxId] = useState<string>('');
   const [currentFolder, setCurrentFolder] = useState<string>('INBOX');
+  const [selectedTag, setSelectedTag] = useState<string>('');
+  const [tagsList, setTagsList] = useState<{ tag: string; count: number }[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [conversations, setConversations] = useState<DocdrilConversation[]>([]);
   const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
@@ -123,6 +125,10 @@ export default function DocMailDashboard() {
         url += `&folder=${encodeURIComponent(currentFolder)}`;
       }
 
+      if (selectedTag) {
+        url += `&tag=${encodeURIComponent(selectedTag)}`;
+      }
+
       if (searchQuery.trim()) {
         url += `&q=${encodeURIComponent(searchQuery.trim())}`;
       }
@@ -144,11 +150,22 @@ export default function DocMailDashboard() {
     } catch (err) {
       console.error('Failed to load conversations:', err);
     }
-  }, [selectedMailboxId, currentFolder, searchQuery]);
+  }, [selectedMailboxId, currentFolder, selectedTag, searchQuery]);
+
+  const loadTags = useCallback(async () => {
+    try {
+      const res = await fetch('/api/v1/tags');
+      const d = await res.json();
+      if (d.data) setTagsList(d.data);
+    } catch (e) {
+      console.warn('Failed to load tags:', e);
+    }
+  }, []);
 
   useEffect(() => {
     loadConversations();
-  }, [loadConversations]);
+    loadTags();
+  }, [loadConversations, loadTags]);
 
   // 3. Fetch Selected Thread
   useEffect(() => {
@@ -488,8 +505,15 @@ export default function DocMailDashboard() {
           currentFolder={currentFolder}
           onSelectFolder={(folder) => {
             setCurrentFolder(folder);
+            setSelectedTag('');
             setIsMobileDetailView(false);
           }}
+          selectedTag={selectedTag}
+          onSelectTag={(tag) => {
+            setSelectedTag(tag);
+            setIsMobileDetailView(false);
+          }}
+          tags={tagsList}
           unreadCount={totalUnread}
           isOpenMobile={isMobileSidebarOpen}
           onCloseMobile={() => setIsMobileSidebarOpen(false)}
@@ -528,7 +552,7 @@ export default function DocMailDashboard() {
                   setIsMobileDetailView(true);
                 }}
                 onToggleStar={handleToggleStar}
-                folderTitle={currentFolder.replace('INBOX.', '')}
+                folderTitle={selectedTag ? `Tag: ${selectedTag}` : currentFolder.replace('INBOX.', '')}
                 currentFolder={currentFolder}
                 onConnectClick={() => setIsSettingsModalOpen(true)}
                 selectedIds={selectedIds}
@@ -560,6 +584,26 @@ export default function DocMailDashboard() {
                 onMoveToTrash={handleSingleMoveToTrash}
                 onRestoreFromTrash={handleSingleRestore}
                 onDeletePermanently={handleSingleDeleteForever}
+                onToggleTag={async (conversationId, tag, action) => {
+                  try {
+                    await fetch('/api/v1/tags', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ conversationId, tag, action }),
+                    });
+                    loadConversations();
+                    loadTags();
+                    if (selectedConversation && selectedConversation.id === conversationId) {
+                      const updatedTags =
+                        action === 'remove'
+                          ? (selectedConversation.tags || []).filter((t) => t !== tag)
+                          : Array.from(new Set([...(selectedConversation.tags || []), tag]));
+                      setSelectedConversation({ ...selectedConversation, tags: updatedTags });
+                    }
+                  } catch (e) {
+                    console.error('Failed to update tag:', e);
+                  }
+                }}
                 isLoading={isThreadLoading}
               />
             </div>
